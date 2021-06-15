@@ -1,0 +1,27 @@
+:root {
+  --turquoise: #36d6e7;
+  --grey: #5d6c89;
+  --tangerine: #feb06a;
+  --cream: #fbf6f3;
+  --coral: #ef3340;
+}
+
+.card {
+  background-color: var(--turquoise);
+  color: var(--cream);
+  box-shadow: 1px 1px 16px 0px rgba(0,0,0,0.63);
+-webkit-box-shadow: 1px 1px 16px 0px rgba(0,0,0,0.63);
+-moz-box-shadow: 1px 1px 16px 0px rgba(0,0,0,0.63);
+}
+
+.card-info {
+  color: var(--grey);
+}
+
+.card-info span {
+  color: var(--tangerine);
+}
+
+.badge {
+  color: var(--coral) !important;
+}
