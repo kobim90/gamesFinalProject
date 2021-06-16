@@ -2,11 +2,21 @@ import {Switch, Route, Redirect} from "react-router-dom"
 import Home from "./Home"
 import Games from "./games"
 import Register from "./Register"
+import UserHome from "./User/userHome"
 
 function Pages() {
     return (
         <Switch>
-            <Route exact path="/">
+              <Route
+                exact
+                path="/"
+                render={() => {
+                    return (
+                      <Redirect to="/home" /> 
+                    )
+                }}
+              />
+            <Route exact path="/home">
                 <Home />
             </Route>
             <Route exact path="/allGames">
@@ -14,6 +24,9 @@ function Pages() {
             </Route>
             <Route exact path="/Register">
                 <Register />
+            </Route>
+            <Route exact path="/user">
+                <UserHome />
             </Route>
         </Switch>
     )

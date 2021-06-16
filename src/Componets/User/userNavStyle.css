@@ -1,0 +1,24 @@
+:root {
+  --turquoise: #36d6e7;
+  --grey: #5d6c89;
+  --tangerine: #feb06a;
+  --cream: #fbf6f3;
+  --coral: #ef3340;
+}
+
+.nav-item a {
+  color: var(--turquoise);
+}
+
+.userActive {
+  font-weight: bold;
+  z-index: 3;
+  padding-bottom: 1.1vh;
+  border-bottom: 3px solid var(--tangerine);
+}
+
+.nav {
+  border-bottom: 1px solid var(--tangerine);
+  padding-top: 10vh;
+  padding-bottom: 1vh;
+}

@@ -8,7 +8,7 @@ function Footer() {
       >
         <p class="copyR">
           Copyright &copy;2021 All right reserved | This template is made with
-          &hearts; by <span>Kobi Manashirov</span>
+          <span className="heart"> &hearts;</span> by <span className="author">Kobi Manashirov</span>
         </p>
       </Container>
     )

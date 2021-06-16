@@ -3,6 +3,7 @@
   --grey: #5d6c89;
   --tangerine: #FEB06A;
   --cream: #FBF6F3;
+  --coral: #ef3340;
 }
 
 h5{
@@ -15,6 +16,7 @@ h5{
 .main{
     padding-top: 2vh;
     background-color: var(--cream);
+    padding-bottom: 2vh;
 }
 
 .header{
@@ -52,6 +54,10 @@ h5{
     color: var(--cream);
 }
 
+.footer .heart{
+    color: var(--coral);
+}
+
 .main-carousel .carousel-item{
     height: 40vh;
 }
@@ -86,12 +92,15 @@ hr{
     color: var(--turquoise) !important;
 }
 
-.selected{
-    color: var(--tangerine);
+.active{
+    color: var(--tangerine) !important;
+    font-weight: bold;
+    border-bottom: 3px solid var(--turquoise);
 }
 
 .table-sort-items{
     width: 80vh;
     height: 52vh;
 }
+
 
