@@ -1,5 +1,7 @@
+CREATE DATABASE gamereviews;
+
 CREATE TABLE `users` (
-  `userID` int NOT NULL,
+  `userID` int NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
   `password` varchar(20) NOT NULL,
   `email` varchar(40) NOT NULL,
@@ -7,9 +9,19 @@ CREATE TABLE `users` (
   PRIMARY KEY (userID)
   );
 
+  Create table `games` (
+	gameID int NOT NULL AUTO_INCREMENT,
+    gameName varchar(20) NOT NULL,
+    publisher varchar(20) NOT NULL,
+    releaseDate Date NOT NULL,
+    `description` text NOT NULL,
+    coverImg varchar(50) NOT NULL,
+    primary key (gameID)
+  );
+  
 
 CREATE TABLE `systemrequirements` (
-  `gameID` int NOT NULL,
+  `gameID` int NOT NULL AUTO_INCREMENT,
   `system` varchar(100) NOT NULL,
   `processor` varchar(100) NOT NULL,
   `memory` varchar(5) NOT NULL,
@@ -19,13 +31,6 @@ CREATE TABLE `systemrequirements` (
   constraint `gameID` foreign key (`gameID`) references `games` (`gameID`)
   );
   
-  Create table `games` (
-	gameID int NOT NULL,
-    publisher varchar(20) NOT NULL,
-    releaseDate Date NOT NULL,
-    `description` text NOT NULL,
-    primary key (gameID)
-  );
   
   Create table `favorites` (
 	userID int NOT NULL,
@@ -38,7 +43,7 @@ CREATE TABLE `systemrequirements` (
   );
   
   CREATE TABLE `platforms` (
-  `platformID` int NOT NULL,
+  `platformID` int NOT NULL AUTO_INCREMENT,
   `platformName` varchar(15) NOT NULL,
   primary key (`platformID`)
   );
@@ -63,13 +68,13 @@ CREATE TABLE `systemrequirements` (
   );
   
 create table `reviews` (
-	reviewID int NOT NULL,
+	reviewID int NOT NULL AUTO_INCREMENT,
     userID int NOT NULL,
     gameID int NOT NULL,
     visability boolean NOT NULL,
-    title varchar(50) NOT NULL,
+    title varchar(100) NOT NULL,
     body text NOT NULL,
-    conclusion varchar(100) NOT NULL,
+    conclusion varchar(400) NOT NULL,
     score smallint NOT NULL,
     primary key (reviewID),
     CONSTRAINT `FK_review_gameID` FOREIGN KEY (`gameID`) REFERENCES `games` (`gameID`),
@@ -85,7 +90,7 @@ create table reviewscreenshots (
 	);
         
 create table tags (
-	tagID int NOT NULL,
+	tagID int NOT NULL AUTO_INCREMENT,
 	tagName varchar(15) NOT NULL,
 	primary key (tagID)
 );
@@ -98,7 +103,7 @@ create table reviewtags (
 );
         
 create table genres (
-	genreID int NOT NULL,
+	genreID int NOT NULL AUTO_INCREMENT,
 	genreName varchar(20) NOT NULL,
 	primary key (genreID)
 );
@@ -131,4 +136,11 @@ create table upvotes (
     upvote int NOT NULL,
 	CONSTRAINT `FK_upvotes_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
 	CONSTRAINT `FK_upvotes_reviewID` FOREIGN KEY (`reviewID`) REFERENCES `reviews` (`reviewID`)
+);
+
+create table userreviews (
+	userID int NOT NULL,
+    reviewID int NOT NULL,
+	CONSTRAINT `FK_Ureviews_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
+    CONSTRAINT `FK_Ureviews_reviewID` FOREIGN KEY (`reviewID`) REFERENCES `reviews` (`reviewID`)
 );
