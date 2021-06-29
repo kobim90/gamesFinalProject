@@ -30,10 +30,10 @@ Become a cyberpunk, an urban mercenary equipped with cybernetic enhancements and
 Enter the massive open world of Night City, a place that sets new standards in terms of visuals, complexity and depth. Explore the bustling megalopolis of the future and its extensive districts, each with exceptional visual flavor, inhabitants and chances to earn cash. Interact with members of powerful gangs who rule the streets of Night City. 
 Take the riskiest job of your life and go after a prototype implant that is the key to immortality. Guided by the legendary Rockerboy, Johnny Silverhand (played by Keanu Reeves), you will change the course of the corporate-ruled world forever. All this while listening to an intoxicating soundtrack from artists like Run the Jewels, Refused, Grimes, A$AP Rocky, Gazelle Twin, Ilan Rubin, Richard Devine, Nina Kraviz, Deadly Hunta, Rat Boy, and Tina Guo.", "./Images/1.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(1, 1);
 
-insert into gamegenres
+insert into game_genres
 values(1, 1),
 (1, 4);
 
@@ -56,10 +56,10 @@ Track Down the Child of Prophecy in a Morally Ambiguous Fantasy Open World
 - In a time of war, track down the child of prophecy, a living weapon of great power whose coming was foretold in ancient elven legends.
 Make choices that go beyond good and evil and face their far-reaching consequences. ", "./Images/2.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(2, 1);
 
-insert into gamegenres
+insert into game_genres
 values(2, 1);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
@@ -77,13 +77,13 @@ Explore the Russian wilderness across vast, non-linear levels and follow a thril
 
 Inspired by the novels of Dmitry Glukhovsky, Metro Exodus continues Artyom’s story in the greatest Metro adventure yet. ", "./Images/3.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(3, 1);
 
-insert into gamegenres
+insert into game_genres
 values(3, 5);
-insert into gamegenres
-values(3, 5);
+insert into game_genres
+values(3, 6);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
 values ("Hollow Knight", "Team Cherry","2017-2-24","Brave the Depths of a Forgotten Kingdom
@@ -91,14 +91,14 @@ Beneath the fading town of Dirtmouth sleeps an ancient, ruined kingdom. Many are
 
 Hollow Knight is a classically styled 2D action adventure across a vast interconnected world. Explore twisting caverns, ancient cities and deadly wastes; battle tainted creatures and befriend bizarre bugs; and solve ancient mysteries at the kingdom's heart. ", "./Images/4.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(4, 1),
 (4, 2),
 (4, 3);
 
-insert into gamegenres
+insert into game_genres
 values(4, 1);
-insert into gamegenres
+insert into game_genres
 values(4, 2);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
@@ -108,12 +108,12 @@ Mysterious abilities are awakening inside you, drawn from a Mind Flayer parasite
 
 From the creators of Divinity: Original Sin 2 comes a next-generation RPG, set in the world of Dungeons and Dragons. Choose from a wide selection of D&D races and classes, or play as an origin character with a hand-crafted background. Adventure, loot, battle and romance as you journey through the Forgotten Realms and beyond. Play alone, and select your companions carefully, or as a party of up to four in multiplayer.  ", "./Images/5.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(5, 1),
 (5, 2);
 
 
-insert into gamegenres
+insert into game_genres
 values(5, 3),
 (5, 4);
 
@@ -126,12 +126,12 @@ Destroy your opponents in brutal hand-to-hand combat using an unmatched martial 
 
 Undercover, the rules are different.", "./Images/6.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(6, 1),
 (6, 2);
 
 
-insert into gamegenres
+insert into game_genres
 values(6, 1),
 (6, 2);
 
@@ -140,12 +140,12 @@ values ("METAL GEAR SOLID", "KONAMI","200-8-8","You are Snake, a government agen
 
 Now the international best-selling PlayStation game comes to the PC with better graphics, added features, and new gameplay modes! Unlike anything you've played before, Metal Gear Solid introduces a new genre of gaming where ninja-like stealth and cool head are your best weapons for survival. ", "./Images/7.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(7, 1);
 
 
 
-insert into gamegenres
+insert into game_genres
 values(7, 1),
 (7, 2);
 
@@ -155,22 +155,22 @@ values ("Carmageddon", " THQ Nordic GmbH","2016-8-27","Play an adrenaline pumpin
 
 PLUS! You can relive all the mangling mayhem with the built-in Action Replay System. Featuring multiple choice of cameras and replay options – it’ll mean you never miss a pile-up again! Get your movies online and brag about your ped culling achievements. And there will be plenty of THOSE too – Achievements, Challenges and Collectables to hunt down, that’ll keep the whole family entertained for hour upon happy blood and oil splattered hour. ", "./Images/8.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(8, 1);
 
 
 
-insert into gamegenres
+insert into game_genres
 values(8, 7);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
 values ("GRIP", "Wired Productions","2018-5-27","Harness the power of gravity-defying wheeled or airborne vehicles, and smash your way through opponents with a bristling arsenal of outlandish weapons. GRIP delivers one of the fastest and most unique racing experiences ever as you scale walls, ceilings and anything else you can get your ride onto. Master twisting tracks, tricks and perform ridiculous stunts, fighting your way across alien planets to become the ultimate vehicular assailant. ", "./Images/9.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(9, 1),
 (9, 3);
 
-insert into gamegenres
+insert into game_genres
 values(9, 7),
 (9, 1);
 
@@ -182,12 +182,12 @@ values ("Into the Breach", "Subset Games","2018-2-27","he remnants of human civi
     Build the Ultimate Mech: Find powerful new weapons and unique pilots as you battle the Vek infestation across Corporate-Nation islands.
     Another Chance: Failure is not an option. When you are defeated, send help back through time to save another timeline!", "./Images/10.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(10, 1),
 (10, 2),
 (10, 3);
 
-insert into gamegenres
+insert into game_genres
 values(10, 6),
 (10, 8);
 
@@ -211,12 +211,12 @@ Features:
     Daily Climbs allow you to compare yourself with every other player in the world.
     Custom mode that allows mixing and matching various crazy run modifiers.", "./Images/11.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(11, 1),
 (11, 2),
 (11, 3);
 
-insert into gamegenres
+insert into game_genres
 values(11, 4),
 (11, 8);
 
@@ -232,10 +232,10 @@ This is a must have for every Might and Magic series fan!
     Insanely addictive gameplay that will make you want to play “just one more turn” over and over again
     Great multiplayer, especially when playing in hot seat mode on one PC", "./Images/12.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(12, 1);
 
-insert into gamegenres
+insert into game_genres
 values(12, 8);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
@@ -247,10 +247,10 @@ Will you dare to try how evil you are? In this real-time mad scientist lair mana
     Fun-packed gameplay with humor and cliché lurking around every corner
     Unique, memorable characters and stylish, cartoonish visuals", "./Images/13.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(13, 1);
 
-insert into gamegenres
+insert into game_genres
 values(13, 8);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
@@ -262,11 +262,11 @@ values ("Banner Saga 3", "Versus Evil","2018-10-15","Banner Saga 3 is the final 
     Drive your own narrative as you carry over your choices from both Banner Sagas 1 & 2, leading to different climatic endings in this final chapter. No hero is safe.
     An all-new original score from Grammy-nominated composer Austin Wintory.", "./Images/14.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(14, 1),
 (14, 2);
 
-insert into gamegenres
+insert into game_genres
 values(14, 8),
 (14, 4);
 
@@ -290,12 +290,12 @@ You begin with three survivors of a shipwreck on a distant world.
     Explore hundreds of wild and interesting mods.
     Learn to play easily with the help of an intelligent and unobtrusive AI tutor.", "./Images/15.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(15, 1),
 (15, 2),
 (15, 3);
 
-insert into gamegenres
+insert into game_genres
 values(15, 8),
 (15, 6);
 
@@ -311,22 +311,22 @@ Features
     Improve your skills over time. As you make your way from a struggling greenhorn to a master farmer, you'll level up in 5 different areas: farming, mining, combat, fishing, and foraging. As you progress, you'll learn new cooking and crafting recipes, unlock new areas to explore, and customize your skills by choosing from a variety of professions.
 ", "./Images/16.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(16, 1),
 (16, 2),
 (16, 3);
 
-insert into gamegenres
+insert into game_genres
 values(16, 4),
 (16, 6);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
 values ("SimCity 4", "Electronic Arts","2003-10-17","n SimCity 4, you don't just build your city, you breathe life into it. Create a megalopolis by weaving together a tapestry of cities ranging from a bedroom community to a high tech urban center or a vacation destination to a farming village. You can create a region of interconnected cities sharing and competing for resources that are linked by a fully integrated transportation network. Use god-like powers to create mountain ranges, carve valleys, and lay rivers to construct the most realistic metropolis imaginable. The new simulation engine offers immediate feedback so you can react to the needs of an expanding metropolis. Now individual buildings and their lots provide you with feedback. Use the My Sim features to personalize your Sim and immediately move him or her into any area and watch them experience life around town and get instant feedback on the city's progress. Each decision has a greater impact and gives you the ability to respond more effectively.", "./Images/17.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(17, 1);
 
-insert into gamegenres
+insert into game_genres
 values(17, 6);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
@@ -339,10 +339,10 @@ Play with all major updates since launch: Foundation, Pathfinder, Atlas Rises, N
 
 An epic voyage to the centre of a shared universe awaits, allowing you to explore, trade, fight and survive alone or with friends. ", "./Images/18.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(18, 1);
 
-insert into gamegenres
+insert into game_genres
 values(18, 1),
 (18, 2),
 (18, 3);
@@ -353,12 +353,12 @@ Experience the biggest and most imaginative world yet from Supergiant! Get to kn
 Battle against a colorful cast of adversaries in pitched, high-stakes confrontations where each victory (or defeat!) brings your exiles closer to enlightenment. Choose three from your party for each Rite, and outfit them with mystic Talismans and powerful Masteries. 
 ", "./Images/19.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(19, 1),
 (19, 2),
 (19, 3);
 
-insert into gamegenres
+insert into game_genres
 values(19, 1),
 (19, 4),
 (19, 3);
@@ -371,53 +371,53 @@ STORY:
 America, 1961. Your assassination of Nazi General Deathshead was a short-lived victory. Despite the setback, the Nazis maintain their stranglehold on the world. You are BJ Blazkowicz, aka “Terror-Billy,” member of the Resistance, scourge of the Nazi empire, and humanity’s last hope for liberty. Only you have the guts, guns, and gumption to return stateside, kill every Nazi in sight, and spark the second American Revolution.
 ", "./Images/20.jpg");
 
-insert into gameplatforms
+insert into game_platforms
 values(20, 1);
 
-insert into gamegenres
+insert into game_genres
 values(20, 5);
 
 -- Insert System Requirments
 
-insert into systemrequirements
+insert into system_requirements
 values (1, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (2, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (3, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (4, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (5, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (6, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (7, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (8, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (9, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (10, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (11, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (12, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (13, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (14, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (15, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (16, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (17, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (18, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (19, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
-insert into systemrequirements
+insert into system_requirements
 values (20, "Windows 7, 8.1, or 10 (64-Bit versions)", "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770", "8 GB", "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better", "11c", "55 GB");
 
 
@@ -447,60 +447,60 @@ values("kobim9", "karok12KL!", "kobim10@gmail.com", "./Images/avatar.png");
 insert into users (username, password, email, img)
 values("kobim10", "karok12KL!", "kobim11@gmail.com", "./Images/avatar.png");
 
--- Insert UserGenres:
+-- Insert user_genres:
 
-insert into usergenres
+insert into user_genres
 values (1, 2),
 (1, 5),
 (1, 7);
 
-insert into usergenres
+insert into user_genres
 values (2, 4),
 (2, 2),
 (2, 8);
 
-insert into usergenres
+insert into user_genres
 values (3, 1),
 (3, 2),
 (3, 4);
 
-insert into usergenres
+insert into user_genres
 values (4, 2),
 (4, 7);
 
-insert into usergenres
+insert into user_genres
 values
 (5, 4);
 
-insert into usergenres
+insert into user_genres
 values (6, 2),
 (6, 5),
 (6, 4),
 (6, 1),
 (6, 7);
 
-insert into usergenres
+insert into user_genres
 values (7, 3),
 (7, 6),
 (7, 8);
 
-insert into usergenres
+insert into user_genres
 values (8, 1),
 (8, 2),
 (8, 6);
 
-insert into usergenres
+insert into user_genres
 values (9, 1),
 (9, 4);
 
-insert into usergenres
+insert into user_genres
 values (10, 1),
 (10, 2),
 (10, 5);
 
 
 -- insert Favorites
-insert into favoritegames
+insert into favorite_games
 values
 (1, 1, true),(1, 2, true),(1, 5, true),(1, 10, true),
 (2, 1, true),(2, 3, true),(2, 5, true),(2, 7, true),(2, 9, true),
@@ -541,9 +541,11 @@ We all know what happens when you are hyper-tied to your setting or system, you 
 No, this game is made by Larian, but the setting, the lore, and systems are in service of the game, not the other way around.
 
 And while it's a buggy, glitchy and sometimes crash-prone mess. It's a gem and I'd honestly buy it again.", "Then BG3 is the game from you. I played this game for 20hrs, only to realize, I didn't scratch the surface of what it's story brings. ", 8),
-(1, 10, true, "What a game!", "What can I say? This is turn based at its best and somewhat weirdest. I've put ~40 hours into this, but that's just scratching the surface. This is challenging, sometimes frustrating (because the odds are stacked against you), but oh so rewarding.", "Please do yourself a favor and buy this game. ", 10),
+(1, 10, true, "What a game!", "What can I say? This is turn based at its best and somewhat weirdest. I've put ~40 hours into this, but that's just scratching the surface. This is challenging, sometimes frustrating (because the odds are stacked against you), but oh so rewarding.", "Please do yourself a favor and buy this game. ", 10);
 
 --  userID = 2
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (2, 1, true, " Major disappointment", "
 
 Major disappointment
@@ -565,21 +567,7 @@ A large portionof the game is spent driving... ugh wow. -1 Star", "I could never
 
 The gameplay is varied and interesting. You can go in guns blazing or sneak around and kill nobody. Do note that the game pushes you to the latter to get a good ending.
 
-The story is pretty personal to Artyom. You're not really saving the world or anything. You're saving your friends.", "
-
-Games: 104 Reviews: 1
-
-Emotional Story
-
-May 14, 2021 Verified owner
-
-First off, the presentation of the game, especially the Enhanced Edition is unrivalled. Lighting looks amazing. The game looks amazing.
-
-The gameplay is varied and interesting. You can go in guns blazing or sneak around and kill nobody. Do note that the game pushes you to the latter to get a good ending.
-
-The story is pretty personal to Artyom. You're not really saving the world or anything. You're saving your friends.
-
-Highly recommended. 
+The story is pretty personal to Artyom. You're not really saving the world or anything. You're saving your friends.", "Highly recommended. 
 ", 9),
 (2, 5, true, "I liked it", "I'd give this game a solid 4 out of 5 stars if it weren't for the slow combat.  Whoever the genius is who thought watching 15 trash mobs move a few inches across your screen is fun really needs to rethink what fun actually is.
 
@@ -605,9 +593,11 @@ With these flaws the PC port is still perfectly playable and enjoyable, but that
 Only lacking things are the Delorean, the VR and MP features, but you can still play split-screen!
 
 Now for all the new players, the game itself is a really great and wonderful game, a lot of maps, a lot of variety in cars, you can spend a lot of great time just trying to beat the best times on the speedrun.com page.
-If you want a Rollcage spiritual successor, this is the one. If you want to experience great great speed, this is the one. If you want to witness mayhem and chaos, this is the one.", "The GoG version is really a great deal and if you want a great racing game, just go for it.", 10),
+If you want a Rollcage spiritual successor, this is the one. If you want to experience great great speed, this is the one. If you want to witness mayhem and chaos, this is the one.", "The GoG version is really a great deal and if you want a great racing game, just go for it.", 10);
 
 --  userID = 3
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (3,12, true, "Favorite Turn-based Fantasy Game", "After the older Heroes of Might and Magic 2, this is my next favorite turn-based fantasy strategy game.  Like the previous game, this game has fantastic music and aesthetics, and incorporates a variety of magical creatures from different myths and religions of the world such as Greek Titans and Minotaurs, to Genies and other creatures from middle eastern cultures, as well as other magical and medieval creatures like wizards, druids, crusaders, etc.  This game also seems to bring in creatures from the Christian religion like Angels and Devils as well. 
 
 I would recommend playing Heroes of Might and Magic 2 first if you are new to the series because it's the best and will familiarize yourself with the game world before moving on to the newer game, particularly if you're playing the single player campaign (which isn't that great imo).
@@ -619,9 +609,11 @@ This is old, but it's a classic.  This is the sort of game I still play with fri
 People will argue over which is the best in the series, but I think the general consensus in my experience is that Heroes 2 and Heroes 3 are the best (by far).  ", "If you like medieval fantasy and turn-based strategy games like Civilization 5 or something like that, don't hesitate to buy this! I strongly recommend it. ", 9),
 (3,13, true, "Meh; this game's nothing special.", "Among strategy games, where you get to BE THE BAD GUY, and DEFEND YOUR DOMAIN, it COULD have been that great, but honestly? Compared to the Dungeon Keeper games that were released for PC, it's FAR too slow-paced.
 ", "What a shame; it COULD have been a MASTERPIECE! But instead, I've been playing it and, it's just not very good.
-", 5),
+", 5);
 
 --  userID = 4
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (4,11, true, "Beautiful pearl within an ugly shell", "t's a very engaging, well - balanced deckbuilder, with 4 very distinct characters, tons of different card combinations, enough randomness to keep things fresh and enough strategy to always be fair with your chances to beat it. Building your deck from what you can get in any given game is a great way to force you to constantly rethink and optimize your options and prevents you from keeping a predetermined strategy in mind. It feels a little bit like a rougelike, and is equally engaging.
 
 On the other hand the graphics are pretty ugly and animations are almost non - existent in this game. But if you can look past its ugly shell, you will fond a real pearl inside.", "I, personally, love it, and despite its ugliness I'm rating it 10/10. ", 10),
@@ -631,9 +623,11 @@ Game is fast and fun but kinda hard so be prepared to put some time in.  I like 
 ", "Solid 8/10", 8),
 (4,19, true, "Like a good fantasy book or series", "I don't always finish my games. Even more so when the gameplay doesn't catch me. But this jewel just has one of the best settings and story of everything I played in recent years. Combined with a fantastic soundtrack, I just couldn't stop returning every night.
 
-Somehow it felt like a novel of Neil Gaiman. And after finishing it, I feel the same nostalgic satisfaction a good book leaves me with.", "If you like the action matches, this could easily be ten for you. If not so much, just tune down the difficulty and enjoy the world. ", 9),
+Somehow it felt like a novel of Neil Gaiman. And after finishing it, I feel the same nostalgic satisfaction a good book leaves me with.", "If you like the action matches, this could easily be ten for you. If not so much, just tune down the difficulty and enjoy the world. ", 9);
 
 --  userID = 5
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (5,1, true, "A gem tarnished by undelivered promises ", "The Good
 -Story overall neatly excetued personal story about trying to save yourself wish only the subplot with AI's and black wall had more to it.
 -Johhny Silverhand(Good character impression of John Prick by Keeanu) 
@@ -654,9 +648,11 @@ I of course bought it immediately, as I promised myself I would when I would hav
 (5,3, true, "Highly Overlooked", "Weapons for all cases, circumstances and scenarios? Yep
 Good AI that calls our your position depending on what type of object or landmark you are by? Yep
 Satisfying sound design for guns and other interactions? Yep
-Well written story that keeps you constantly engaged with a range of emotions and good characters? Yep", "No idea why people love to crap on thid title so much. I guess thats what years of constant COD and BF releases does to people.  ", 9),
+Well written story that keeps you constantly engaged with a range of emotions and good characters? Yep", "No idea why people love to crap on thid title so much. I guess thats what years of constant COD and BF releases does to people.  ", 9);
 
 --  userID = 6
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (6,7, true, " Shabby, barebones port", "A disappointing port of a great game. The main issue for me is the control scheme, which is shockingly clumsy and frustratingly limited. Just maneuvering out of the first cargo dock area was incredibly difficult, and that's not even attempting CQC or firing a weapon. An extremely patient and forgiving person might be able to slog through it, but I can't imagine playing the full game this way.
 
 If you've played MGS on a console and are looking to revisit it on PC, let me assure you that this does not live up to the original experience. If you've never played MGS before, I'd hate to think that this is how someone might experience one of the best games ever for the first time. Even on deep discount I'd be hesitant to recommend this to anyone. ", "Thankfully I'm only out a few bucks for my trouble, but rather than force myself to endure this, I'm just going to hang tight for the rumored PS5 / PC remake. ", 5),
@@ -676,16 +672,20 @@ I stress again. NOT a racing game. Think more like a demolition derby game.
 Drive it like a real car. If you start going into a skid... take your foot off the pedal. Easy.
 
 The graphics look beautiful on my 3000whatever resolution, 4k screen. Even at low settings.", "I'm kind of baffled why everyone seems to hate this game. I adore it. A fine successor to the franchise.
-The only bad point i can make is the loading times. A bit long, but whatever. I have so much fun with this. And at reg. 18bucks or whatever, (i got it on sale for like 4bucks) how can you go wrong? ", 9),
+The only bad point i can make is the loading times. A bit long, but whatever. I have so much fun with this. And at reg. 18bucks or whatever, (i got it on sale for like 4bucks) how can you go wrong? ", 9);
 
 --  userID = 7
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (7,7, true, "I am satisfied", "Of course the game is rich in story. This game has some moral values and has also affected my character and thoughts in a positive way. Soundtrack is amazing, different music are played according to the situation which elevates the player's mood all the time. The boss battles are really tough and puts our skills to test. ", " The game doesn't feel boring at all, vibe is always taken care of from starting to end. ", 9),
 (7,16, true, "Nice wholesome hame", "This is nice, wholesome game I lie to play to get my spirit up. It's like listening to Bob Ross saying nice thing to make you feel good.
 
 Game as challenging as you want it to be.", "Really, dev made a wonderful job. I return to valley every now and then. ", 9),
-(7,14, true, "3 times is the charm?", "If you played the first two games you'd probably wondered what the hell was going on, as not much explanation was given. Fear not, the conclusion to the whole story comes with this one and it isn't even that bad. it's particularly that great either, though, as two main narrative threads seem quite disconnected. Well, storytelling wasn't really the strong point of the saga anyway, if you ask me, and the tactical battles still deliver.", "If you are like me, you'd probably like the survial mode more than the actual campaign so I'd recommend getting it. It's quite tough but allows for some really, really broken combos and no narrator is taking your heroes away dramatic reasons just after you invested a ton of money in them... ", 9),
+(7,14, true, "3 times is the charm?", "If you played the first two games you'd probably wondered what the hell was going on, as not much explanation was given. Fear not, the conclusion to the whole story comes with this one and it isn't even that bad. it's particularly that great either, though, as two main narrative threads seem quite disconnected. Well, storytelling wasn't really the strong point of the saga anyway, if you ask me, and the tactical battles still deliver.", "If you are like me, you'd probably like the survial mode more than the actual campaign so I'd recommend getting it. It's quite tough but allows for some really, really broken combos and no narrator is taking your heroes away dramatic reasons just after you invested a ton of money in them... ", 9);
 
 --  userID = 8
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (8,2, true, "Game Changer!", "This Game is one of the best things that has happened in my life. regardless of this i'd say that after finishing the game there are no relevent things to see in your life as Geralt because everyone is simply gone! I mean all the actions that i took meant a lot to me but after the game is finished it feels like i have done nothing at all! Plus the game doesn't make a good connection with Assassin Of Kings but that's not that big of a deal to me.........", "So after considering all that I'm still and forever grateful to CDPR for taking me to this beautiful unique journey........ ", 9),
 (8,7, true, "Pretty Good", "its pretty good i do have some issues like i use a xbox one controller and rebinding is kind of a pain trying to get the exact ps1 controls from the og on the ps1  ", "its the shit!", 8),
 (8,13, true, "less Genius and more super-talented", "This is a game I missed when it first came out. Something just didn't charm me into buying it. Thanks to GOG I got that second chance. I don't regret buying it now, just maybe more that I never back then. As good as it is, and it's addictive and quirky, it feels lacking in something, some magic, and maybe that is more about it belonging to a previous generation of games more than it not being exceptional. 
@@ -707,17 +707,21 @@ It becomes a mess at this point, and a turn off to me.
 
 The new graphics are awesome, but then you have trouble finding things like busstops and hostipals, key locations get lost in the density.
 The underground scene is way more easier to read at first, until you start running into hills, with your waterpipes being lost in deep silly looking canyons that require you to mash the rotation keys to even understand what you're looking for.", "I feel like I have a LOT more research to do before I can get into this one.
-Or, I'ma just go back to one of the earlier enteries in the series until I'm ready.  ", 7),
+Or, I'ma just go back to one of the earlier enteries in the series until I'm ready.  ", 7);
 
 --  userID = 9
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (9,7, true, "Bucket Listers Rejoice", "For anyone wanting to start this series the right way, look no further. This is the cheapest, easiest, most user-friendly way to get your feet wet and start your path in this amazing game franchise TODAY. Sure, you could also buy the original Metal Gear (also on this site for cheap) and start at the VERY beginning, but it's not really necessary in my opinion. 
 
 Okay so to anyone who hasn't figured this out already: THE BLACK BAR IS NOT A GLITCH, read that again. Also, reviews that talk about how crappy the graphics look on the PC version aren't lying, it's just something you have to accept about the era this game was made in. It's not as bad as the sprites from FFVII, but it sometimes is difficult to feel the full emotional impact of a tear-jerking scene when you're watching a non-expressive, emotionless, eyeless mask of a face bob up-and-down for five minutes straight. 
 
-Otherwise this game just blows me away even this many years later. Having owned and played the original Playstation 1 console as a kid I just can't get over how well designed and developed this game is in almost every aspect. The voice acting is phenomenal, it plays like a cheesy thriller action movie with all the whirlwind emotional twists and turns and I love every minute of it. The gameplay is a little tanky, kind of like playing old Resident Evil games, but it's very innovative for the time with a huge arsenal of weapons and items being at your disposal. The story is much like the voice acting and is very over-the-top and dramatic with a spy element that is hard not to love. ", "So what's "in the box"? Well since this is "Integral" you get a more finished version of the original game, with all of the VR missions and whatnot. You could also consider this a director's cut because the game is altered slightly to accommodate the PC (mostly in the Psycho Mantis fight). You can easily plug in a PS4 controller to play it. ", 9),
-(9,10, true, "A gem you may need to polish to get into", "It's a really fun game with lots of unlockable variability you may miss in the beginning when you're still bad at it. Be patient, learn the ropes, and it's basically an endless puzzle game of good quality. When things go well, you feel competent and like you've earned the right to feel that. When things go badly, it's the most infuriating thing you can imagine, because it's largely your own fault for positioning yourself without thinking about the next round.", "", 9),
+Otherwise this game just blows me away even this many years later. Having owned and played the original Playstation 1 console as a kid I just can't get over how well designed and developed this game is in almost every aspect. The voice acting is phenomenal, it plays like a cheesy thriller action movie with all the whirlwind emotional twists and turns and I love every minute of it. The gameplay is a little tanky, kind of like playing old Resident Evil games, but it's very innovative for the time with a huge arsenal of weapons and items being at your disposal. The story is much like the voice acting and is very over-the-top and dramatic with a spy element that is hard not to love. ", "So what's in the box? Well since this is Integral you get a more finished version of the original game, with all of the VR missions and whatnot. You could also consider this a director's cut because the game is altered slightly to accommodate the PC (mostly in the Psycho Mantis fight). You can easily plug in a PS4 controller to play it. ", 9),
+(9,10, true, "A gem you may need to polish to get into", "It's a really fun game with lots of unlockable variability you may miss in the beginning when you're still bad at it. Be patient, learn the ropes, and it's basically an endless puzzle game of good quality. When things go well, you feel competent and like you've earned the right to feel that. When things go badly, it's the most infuriating thing you can imagine, because it's largely your own fault for positioning yourself without thinking about the next round.", "Buy it play it right NOW", 9);
 
 --  userID = 10
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (10,4, true, "Flawed masterpiece, QoL issues", "PROs: Hollow Knight is a masterpiece in so many ways. Rarely has a game's atmosphere so captivated me, or the feeling of exploration been so real and wonderful. Almost everything about the game is such a polished masterpiece, feeling amazingly unique among the hundreds or thousands of games I've tried.
 
 CONs: What got me to abandon the game was something absolutely ludicrous: checkpoints are far from boss fights.
@@ -737,9 +741,11 @@ That said, a few notable whinges:
 
 3.  You absolutely need to follow a walkthru to prevent making a critical error that will screw up your end game because...
 
-4.  The game plays out in a stuck script with only a few digressions or options along the way.  The side quests are minimal and really just add more loot, the variation in henchmen is fixed (can't create your own or even name them), and the objectives are linear with no branching.", "All in, it's definitely worth the price here on GOG, but you will get bored sooner than with comparable games like Dungeon Keeper - and that's too bad.  There is an opportunity here for a truly great game and maybe someone will pick that up and give us Evil Genius 2.  If so, I'd want to see it focused more on the AoI missions, allow for more user customization and branching plots/objectives. ", 8),
+4.  The game plays out in a stuck script with only a few digressions or options along the way.  The side quests are minimal and really just add more loot, the variation in henchmen is fixed (can't create your own or even name them), and the objectives are linear with no branching.", "All in, it's definitely worth the price here on GOG, but you will get bored sooner than with comparable games like Dungeon Keeper - and that's too bad.  There is an opportunity here for a truly great game and maybe someone will pick that up and give us Evil Genius 2.  If so, I'd want to see it focused more on the AoI missions, allow for more user customization and branching plots/objectives. ", 8);
 
 --  userID = 11
+insert into reviews (userID, gameID, visability, title, body, conclusion, score)
+values
 (11,6, true, "7th Generation Gem", "This game is one of my favourite new IPs from its generation. To explain it in short, it's a GTA clone set in Hong Kong with an emphasis on Batman-esque hand to hand fighting and limited gunplay.
 
 The story is a short and sweet 15 hour campaign revolving around Wei Shen, a Hong Kong-American repat undercover with the HKPD tasked to infiltrate and take down the triad. While a simple setup there's well written characters (with some surprisingly big name voice actors) and a greyness to Wei's character as his loyalty to the police, the triads and his own personal motivations all come into play throughout the story.
@@ -752,6 +758,41 @@ Included are also the two DLC expansions. These weren't amazingly well received 
 (11,7, true, "Emulate It", "So after manually binding the keyboard layout to my controller to play Metal Gear Solid in the way I always played it I noticed the refusal of the game to fit the resolution of my monitor. So then I visited the settings to see maybe 4 options for graphics in this pc game.
 
 So I uninstalled the game and put the ps1 disc in my pc disc tray and ran it in my emulator of choice with countless graphics options. ", "hopefully the full HD collection gets ported to PC one day but when it comes to MGS this certainly aint it. ", 4);
+
+-- insert review Tags:
+
+insert into review_tags
+values
+(1, 2),(1, 1),(1, 3),
+(2, 2),
+(4, 3),
+(5, 1),
+(6, 2),
+(7, 2),(7, 4),
+(8, 1),
+(9, 3),
+(10, 2),(10, 3),
+(11, 1),
+(12, 4),
+(13, 4),(13, 2),
+(14, 1),
+(15, 4),
+(16, 4),(16, 2),
+(17, 1),
+(18, 2),(18, 3),
+(19, 4),
+(21, 2),(21, 3),
+(22, 4),
+(23, 2),(23, 3),
+(24, 1),
+(25, 1),
+(26, 4),
+(29, 4),(29, 2),
+(30, 1),
+(31, 2),(31, 3),
+(32, 4),
+(33, 2),(33, 3);
+
 
 
 

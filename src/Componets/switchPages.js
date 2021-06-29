@@ -1,7 +1,7 @@
 import {Switch, Route, Redirect} from "react-router-dom"
 import Home from "./Home"
 import Games from "./games"
-import Register from "./Register"
+import Register from "../Componets/form/Register"
 import UserHome from "./User/userHome"
 
 function Pages() {

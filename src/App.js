@@ -7,12 +7,10 @@ import Footer from "./Componets/footer"
 import { BrowserRouter as Router } from "react-router-dom";
 
 
+
+
+
 function App() {
-  const fetch = require('node-fetch')
-  
-  fetch("http https://videogamesapi.herokuapp.com/api/genres/")
-  .then(response => console.log(response))
-  .then(data => console.log(data))
 
   return (
     <Router>

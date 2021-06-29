@@ -1,14 +1,27 @@
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import SearchBar from "./search";
-import Card from "./card"
+import GCard from "./card"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import "./gamesStyle.css"
+import { getAllGamesApi } from "../DAL/api";
 
-function Games(params) {
+function Games(props) {
+
+  const [cardGames, setCardGames] = useState([])
+
+  useEffect( () => {
+    (async function fetchData() {
+      const games = await getAllGamesApi();
+      setCardGames(games)
+    })()
+    
+  }, [])
+
   return (
     <Container className="main">
       <SearchBar />
@@ -69,19 +82,13 @@ function Games(params) {
         </Col>
         <Col className="games-list">
             <Row>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
-            </Row>
-            <Row>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
-            </Row>
-            <Row>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
-                <Col><Card/></Col>
+                {
+                 cardGames.map( (game) => 
+                    <Col lg="4" md="6" sm="1">
+                    <GCard game={game} />
+                    </Col>
+                 )
+                }
             </Row>
         </Col>
       </Row>

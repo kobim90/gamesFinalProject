@@ -1,37 +1,45 @@
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
-import ErrorMessages from "./ErrorMsg";
+import ErrorMessages from "./ErrorMsg"
 
 import {
   faUser,
+  faMailBulk,
+  faUnlockAlt,
+  faLock,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Username(props) {
+
+function TextInput(props) {
+    
+    
     return (
-        <Form.Group as={Col} controlId="Username">
+        <Form.Row className="justify-content-around">
+              <Form.Group as={Col} controlId={props.name}>
                 <Form.Label>
-                  <strong>Username</strong>
+                  <strong>{props.label}</strong>
                 </Form.Label>
                 <InputGroup>
                   <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">
-                      <FontAwesomeIcon icon={faUser} />
+                      <FontAwesomeIcon icon={props.icon} />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
-                    type="text"
-                    placeholder="Enter Username"
-                    onChange={props.validateInput}
+                    type={props.type}
+                    placeholder={props.label}
                     onBlur={props.validateInput}
-                    name="username"
-                    className="username"
+                    name={props.name}
+                    className={props.background}
                   />
                 </InputGroup>
+                <ErrorMessages errors={props.errors} />
               </Form.Group>
+            </Form.Row>
     )
 }
 
-export default Username;
+export default TextInput;

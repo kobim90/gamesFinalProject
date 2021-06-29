@@ -6,16 +6,20 @@
   --coral: #ef3340;
 }
 
-.regular-card {
-  background-color: var(--greyCard);
+.search-card {
+  background-color: white;
   color: var(--cream);
-  box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
-  -webkit-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
-  -moz-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
-  margin-bottom: 30px;
 }
 
-.card:hover{
+.search-card .card-body {
+  padding: 5px;
+}
+
+.platform-col {
+  padding: 0;
+}
+
+.card:hover {
   background-color: var(--turquoiseCard);
 }
 
@@ -30,3 +34,5 @@
 .badge {
   color: var(--coral) !important;
 }
+
+

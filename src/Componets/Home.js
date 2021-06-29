@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -6,8 +7,9 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { getAllGamesApi } from "../DAL/api";
+
 import GCard from "./card";
-import MyNavbar from "./navbar"
 import SearchBar from "./search"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -17,10 +19,24 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "./home.css";
 
 function Home() {
+  const [cardGames1, setCardGames1] = useState([])
+  const [cardGames2, setCardGames2] = useState([])
+  const [cardGames3, setCardGames3] = useState([])
+
+  useEffect( () => {
+    (async function fetchData() {
+      const games = await getAllGamesApi();
+      setCardGames1(games.slice(0,4))
+      setCardGames2(games.slice(4,8))
+      setCardGames3(games.slice(8,12))
+    })()
+  }, [])
+
   return (
+   
     <Container fluid>
       <Container className="main">
-        <SearchBar />
+        <SearchBar class="justify-content-center w-75 mx-auto"/>
         <Row className="justify-content-center carousel-row">
           <Carousel variant="dark" className="main-carousel">
             <Carousel.Item>
@@ -72,33 +88,41 @@ function Home() {
 
         <hr></hr>
         <Row className="recommended-row justify-content-center">
-          <Carousel fade variant="dark" className="recommended-carousel">
-            <Carousel.Item>
-              <Row className="align-items-center inner-carousel-row">
-              <Col>
-                <Row>
-                  <Col>
-                    <GCard />
+          <Carousel variant="dark" className="recommended-carousel">
+                <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {
+                (cardGames1.length > 0) && cardGames1.map( (game, index) => 
+                  <Col lg="5" sm="12">
+                  <GCard game={game}/>
                   </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <GCard />
-                  </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-              </Col>
-              <Col>
-                <GCard />
-              </Col>
-              </Row>
+                )
+                  }
+               </Row> 
             </Carousel.Item>
-            <Carousel.Item>
+            <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {
+                (cardGames2.length > 0) && cardGames2.map( (game, index) => 
+                  <Col lg="5" sm="12">
+                  <GCard game={game}/>
+                  </Col>
+                )
+                  }
+               </Row> 
+            </Carousel.Item>
+            <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {
+                cardGames3.map( (game, index) => 
+                  <Col lg="5" sm="12">
+                  <GCard game={game}/>
+                  </Col>
+                )
+                  }
+               </Row> 
+            </Carousel.Item>
+            {/* <Carousel.Item>
               <Row className="align-items-center inner-carousel-row">
               <Col>
                 <Row>
@@ -147,7 +171,7 @@ function Home() {
                 <GCard />
               </Col>
               </Row>
-            </Carousel.Item>
+            </Carousel.Item> */}
           </Carousel>
         </Row>
         <Row className="table-sort container justify-content-center">

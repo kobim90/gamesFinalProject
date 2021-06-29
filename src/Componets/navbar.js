@@ -2,13 +2,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row"
-import Modal from "react-bootstrap/Modal";
-import Username from "./username"
-import Password from "./password"
-
-import Login from "./login";
+import Login from "./form/login";
 import { NavLink } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,34 +10,15 @@ import { faGamepad } from "@fortawesome/free-solid-svg-icons";
 
 function MyNavbar(props) {
   const [smShow, setSmShow] = useState(false);
+  const showLogin = (show) => setSmShow(show)
   const onSubmit = (e) => {}
 
   return (
     <Container className="header">
-      <Modal
-        size="sm"
-        show={smShow}
-        onHide={() => setSmShow(false)}
-        aria-labelledby="example-modal-sizes-title-sm"
-      >
-        <Container className="main">
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            Login
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Username validateInput={() => {}}/>
-            <Password validateInput={() => {}}/>
-            <Row className="justify-content-center">
-            <Button type="submit" variant="outline-info">
-                Login
-              </Button>
-            </Row>
-        </Modal.Body>
-        </Container>
-      </Modal>
-      <Navbar bg="dark" variant="dark" fixed="top">
+      <Login showLogin={showLogin} smShow={smShow}/>
+      <Navbar bg="dark" variant="dark" fixed="top" collapseOnSelect expand="lg">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
         <Container>
           <Navbar.Brand href="#home">
             <FontAwesomeIcon icon={faGamepad} size="2x" />
@@ -83,6 +58,7 @@ function MyNavbar(props) {
             </NavLink>
           </Nav>
         </Container>
+        </Navbar.Collapse>
       </Navbar>
     </Container>
   );

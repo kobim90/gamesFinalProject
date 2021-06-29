@@ -11,47 +11,40 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 
-import "./cardStyle.css";
+import "./searchCardStyle.css";
 
-function GCard(props) {
-  const [style, setStyle] = useState("none");
+function SearchCard(props) {
 
   return (
-    <Card className="regular-card">
-      <Card.Img variant="top" src={`${props.game.coverImg}`} />
-      <Card.Body
-        onMouseEnter={(e) => {
-          setStyle("block");
-        }}
-        onMouseLeave={(e) => {
-          setStyle("none");
-        }}
-      >
-        <Card.Title>{`${props.game.gameName}`}</Card.Title>
-        <Row className="card-info">
-          <Col>
+    <Card className="search-card">
+      <Card.Body>
+        <Row className="card-info justify-content-around items-align-center">
+            <Col lg="4">
+            <Card.Img src={`${props.game.coverImg}`} className="search-img" />
+            </Col>
+            <Col className="d-flex align-items-center">
+            <Card.Title>{`${props.game.gameName}`}</Card.Title>
+            </Col>
+          <Col className="text-center d-flex align-items-center justify-content-center platform-col" lg="1">
             <span>
               <FontAwesomeIcon icon={faWindows} /> &nbsp;
             </span>
+
             <span>
               <FontAwesomeIcon icon={faApple} /> &nbsp;
             </span>
+          
             <span>
               <FontAwesomeIcon icon={faLinux} /> &nbsp;
             </span>
           </Col>
-          <Col className="text-right">
+          <Col className="text-right d-flex align-items-center justify-content-center">
             <Badge bg="info">Overall 90</Badge>{" "}
           </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <span style={{ display: style}}>
-           <FontAwesomeIcon icon={faPlusCircle} size="1x" />  Add
-          </span>
         </Row>
       </Card.Body>
     </Card>
   );
 }
 
-export default GCard;
+export default SearchCard;
