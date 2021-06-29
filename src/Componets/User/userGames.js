@@ -43,9 +43,9 @@ function UserGames() {
         </Col>
       </Row>
       <Row className="w-75 mx-auto">
-        {usersGames.map((game) => (
+        {usersGames.map((game, index) => (
           <Col lg="4" md="6" sm="1">
-            <GCard game={game} />
+            <GCard game={game}/>
           </Col>
         ))}
       </Row>

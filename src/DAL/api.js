@@ -57,7 +57,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 3,
-        gameName: "Cyberpunk 2077",
+        gameName: "Metro Exodus",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -65,7 +65,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 4,
-        gameName: "Cyberpunk 2077",
+        gameName: 'Hollow Knight',
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -73,7 +73,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 5,
-        gameName: "Cyberpunk 2077",
+        gameName: "Baldur's Gate 3",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -81,7 +81,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 6,
-        gameName: "Cyberpunk 2077",
+        gameName: 'Sleeping Dogs',
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -89,7 +89,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 7,
-        gameName: "Cyberpunk 2077",
+        gameName: 'METAL GEAR SOLID',
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -97,7 +97,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 8,
-        gameName: "Cyberpunk 2077",
+        gameName: 'Carmageddon',
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -105,7 +105,7 @@ async function getAllGamesApi() {
       },
       {
         gameID: 9,
-        gameName: "Cyberpunk 2077",
+        gameName: 'Heroes 3',
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -129,9 +129,9 @@ async function getTagsApi() {
       { tagID: 3, tagName: "HardCore" },
       { tagID: 4, tagName: "Addicting" },
     ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
+    // if (!response.ok) {
+    //   throw new Error("HTTP Error status = " + response.status);
+    // }
     return response;
   } catch {
     throw new Error("request FAILED!");

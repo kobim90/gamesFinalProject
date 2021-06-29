@@ -2,7 +2,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import UserHome from "./userHome";
 import EditProfile from "./editProfile"
 import UserGames from "./userGames"
-import AddReview from "./addReview";
+import AddReview from "./addReview"
 
 function UserSwitch() {
   return (
