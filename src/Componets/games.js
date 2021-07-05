@@ -4,23 +4,44 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import SearchBar from "./search";
-import GCard from "./card"
+import GCard from "./card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import "./gamesStyle.css"
-import { getAllGamesApi } from "../DAL/api";
+import "./gamesStyle.css";
+import { getAllGamesApi, getGenresApi, getPlatformApi, getFilteredGenrePlatform } from "../DAL/api";
 
 function Games(props) {
+  const [cardGames, setCardGames] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+  const [filter, setFilter] = useState({genres: {}, platforms: {}})
 
-  const [cardGames, setCardGames] = useState([])
+  function filterFunc({ target: { value, checked, name } }) {
+      const newGenres = { ...filter };
+      if (checked) newGenres[name][value] = true;
+      else delete newGenres[name][value];
+      setFilter(newGenres)
+      fetchFilter(filter)
+  }
 
-  useEffect( () => {
-    (async function fetchData() {
-      const games = await getAllGamesApi();
-      setCardGames(games)
-    })()
-    
-  }, [])
+  async function fetchFirstData() {
+    const games = await getAllGamesApi();
+    const genres = await getGenresApi();
+    const platforms = await getPlatformApi();
+    setCardGames(games);
+    setGenres(genres);
+    setPlatforms(platforms);
+  }
+
+  async function fetchFilter() {
+    const filteredGames = await getFilteredGenrePlatform(filter)
+    setCardGames(filteredGames)
+  }
+
+  console.log(cardGames);
+  useEffect(() => {
+    fetchFirstData();
+  },[]);
 
   return (
     <Container className="main">
@@ -47,49 +68,47 @@ function Games(props) {
       <Row>
         <Col className="filter" lg="3">
           <Col className="d-flex flex-column">
-            <h5>Gener</h5>
-            <div className="mb-3">
-              <Form.Check type="checkbox" id="default-checkbox" label="RPG" />
-            </div>
-            <div className="mb-3">
-              <Form.Check type="checkbox" id="default-checkbox" label="FPS" />
-            </div>
-            <div className="mb-3">
-              <Form.Check
-                type="checkbox"
-                id="default-checkbox"
-                label="Action"
-              />
-            </div>
+            <h5>Genre</h5>
+            {genres.map((genre, index) => (
+              <div className="mb-3" key={`div1 ${index}`}>
+                <Form.Check
+                  type="checkbox"
+                  id="default-checkbox"
+                  label={genre.genreName}
+                  value={genre.genreID}
+                  name="genres"
+                  onChange={filterFunc}
+                  key={index}
+                />
+              </div>
+            ))}
           </Col>
           <hr></hr>
           <Col className="d-flex flex-column">
             <h5>System</h5>
-            <div className="mb-3">
-              <Form.Check type="checkbox" id="default-checkbox" label="Windows" />
-            </div>
-            <div className="mb-3">
-              <Form.Check type="checkbox" id="default-checkbox" label="OSX" />
-            </div>
-            <div className="mb-3">
-              <Form.Check
-                type="checkbox"
-                id="default-checkbox"
-                label="Linux"
-              />
-            </div>
+            {platforms.map((platform, index) => (
+              <div className="mb-3" key={`div2 ${index}`}>
+                <Form.Check
+                  name="platforms"
+                  type="checkbox"
+                  id="default-checkbox"
+                  label={platform.platformName}
+                  value={platform.platformID}
+                  onChange={filterFunc}
+                  key={index}
+                />
+              </div>
+            ))}
           </Col>
         </Col>
         <Col className="games-list">
-            <Row>
-                {
-                 cardGames.map( (game) => 
-                    <Col lg="4" md="6" sm="1">
-                    <GCard game={game} />
-                    </Col>
-                 )
-                }
-            </Row>
+          <Row>
+            {cardGames.map((game) => (
+              <Col lg="4" md="6" sm="1">
+                <GCard game={game} />
+              </Col>
+            ))}
+          </Row>
         </Col>
       </Row>
     </Container>

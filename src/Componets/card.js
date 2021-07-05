@@ -10,13 +10,16 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
+import { NavLink, useParams } from "react-router-dom";
 
 import "./cardStyle.css";
 
 function GCard(props) {
   const [style, setStyle] = useState("none");
+  const platform = [faWindows, faApple, faLinux]
 
   return (
+    <NavLink to={`/game/${props.game.gameID}`}>
     <Card className="regular-card">
       <Card.Img variant="top" src={`${props.game.coverImg}`} />
       <Card.Body
@@ -30,18 +33,16 @@ function GCard(props) {
         <Card.Title>{`${props.game.gameName}`}</Card.Title>
         <Row className="card-info">
           <Col>
-            <span>
-              <FontAwesomeIcon icon={faWindows} /> &nbsp;
-            </span>
-            <span>
-              <FontAwesomeIcon icon={faApple} /> &nbsp;
-            </span>
-            <span>
-              <FontAwesomeIcon icon={faLinux} /> &nbsp;
-            </span>
+            {
+              props.game.platform.map( (plat, index) => (
+                <span key={index}>
+                <FontAwesomeIcon icon={platform[plat.id-1]} /> &nbsp;
+              </span>
+              ))
+            }
           </Col>
           <Col className="text-right">
-            <Badge bg="info">Overall 90</Badge>{" "}
+           <strong className="score">{isNaN(props.game.score) ? props.game.score : `Score ${(Math.round(props.game.score * 10) / 10)}`}</strong>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -51,6 +52,7 @@ function GCard(props) {
         </Row>
       </Card.Body>
     </Card>
+    </NavLink>
   );
 }
 

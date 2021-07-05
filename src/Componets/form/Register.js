@@ -3,10 +3,11 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDebugValue } from "react";
 import { validationObj, validationChecks } from "./validations";
 import GenreCheckbox from "./genreCheckbox";
 import TextInput from "./textInput";
+import ErrorMessages from "./ErrorMsg";
 
 import {
   faUser,
@@ -17,8 +18,21 @@ import {
 
 function Register(params) {
   const [userData, setUserData] = useState({ ...validationObj });
+  const [genres, setGenres] = useState({})
 
-  function validation(value, name) {
+  function updatGenres({target : {value, checked, name}}) {
+    const newGenres = {...genres}
+    if (checked) {
+      newGenres[value] = name;
+      setGenres({...newGenres})
+    }else{
+      delete newGenres[value]
+      setGenres({...newGenres})
+    }
+    
+  }
+
+  const validateInput = ({target: {value, name}}) => {
     const [showErrors, background] = validationChecks(name, value, userData);
     setUserData((prevData) => ({
       ...prevData,
@@ -29,19 +43,6 @@ function Register(params) {
         errors: [...showErrors],
       },
     }));
-  }
-
-  const validateInput = (event) => {
-    let value, name;
-    event.target
-      ? ({
-          target: { value, name },
-        } = event)
-      : ({
-          currentTarget: { value, name },
-        } = event);
-
-    validation(value, name);
   };
 
   const inputArr = [
@@ -87,7 +88,7 @@ function Register(params) {
     e.preventDefault();
     let error = 0;
     for (const input in userData) {
-      validation(userData[input].value, input);
+      validationChecks(userData[input].value, input, userData);
       if (!userData[input].value || userData[input].errors.length > 0) {
         error++;
       }
@@ -132,10 +133,11 @@ function Register(params) {
                 <Form.Label>
                   <strong>Pick an imgae</strong>
                 </Form.Label>
-                <Form.Control type="file" />
+                <Form.Control type="file" onChange={validateInput} name="img"/>
+                <ErrorMessages errors={userData.img.errors} />
               </Form.Group>
             </Form.Row>
-            <GenreCheckbox />
+            <GenreCheckbox validateInput={updatGenres}/>
             <Row className="justify-content-center">
               <Button type="submit" variant="outline-info">
                 Submit

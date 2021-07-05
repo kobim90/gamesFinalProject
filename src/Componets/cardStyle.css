@@ -3,7 +3,7 @@
   --greyCard: #7d90b6;
   --tangerine: #feb06a;
   --cream: #fbf6f3;
-  --coral: #ef3340;
+  --coral: #aa2626;
 }
 
 .regular-card {
@@ -27,6 +27,6 @@
   color: var(--tangerine);
 }
 
-.badge {
-  color: var(--coral) !important;
+.score {
+  color: #aa2626;
 }

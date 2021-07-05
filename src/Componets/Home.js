@@ -33,7 +33,6 @@ function Home() {
   }, [])
 
   return (
-   
     <Container fluid>
       <Container className="main">
         <SearchBar class="justify-content-center w-75 mx-auto"/>
@@ -83,7 +82,7 @@ function Home() {
         </Row>
 
         <h5>
-          <FontAwesomeIcon icon={faStar} /> Recommended For You
+          <FontAwesomeIcon icon={faStar} /> Recommended
         </h5>
 
         <hr></hr>
@@ -93,7 +92,7 @@ function Home() {
               <Row className="align-items-center justify-content-center inner-carousel-row">
                 {
                 (cardGames1.length > 0) && cardGames1.map( (game, index) => 
-                  <Col lg="5" sm="12">
+                  <Col lg="5" sm="12" key={index}>
                   <GCard game={game}/>
                   </Col>
                 )
@@ -104,7 +103,7 @@ function Home() {
               <Row className="align-items-center justify-content-center inner-carousel-row">
                 {
                 (cardGames2.length > 0) && cardGames2.map( (game, index) => 
-                  <Col lg="5" sm="12">
+                  <Col lg="5" sm="12" key={index}>
                   <GCard game={game}/>
                   </Col>
                 )
@@ -115,63 +114,13 @@ function Home() {
               <Row className="align-items-center justify-content-center inner-carousel-row">
                 {
                 cardGames3.map( (game, index) => 
-                  <Col lg="5" sm="12">
+                  <Col lg="5" sm="12" key={index}>
                   <GCard game={game}/>
                   </Col>
                 )
                   }
                </Row> 
             </Carousel.Item>
-            {/* <Carousel.Item>
-              <Row className="align-items-center inner-carousel-row">
-              <Col>
-                <Row>
-                  <Col>
-                    <GCard />
-                  </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <GCard />
-                  </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-              </Col>
-              <Col>
-                <GCard />
-              </Col>
-              </Row>
-            </Carousel.Item>
-            <Carousel.Item>
-              <Row className="align-items-center inner-carousel-row">
-              <Col>
-                <Row>
-                  <Col>
-                    <GCard />
-                  </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <GCard />
-                  </Col>
-                  <Col>
-                    <GCard />
-                  </Col>
-                </Row>
-              </Col>
-              <Col >
-                <GCard />
-              </Col>
-              </Row>
-            </Carousel.Item> */}
           </Carousel>
         </Row>
         <Row className="table-sort container justify-content-center">

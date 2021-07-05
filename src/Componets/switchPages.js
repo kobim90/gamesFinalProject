@@ -3,6 +3,7 @@ import Home from "./Home"
 import Games from "./games"
 import Register from "../Componets/form/Register"
 import UserHome from "./User/userHome"
+import GamePage from "./gamePage"
 
 function Pages() {
     return (
@@ -27,6 +28,9 @@ function Pages() {
             </Route>
             <Route exact path="/user">
                 <UserHome />
+            </Route>
+            <Route exact path="/game/:gameId">
+                <GamePage />
             </Route>
         </Switch>
     )

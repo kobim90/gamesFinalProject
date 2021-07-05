@@ -45,6 +45,16 @@ const validationObj = {
       requirments: "password does not match",
     },
   },
+  img: {
+    value: "",
+    errors: [],
+    background: "",
+    validations: {
+      required: false,
+      pattern: /[\/.](gif|jpg|jpeg|tiff|png)$/,
+      requirments: "Please enter a valid img",
+    },
+  },
 };
 
 function validationChecks(name, value, userData) {
@@ -57,7 +67,6 @@ function validationChecks(name, value, userData) {
     background = "alert-danger";
   }
   if (!validations.pattern.test(value)) {
-    console.log(value);
     showErrors.push(`${validations.requirments}`);
     background = "alert-danger";
   }

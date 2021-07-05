@@ -14,7 +14,7 @@ function MyNavbar(props) {
   const onSubmit = (e) => {}
 
   return (
-    <Container className="header">
+    <Container fluid>
       <Login showLogin={showLogin} smShow={smShow}/>
       <Navbar bg="dark" variant="dark" fixed="top" collapseOnSelect expand="lg">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -61,6 +61,7 @@ function MyNavbar(props) {
         </Navbar.Collapse>
       </Navbar>
     </Container>
+
   );
 }
 

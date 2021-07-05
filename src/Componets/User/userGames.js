@@ -51,7 +51,7 @@ function UserGames() {
       </Row>
       <Row className="justify-content-center chart-row">
         <h1>Your Top reviewed Games</h1>
-        <div className="chart-div">
+        <div>
          <GameChart />
         </div>
       </Row>

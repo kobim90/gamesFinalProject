@@ -1,4 +1,6 @@
 // Dal
+
+
 async function getPlatformApi() {
   try {
     const response = await Promise.resolve([
@@ -38,84 +40,12 @@ async function getGenresApi() {
 
 async function getAllGamesApi() {
   try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Witcher 3",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Metro Exodus",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: 'Hollow Knight',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/4.jpg",
-      },
-      {
-        gameID: 5,
-        gameName: "Baldur's Gate 3",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/5.jpg",
-      },
-      {
-        gameID: 6,
-        gameName: 'Sleeping Dogs',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/6.jpg",
-      },
-      {
-        gameID: 7,
-        gameName: 'METAL GEAR SOLID',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/7.jpg",
-      },
-      {
-        gameID: 8,
-        gameName: 'Carmageddon',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/8.jpg",
-      },
-      {
-        gameID: 9,
-        gameName: 'Heroes 3',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/9.jpg",
-      },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
+    const response = await fetch("http://localhost:3200/games")
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
   } catch {
     throw new Error("request FAILED!");
   }
@@ -293,7 +223,7 @@ async function getGameGenresApi() {
   }
 }
 
-async function getGameApi() {
+async function getGameApi(gameID) {
   try {
     const response = await Promise.resolve({
       gameID: 1,
@@ -312,7 +242,7 @@ async function getGameApi() {
   }
 }
 
-async function getGameReviewsApi() {
+async function getGameReviewsApi(gameID) {
   try {
     const response = await Promise.resolve([
       {
@@ -723,7 +653,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/1.jpg",
+        coverImg: "/Images/1.jpg",
       },
       {
         gameID: 2,
@@ -731,7 +661,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/2.jpg",
+        coverImg: "/Images/2.jpg",
       },
       {
         gameID: 3,
@@ -739,7 +669,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/3.jpg",
+        coverImg: "/Images/3.jpg",
       },
       {
         gameID: 4,
@@ -747,7 +677,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/4.jpg",
+        coverImg: "/Images/4.jpg",
       },
       {
         gameID: 5,
@@ -755,7 +685,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/5.jpg",
+        coverImg: "/Images/5.jpg",
       },
       {
         gameID: 6,
@@ -763,7 +693,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/6.jpg",
+        coverImg: "/Images/6.jpg",
       },
       {
         gameID: 7,
@@ -771,7 +701,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/7.jpg",
+        coverImg: "/Images/7.jpg",
       },
       {
         gameID: 8,
@@ -779,7 +709,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/8.jpg",
+        coverImg: "/Images/8.jpg",
       },
       {
         gameID: 9,
@@ -787,7 +717,7 @@ async function getUsersGamesApi(user) {
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
-        coverImg: "./Images/9.jpg",
+        coverImg: "/Images/9.jpg",
       },
     ]);
     // if (!response.ok) {
@@ -885,6 +815,27 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
 }
 
 
+async function getFilteredGenrePlatform(filter) {
+  try {
+    let url = "http://localhost:3200/games/sortedGames?";
+    for (const genre in filter.genres) {
+      url += `genreID=${genre}&`
+    }
+    for (const platform in filter.platforms) {
+      url += `platformID=${platform}&`
+    }
+    url = url.slice(0,url.length-1)
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch {
+    throw new Error("request FAILED!");
+  }
+}
+
 // // component
 // async function getPlatfrom() {
 //   const system = await getPlatformApi();
@@ -921,4 +872,5 @@ export {
   getUserRegisterApi,
   getUsersGamesApi,
   getGamesByPagesApi,
+  getFilteredGenrePlatform,
 };
