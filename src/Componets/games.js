@@ -16,6 +16,7 @@ function Games(props) {
   const [platforms, setPlatforms] = useState([]);
   const [filter, setFilter] = useState({genres: {}, platforms: {}})
 
+
   function filterFunc({ target: { value, checked, name } }) {
       const newGenres = { ...filter };
       if (checked) newGenres[name][value] = true;
@@ -38,7 +39,6 @@ function Games(props) {
     setCardGames(filteredGames)
   }
 
-  console.log(cardGames);
   useEffect(() => {
     fetchFirstData();
   },[]);

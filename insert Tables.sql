@@ -348,7 +348,7 @@ values(18, 1),
 (18, 3);
 
 insert into games (gameName, publisher, releaseDate, description, coverImg)
-values ("Pyre", "Supergiant Games","2017-7-25","Pyre is a party-based RPG in which you lead a band of exiles to freedom through ancient competitions spread across a vast, mystical purgatory. Who shall return to glory, and who shall remain in exile to the end of their days? 
+values ("Pyre", "Supergiant Games","2017-7-25","Pyre is a party-based RPG in which you lead a band of exiles to freedom through ancient competitions spread across a vast, mystical purgatory. Who shall return to glory, and who shall remain in exile to the end of their days?
 Experience the biggest and most imaginative world yet from Supergiant! Get to know an ensemble cast of characters struggling to earn back their freedom as you make your way across the forsaken land called the Downside. 
 Battle against a colorful cast of adversaries in pitched, high-stakes confrontations where each victory (or defeat!) brings your exiles closer to enlightenment. Choose three from your party for each Rite, and outfit them with mystic Talismans and powerful Masteries. 
 ", "./Images/19.jpg");
@@ -793,7 +793,15 @@ values
 (32, 4),
 (33, 2),(33, 3);
 
+-- inser game screenshots
+insert into game_screenshots
+values (1,"http://localhost:3200/images/1/1.jpg", "http://localhost:3200/images/1/2.jpg", "http://localhost:3200/images/1/3.jpg", "http://localhost:3200/images/1/4.jpg", "http://localhost:3200/images/1/5.jpg");
+insert into game_screenshots
+values (2,"http://localhost:3200/images/2/1.jpg", "http://localhost:3200/images/2/2.jpg", "http://localhost:3200/images/2/3.jpg", "http://localhost:3200/images/2/4.jpg", "http://localhost:3200/images/2/5.jpg");
+insert into game_screenshots
+values (2,"http://localhost:3200/images/2/1.jpg", "http://localhost:3200/images/2/2.jpg", "http://localhost:3200/images/2/3.jpg", "http://localhost:3200/images/2/4.jpg", "http://localhost:3200/images/2/5.jpg");
 
 
+DELETE FROM game_screenshots where gameID=1;
 
 

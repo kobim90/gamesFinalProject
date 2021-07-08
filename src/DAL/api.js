@@ -38,18 +38,7 @@ async function getGenresApi() {
   }
 }
 
-async function getAllGamesApi() {
-  try {
-    const response = await fetch("http://localhost:3200/games")
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    const obj = await response.json();
-    return obj;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
+
 
 async function getTagsApi() {
   try {
@@ -814,10 +803,22 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
   }
 }
 
+async function getAllGamesApi() {
+  try {
+    const response = await fetch("http://localhost:3200/games")
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch {
+    throw new Error("request FAILED!");
+  }
+}
 
 async function getFilteredGenrePlatform(filter) {
   try {
-    let url = "http://localhost:3200/games/sortedGames?";
+    let url = "http://localhost:3200/games/filteredGames?";
     for (const genre in filter.genres) {
       url += `genreID=${genre}&`
     }
@@ -836,21 +837,44 @@ async function getFilteredGenrePlatform(filter) {
   }
 }
 
-// // component
-// async function getPlatfrom() {
-//   const system = await getPlatformApi();
-//   // setPlatform(system)
-//   console.log(system);
-// }
+async function getAllGameDetailes(gameId) {
+  try {
+    const response = await fetch(`http://localhost:3200/games/${gameId}`)
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch {
+    throw new Error("request FAILED!");
+  }
+}
 
-// async function getGenres() {
-//   const genres = await getGenresApi();
-//   console.log(genres);
-//   // setGenres(genres)
+async function getReviewsData(gameId) {
+  try {
+    const response = await fetch(`http://localhost:3200/games/reviews/${gameId}`)
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch {
+    throw new Error("request FAILED!");
+  }
+}
 
-// }
-
-// getPlatfrom()
+async function getSortedScoreDate(sort, direction) {
+  try {
+    const response = await fetch(`http://localhost:3200/games//sortedGamesScoreDate?sort=${sort}&direction=${direction}`)
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch {
+    throw new Error("request FAILED!");
+  }
+}
 
 export {
   getPlatformApi,
@@ -873,4 +897,7 @@ export {
   getUsersGamesApi,
   getGamesByPagesApi,
   getFilteredGenrePlatform,
+  getAllGameDetailes,
+  getReviewsData,
+  getSortedScoreDate,
 };

@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faChartLine,
-  faSearch,
+  faArrowUp,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { getAllGamesApi } from "../DAL/api";
+import { getAllGamesApi, getSortedScoreDate } from "../DAL/api";
 
 import GCard from "./card";
 import SearchBar from "./search"
@@ -16,22 +16,57 @@ import Row from "react-bootstrap/Row";
 import Carousel from "react-bootstrap/Carousel";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
+import SearchCard from "./searchCard";
 import "./home.css";
 
 function Home() {
+  const [games, setGames] = useState([])
+  const [tableGames, setTableGames] = useState([])
   const [cardGames1, setCardGames1] = useState([])
   const [cardGames2, setCardGames2] = useState([])
   const [cardGames3, setCardGames3] = useState([])
+  const [activeCol, setActiveCol] = useState(["activeTable", ""])
+  const [orederDirection, setOrderDirection] = useState({score: {direction: "desc", arrow: faArrowDown}, releaseDate: {direction: "desc", arrow: faArrowDown}})
+
+
+  async function sort(name) {
+    const dir = {name: name, direction: ""}
+    if (name === "score") {
+      setActiveCol(["activeTable", ""])
+      if (orederDirection[name].direction === "desc") {
+        setOrderDirection({...orederDirection, [name]:{direction: "asc", arrow: faArrowUp}})
+        dir.direction = "asc"
+      }else {
+        setOrderDirection({...orederDirection, [name]:{direction: "desc", arrow: faArrowDown}})
+        dir.direction = "desc"}
+    }else {
+      setActiveCol(["", "activeTable"])
+      if (orederDirection[name].direction === "desc") {
+        setOrderDirection({...orederDirection, [name]:{direction: "asc", arrow: faArrowUp}})
+        dir.direction = "asc"
+      }
+      else {
+        setOrderDirection({...orederDirection, [name]:{direction: "desc", arrow: faArrowDown}})
+        dir.direction = "desc"}
+      
+    }
+    const games = await getSortedScoreDate(name, dir.direction);
+    setTableGames([...games])
+  }
 
   useEffect( () => {
     (async function fetchData() {
       const games = await getAllGamesApi();
+      const tableGames = await getSortedScoreDate("score", orederDirection.score.direction);
+      setGames(games)
       setCardGames1(games.slice(0,4))
       setCardGames2(games.slice(4,8))
       setCardGames3(games.slice(8,12))
+      setTableGames(tableGames)
     })()
   }, [])
 
+  console.log(games);
   return (
     <Container fluid>
       <Container className="main">
@@ -126,73 +161,31 @@ function Home() {
         <Row className="table-sort container justify-content-center">
           <ListGroup variant="flush" className="table-sort-items">
             <ListGroup.Item>
-              <Row className="table-row">
-                <Col>
+              <Row className="table-row justify-content-between">
+                <Col lg={3}>
                   <FontAwesomeIcon icon={faChartLine} />
                   <h4 style={{ display: "inline" }}> Discover Games</h4>
                 </Col>
-                <Col>
-                  <FontAwesomeIcon icon={faArrowDown} />
-                  <h4 style={{ display: "inline" }}> Most Popular</h4>
+                <Col lg="5">
+                  <FontAwesomeIcon icon={orederDirection.releaseDate.arrow} />
+                  <button onClick={() => sort("releaseDate")} className={`table-btn ${activeCol[1]}`}><h4 style={{ display: "inline" }} >Release Date</h4></button>
                 </Col>
-                <Col>
-                  <FontAwesomeIcon icon={faArrowDown} />
-                  <h4 style={{ display: "inline" }}> New</h4>
+                <Col lg="4" className="text-right">
+                  <FontAwesomeIcon icon={orederDirection.score.arrow} />
+                  <button  onClick={() => sort("score")} className={`table-btn ${activeCol[0]}`}><h4 style={{ display: "inline" }} >Highest Rated</h4></button>
                 </Col>
+                
               </Row>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Row>
-                <Col>
-                  <h4>Nmae</h4>
-                </Col>
-                <Col>
-                  <h4>Rating</h4>
-                </Col>
-                <Col>
-                  <h4>Date</h4>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Row>
-                <Col>
-                  <h4>Nmae</h4>
-                </Col>
-                <Col>
-                  <h4>Rating</h4>
-                </Col>
-                <Col>
-                  <h4>Date</h4>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Row>
-                <Col>
-                  <h4>Nmae</h4>
-                </Col>
-                <Col>
-                  <h4>Rating</h4>
-                </Col>
-                <Col>
-                  <h4>Date</h4>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Row>
-                <Col>
-                  <h4>Nmae</h4>
-                </Col>
-                <Col>
-                  <h4>Rating</h4>
-                </Col>
-                <Col>
-                  <h4>Date</h4>
-                </Col>
-              </Row>
-            </ListGroup.Item>
+            
+              {
+                tableGames.map( (game, index) => (
+                  <ListGroup.Item className="table-item mx-auto">
+                    <SearchCard game={game} />
+                    </ListGroup.Item>
+                ))
+              }
+            
           </ListGroup>
         </Row>
       </Container>

@@ -7,8 +7,9 @@
 }
 
 .search-card {
-  background-color: white;
+  background-color: var(--cream);
   color: var(--cream);
+  border: none;
 }
 
 .search-card .card-body {
@@ -21,6 +22,9 @@
 
 .card:hover {
   background-color: var(--turquoiseCard);
+   box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
 }
 
 .card-info {
@@ -35,4 +39,10 @@
   color: var(--coral) !important;
 }
 
+.search-img{
+  width: 100%;
+}
 
+.publisher-date-row{
+  margin-bottom: 0;
+}
