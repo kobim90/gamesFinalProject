@@ -34,6 +34,7 @@ function TextInput(props) {
                     onBlur={props.validateInput}
                     name={props.name}
                     className={props.background}
+                    defaultValue={props.defaultValue}
                   />
                 </InputGroup>
                 <ErrorMessages errors={props.errors} />

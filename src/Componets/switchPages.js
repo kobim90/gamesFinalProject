@@ -4,8 +4,13 @@ import Games from "./games"
 import Register from "../Componets/form/Register"
 import UserHome from "./User/userHome"
 import GamePage from "./gamePage"
+import React from "react"
+import AuthiApi from "../DAL/AuthApi"
+import ProtectedRoute from "./protectedRoute"
 
 function Pages() {
+    const Auth = React.useContext(AuthiApi)
+    
     return (
         <Switch>
               <Route
@@ -26,9 +31,10 @@ function Pages() {
             <Route exact path="/Register">
                 <Register />
             </Route>
-            <Route exact path="/user">
+            {/* <Route exact path="/user">
                 <UserHome />
-            </Route>
+            </Route> */}
+            <ProtectedRoute path="/user" auth={Auth.auth} component={UserHome}/>
             <Route exact path="/game/:gameId">
                 <GamePage />
             </Route>

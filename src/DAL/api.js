@@ -1,5 +1,7 @@
 // Dal
+import axios from "axios";
 
+import axios2 from './fetcher';
 
 async function getPlatformApi() {
   try {
@@ -37,8 +39,6 @@ async function getGenresApi() {
     throw new Error("request FAILED kobi!");
   }
 }
-
-
 
 async function getTagsApi() {
   try {
@@ -633,92 +633,12 @@ async function getReviewTagsApi(reviewID) {
   }
 }
 
-async function getUsersGamesApi(user) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Witcher 3",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Metro Exodus",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: 'Hollow Knight',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/4.jpg",
-      },
-      {
-        gameID: 5,
-        gameName: "Baldur's Gate 3",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/5.jpg",
-      },
-      {
-        gameID: 6,
-        gameName: 'Sleeping Dogs',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/6.jpg",
-      },
-      {
-        gameID: 7,
-        gameName: 'METAL GEAR SOLID',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/7.jpg",
-      },
-      {
-        gameID: 8,
-        gameName: 'Carmageddon',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/8.jpg",
-      },
-      {
-        gameID: 9,
-        gameName: 'Heroes 3',
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "/Images/9.jpg",
-      },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", orderDirection = "asc") {
+async function getGamesByPagesApi(
+  pageNumber = 1,
+  size = 9,
+  orderBy = "gameID",
+  orderDirection = "asc"
+) {
   try {
     const response = await Promise.resolve([
       {
@@ -747,7 +667,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
       },
       {
         gameID: 4,
-        gameName: 'Hollow Knight',
+        gameName: "Hollow Knight",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -763,7 +683,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
       },
       {
         gameID: 6,
-        gameName: 'Sleeping Dogs',
+        gameName: "Sleeping Dogs",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -771,7 +691,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
       },
       {
         gameID: 7,
-        gameName: 'METAL GEAR SOLID',
+        gameName: "METAL GEAR SOLID",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -779,7 +699,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
       },
       {
         gameID: 8,
-        gameName: 'Carmageddon',
+        gameName: "Carmageddon",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -787,7 +707,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
       },
       {
         gameID: 9,
-        gameName: 'Heroes 3',
+        gameName: "Heroes 3",
         publisher: "CD PROJEKT RED",
         releaseDate: "2020-12-10",
         description: "sadasda",
@@ -805,7 +725,7 @@ async function getGamesByPagesApi(pageNumber = 1, size = 9, orderBy = "gameID", 
 
 async function getAllGamesApi() {
   try {
-    const response = await fetch("http://localhost:3200/games")
+    const response = await fetch("http://localhost:3200/games");
     if (!response.ok) {
       throw new Error("HTTP Error status = " + response.status);
     }
@@ -820,13 +740,13 @@ async function getFilteredGenrePlatform(filter) {
   try {
     let url = "http://localhost:3200/games/filteredGames?";
     for (const genre in filter.genres) {
-      url += `genreID=${genre}&`
+      url += `genreID=${genre}&`;
     }
     for (const platform in filter.platforms) {
-      url += `platformID=${platform}&`
+      url += `platformID=${platform}&`;
     }
-    url = url.slice(0,url.length-1)
-    const response = await fetch(url)
+    url = url.slice(0, url.length - 1);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("HTTP Error status = " + response.status);
     }
@@ -839,7 +759,7 @@ async function getFilteredGenrePlatform(filter) {
 
 async function getAllGameDetailes(gameId) {
   try {
-    const response = await fetch(`http://localhost:3200/games/${gameId}`)
+    const response = await fetch(`http://localhost:3200/games/${gameId}`);
     if (!response.ok) {
       throw new Error("HTTP Error status = " + response.status);
     }
@@ -852,7 +772,9 @@ async function getAllGameDetailes(gameId) {
 
 async function getReviewsData(gameId) {
   try {
-    const response = await fetch(`http://localhost:3200/games/reviews/${gameId}`)
+    const response = await fetch(
+      `http://localhost:3200/games/reviews/${gameId}`
+    );
     if (!response.ok) {
       throw new Error("HTTP Error status = " + response.status);
     }
@@ -865,7 +787,9 @@ async function getReviewsData(gameId) {
 
 async function getSortedScoreDate(sort, direction) {
   try {
-    const response = await fetch(`http://localhost:3200/games//sortedGamesScoreDate?sort=${sort}&direction=${direction}`)
+    const response = await fetch(
+      `http://localhost:3200/games/sortedGamesScoreDate?sort=${sort}&direction=${direction}`
+    );
     if (!response.ok) {
       throw new Error("HTTP Error status = " + response.status);
     }
@@ -875,6 +799,112 @@ async function getSortedScoreDate(sort, direction) {
     throw new Error("request FAILED!");
   }
 }
+
+async function postLogin(username, password) {
+  try {
+    const response = await axios2.post("/login", {
+      username: username,
+      password: password,
+    });
+
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error) {    
+    throw new Error(error.response.data.error);
+  }
+}
+
+async function getUsersGamesApi() {
+  try {
+    const response = await axios2.get(`users/games`, {});
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch {
+    throw new Error("request LOGIN FAILED!");
+  }
+}
+
+async function getUsersGamesScores() {
+  try {
+    const response = await axios2.get(`/users/scores`, {});
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error){
+    throw new Error(error.response.data.error);
+  }
+}
+
+async function getUsersSearchedGames(word, searchBy) {
+  try {
+    const response = await axios2.get(`users/search?searchParam=${word}&searchBy=${searchBy}`, {});
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error){
+    throw new Error(error.response.data.error);
+  }
+}
+
+async function getSearchedGames(word, searchBy) {
+  try {
+    const response = await axios2.get(`/games/search?searchParam=${word}&searchBy=${searchBy}`);
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error){
+    throw new Error(error.response.data.error);
+  }
+}
+
+async function postRegister(userData) {
+  try {
+    const response = await fetch("http://localhost:3200/register", {
+      method: "POST",
+      body: userData
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch(error) {    
+    throw new Error("kobis error");
+  }
+}
+
+async function getUserByUsername(username) {
+  try {
+    const response = await axios2.get(`/users/username?username=${username}`);
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error){
+    throw new Error(error.response.data.error);
+  }
+}
+
+async function getUserProfileData() {
+  try {
+    const response = await axios2.get(`/users/profile`);
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(error){
+    throw new Error(error.response.data.error);
+  }
+}
+
 
 export {
   getPlatformApi,
@@ -900,4 +930,11 @@ export {
   getAllGameDetailes,
   getReviewsData,
   getSortedScoreDate,
+  postLogin,
+  getUsersGamesScores,
+  getSearchedGames,
+  getUsersSearchedGames,
+  postRegister,
+  getUserByUsername,
+  getUserProfileData,
 };

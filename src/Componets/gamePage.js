@@ -38,7 +38,7 @@ function GamePage(props) {
             className="parallax d-flex align-items-center"
             style={{ backgroundImage: `url(${game.screenshot5})` }}
           >
-            <h1 className="mx-auto">{game.gameName}</h1>
+            <h1 className="mx-auto game-header">{game.gameName}</h1>
           </div>
         </Row>
         <Row className="justify-content-around details-row">

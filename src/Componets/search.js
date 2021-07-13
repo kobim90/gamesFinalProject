@@ -5,52 +5,60 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import SplitButton from "react-bootstrap/SplitButton";
 import Form from "react-bootstrap/Form";
+import { getSearchedGames } from "../DAL/api";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function SearchBar(props) {
-  const [searchBy, setSearchBy] = useState("Name");
+  const [searchBy, setSearchBy] = useState("g.gameName");
+  const [searchParams, setSearchParams] = useState("");
 
-  function search(params) {}
+  async function search() {
+    if (searchParams) {
+      const newGames = await props.serverCall(searchParams, searchBy);
+      props.updateGames(newGames);
+    }else props.updateGames(await props.reset())
+  }
 
   return (
     <Row className={props.class}>
       <InputGroup className="mb-3">
         <SplitButton
-          variant="outline-info"
-          title={searchBy}
+          variant="outline-primary"
+          title={searchBy === "g.gameName" ? "Name" : "Year"}
           id="segmented-button-dropdown-1"
-          className="searchParam"
         >
-          {/* <Dropdown>
-          <Dropdown.Toggle
-            variant="info"
-            id="dropdown-basic"
-          ></Dropdown.Toggle>
-
-          <Dropdown.Menu> */}
-          <Dropdown.Item href="#/action-1" onClick={() => setSearchBy("Name")}>
+          <Dropdown.Item
+            href="#/action-1"
+            onClick={() => setSearchBy("g.gameName")}
+          >
             Name
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-2" onClick={() => setSearchBy("Genre")}>
-            Genre
+          <Dropdown.Item
+            href="#/action-2"
+            onClick={() => setSearchBy("releaseDate")}
+          >
+            Year
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-3" onClick={() => setSearchBy("Date")}>
+          {/* <Dropdown.Item href="#/action-3" onClick={() => setSearchBy("Date")}>
             Realease Date
-          </Dropdown.Item>
-          {/* </Dropdown.Menu>
-        </Dropdown> */}
+          </Dropdown.Item> */}
         </SplitButton>
         <FormControl
-          placeholder={`Search By ${searchBy}...`}
+        placeholder="Search..."
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
           className="mainSearch"
+          onBlur={(e) => setSearchParams(e.target.value)}
         />
         <InputGroup.Append>
-          <Button variant="outline-secondary" className="searchBtn">
+          <Button
+            variant="outline-secondary"
+            className="searchBtn"
+            onClick={search}
+          >
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </InputGroup.Append>

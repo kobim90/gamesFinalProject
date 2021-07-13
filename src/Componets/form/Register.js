@@ -3,11 +3,12 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { useState, useEffect, useDebugValue } from "react";
+import { useState } from "react";
 import { validationObj, validationChecks } from "./validations";
 import GenreCheckbox from "./genreCheckbox";
 import TextInput from "./textInput";
 import ErrorMessages from "./ErrorMsg";
+import { postRegister } from "../../DAL/api";
 
 import {
   faUser,
@@ -18,22 +19,46 @@ import {
 
 function Register(params) {
   const [userData, setUserData] = useState({ ...validationObj });
-  const [genres, setGenres] = useState({})
+  const [genres, setGenres] = useState([]);
+  const [img, setImg] = useState("");
+  const [registred, setRegistred] = useState("")
 
-  function updatGenres({target : {value, checked, name}}) {
-    const newGenres = {...genres}
-    if (checked) {
-      newGenres[value] = name;
-      setGenres({...newGenres})
-    }else{
-      delete newGenres[value]
-      setGenres({...newGenres})
+  async function entry(userData) {
+    const formData = new FormData();
+    for (const key in userData) {
+      key !== "img"
+        ? formData.append(key, userData[key].value)
+        : formData.append("img", img);
     }
-    
+    formData.append("genres", genres);
+    const test = await postRegister(formData);
+    setRegistred(`Registration Complete! You can now login ${userData.username.value}`)
+
   }
 
-  const validateInput = ({target: {value, name}}) => {
-    const [showErrors, background] = validationChecks(name, value, userData);
+  function updatGenres({ target: { value, checked, name } }) {
+    const newGenres = [...genres];
+    if (checked) {
+      const index = newGenres.findIndex((genre) => genre === value);
+      index !== -1 ? (newGenres[index] = 0) : newGenres.push(value);
+    } else {
+      const index = newGenres.findIndex((genre) => genre === value);
+      newGenres[index] = 0;
+    }
+    const final = [];
+    newGenres.forEach((genre) => (genre ? final.push(genre) : ""));
+    setGenres(final);
+  }
+
+  function checkImg(event) {
+    validateInput(event);
+    setImg(event.target.files[0]);
+  }
+
+const validateInput = async (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    const [showErrors, background] = await validationChecks(name, value, userData, "register");
     setUserData((prevData) => ({
       ...prevData,
       [name]: {
@@ -86,28 +111,25 @@ function Register(params) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    let error = 0;
-    for (const input in userData) {
-      validationChecks(userData[input].value, input, userData);
-      if (!userData[input].value || userData[input].errors.length > 0) {
-        error++;
+    let errorsCount = 0;
+    for (const key in userData) {
+      validateInput({ target: { name: key, value: userData[key].value } });
+      if (userData[key].errors.length > 0 || !userData[key].value) {
+        errorsCount++;
       }
     }
-    if (error === 0) {
-      //   props.addStudentList(
-      //     userData.username.value,
-      //     userData.email.value,
-      //     userData.address.value,
-      //     userData.course.value,
-      //     userData.gender.value
-      //   );
-      //   props.handleClose();
+    console.log(errorsCount);
+    if (!errorsCount) {
+      entry(userData);
     }
   };
 
   return (
     <Container className="main">
-      <Row className="text-center">
+      {
+        !registred ? (
+          <>
+          <Row className="text-center">
         <Col>
           <h1>Welcome!</h1>
           <p>Hello Gamer! Please fill in your details</p>
@@ -116,7 +138,7 @@ function Register(params) {
       <hr></hr>
       <Row className="justify-content-center">
         <Col lg="5">
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={onSubmit} enctype="multipart/form-data">
             {inputArr.map((input) => (
               <TextInput
                 label={input.label}
@@ -133,11 +155,11 @@ function Register(params) {
                 <Form.Label>
                   <strong>Pick an imgae</strong>
                 </Form.Label>
-                <Form.Control type="file" onChange={validateInput} name="img"/>
+                <Form.Control type="file" onChange={checkImg} name="img" />
                 <ErrorMessages errors={userData.img.errors} />
               </Form.Group>
             </Form.Row>
-            <GenreCheckbox validateInput={updatGenres}/>
+            <GenreCheckbox validateInput={updatGenres} checked={[]}/>
             <Row className="justify-content-center">
               <Button type="submit" variant="outline-info">
                 Submit
@@ -146,9 +168,14 @@ function Register(params) {
           </Form>
         </Col>
       </Row>
+      </>
+        ) : (
+          <h3>{registred}</h3>
+        )
+      }
+      
     </Container>
   );
 }
 
 export default Register;
-

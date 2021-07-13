@@ -1,4 +1,4 @@
-import { getUserApi } from "../../DAL/api";
+import { getUserByUsername } from "../../DAL/api";
 
 const validationObj = {
   username: {
@@ -18,7 +18,7 @@ const validationObj = {
     validations: {
       required: true,
       pattern:
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       requirments: "email should be valid email (xxx@yyy.zzz)",
     },
   },
@@ -46,7 +46,7 @@ const validationObj = {
     },
   },
   img: {
-    value: "",
+    value: "placeholder.jpg",
     errors: [],
     background: "",
     validations: {
@@ -57,7 +57,7 @@ const validationObj = {
   },
 };
 
-function validationChecks(name, value, userData) {
+async function validationChecks(name, value, userData, type) {
   const showErrors = [];
   const { validations } = userData[name];
   let background = "";
@@ -66,22 +66,23 @@ function validationChecks(name, value, userData) {
     showErrors.push(`${name} is required`);
     background = "alert-danger";
   }
-  if (!validations.pattern.test(value)) {
+  if (!validations.pattern.test(value) && name !== "genres" && value) {
     showErrors.push(`${validations.requirments}`);
     background = "alert-danger";
   }
-
-  if (name === "paswordConfirm") {
+  if (name === "passwordConfirm") {
     if (value !== userData.password.value) {
       showErrors.push(`password doesnt match, please recheck your password`);
       background = "alert-danger";
     }
   }
-
-  if (name === "username" && value !== "") {
-    if (getUserApi(name)) {
-      showErrors.push(`${value} allready exists, choose a different username`);
-      background = "alert-danger";
+  if (type === "register") {
+    if (name === "username" && value !== "") {
+      const data = await getUserByUsername(value)
+        if (data[0]) {
+          showErrors.push(`${value} allready exists, choose a different username`);
+          background = "alert-danger";
+        }
     }
   }
 

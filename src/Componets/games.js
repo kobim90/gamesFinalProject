@@ -8,13 +8,17 @@ import GCard from "./card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import "./gamesStyle.css";
-import { getAllGamesApi, getGenresApi, getPlatformApi, getFilteredGenrePlatform } from "../DAL/api";
+import { getAllGamesApi, getGenresApi, getPlatformApi, getFilteredGenrePlatform, getSearchedGames } from "../DAL/api";
 
 function Games(props) {
   const [cardGames, setCardGames] = useState([]);
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [filter, setFilter] = useState({genres: {}, platforms: {}})
+
+  function setGamesBySearch(games) {
+    setCardGames(games)
+  }
 
 
   function filterFunc({ target: { value, checked, name } }) {
@@ -45,7 +49,7 @@ function Games(props) {
 
   return (
     <Container className="main">
-      <SearchBar />
+      <SearchBar class="justify-content-center w-75 mx-auto searchBar" updateGames={setGamesBySearch} serverCall={getSearchedGames} reset={getAllGamesApi}/>
       <Row>
         <Col>
           <h6>

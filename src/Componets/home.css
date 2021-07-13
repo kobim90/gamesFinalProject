@@ -28,7 +28,7 @@ h5 {
   background-color: var(--grey);
 }
 
-.btn-outline-info:hover,
+.btn-outline-primary:hover,
 .dropdown-toggle:hover,
 .searchBtn:hover,
 .mainSearch:hover,
@@ -36,7 +36,7 @@ h5 {
   background-color: #feb06a6a !important;
 }
 
-.btn-outline-info,
+.btn-outline-primary,
 .mainSearch,
 .searchBtn,
 .dropdown-toggle {
@@ -157,7 +157,8 @@ hr {
 
 .chart-div {
   height: 35vh;
-  width: 90%;
+  width: 80%;
+  margin-bottom: 3vh;
 }
 
 a {
@@ -182,3 +183,31 @@ a {
 .radio-search-row{
   margin-left: 10px;
 }
+
+.logout{
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+  color: var(--turquoise);
+}
+
+.chart-header{
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.searchBar{
+  padding-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.carusel-description{
+  text-shadow: 2px 2px 0 #000000, 2px -2px 0 rgb(0, 0, 0), -2px 2px 0 #000103, -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000, -2px 0px 0 #000000, 0px -2px 0 #000103;
+}
+
+.d-block{
+  width: 100%;
+}
+
+/* .carousel-item{
+  width:40vw;
+} */

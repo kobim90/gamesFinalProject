@@ -45,11 +45,11 @@ function GCard(props) {
            <strong className="score">{isNaN(props.game.score) ? props.game.score : `Score ${(Math.round(props.game.score * 10) / 10)}`}</strong>
           </Col>
         </Row>
-        <Row className="justify-content-center">
+        {/* <Row className="justify-content-center">
           <span style={{ display: style}}>
            <FontAwesomeIcon icon={faPlusCircle} size="1x" />  Add
           </span>
-        </Row>
+        </Row> */}
       </Card.Body>
     </Card>
     </NavLink>

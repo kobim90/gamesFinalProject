@@ -6,12 +6,20 @@ import Col from "react-bootstrap/Col";
 
 function GenreCheckbox(props) {
   const [genres, setGenres] = useState([]);
+  // const [checkedGenres, setCheckedGenres] = useState({})
+
+  // function updateGenres({target: {value, checked}}) {
+  //   const newGen = {...checkedGenres}
+  //   newGen[value] ? delete newGen[value] : newGen[value] = checked
+  //   setCheckedGenres(newGen)
+  // }
 
   useEffect(() => {
     (async function fetchData() {
       const genres = await getGenresApi();
       setGenres(genres);
     })();
+    // props.validateInput({target: {name : "genres", value: checkedGenres}})
   }, []);
 
   return (
@@ -40,5 +48,5 @@ function GenreCheckbox(props) {
     </Form.Row>
   );
 }
-
+// = {props.checked.find(userGenre => userGenre.genreID === genre.genreID) ? "checked" : false}
 export default GenreCheckbox;
