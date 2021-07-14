@@ -1,6 +1,7 @@
 .btn-row{
     margin: 0;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
+    background-color: var(--greyCard);
 }
 
 .profile-btn{
@@ -26,6 +27,9 @@
     margin-bottom: 5vh;
 }
 
+.edit-card{
+    background-color: var(--greyCard);
+}
 /* .user-profile, .user-gameReviews{
     background-color: white;
 } */

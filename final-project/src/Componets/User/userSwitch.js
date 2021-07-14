@@ -1,9 +1,9 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import UserHome from "./userHome";
 import EditProfile from "./editProfile"
 import UserGames from "./userGames"
 import AddReview from "./addReview"
 import GamePage from "../gamePage";
+
 
 function UserSwitch() {
   return (
@@ -28,6 +28,9 @@ function UserSwitch() {
       </Route>
       <Route exact path="/game/:gameId">
                 <GamePage />
+      </Route>
+      <Route exact path="/user/editReview/:reviewId">
+        <AddReview />
       </Route>
     </Switch>
   );

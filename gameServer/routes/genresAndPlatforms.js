@@ -10,7 +10,12 @@ router.get("/", async (req, res) =>  {
 })
 
 router.get("/platforms", async (req, res) => {
-    const platforms = api.getPlatforms()
+    const platforms = await api.getPlatforms()
+    res.send(platforms)
+})
+
+router.get("/tags", async (req, res) => {
+    const platforms = await api.getReviewTags()
     res.send(platforms)
 })
 

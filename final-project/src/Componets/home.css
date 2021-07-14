@@ -7,7 +7,12 @@
 }
 
 body {
-  background-color: var(--tangerine);
+  /* background-image: url("https://wallpapertops.com/walldb/original/3/6/3/810170.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; */
+  background-color: var(--cream);
 }
 
 h5 {
@@ -78,7 +83,6 @@ h5 {
   width: 100vw;
 }
 
-
 .list-group-item {
   background-color: inherit;
   border-bottom: 1px solid var(--tangerine);
@@ -91,7 +95,6 @@ h5 {
 hr {
   background-color: var(--tangerine);
 }
-
 
 .link {
   color: var(--turquoise) !important;
@@ -180,31 +183,33 @@ a {
   width: 95%;
 }
 
-.radio-search-row{
+.radio-search-row {
   margin-left: 10px;
 }
 
-.logout{
+.logout {
   background-color: rgba(255, 0, 0, 0);
   border: none;
   color: var(--turquoise);
 }
 
-.chart-header{
+.chart-header {
   margin-top: 3vh;
   margin-bottom: 3vh;
 }
 
-.searchBar{
+.searchBar {
   padding-top: 3vh;
   margin-bottom: 3vh;
 }
 
-.carusel-description{
-  text-shadow: 2px 2px 0 #000000, 2px -2px 0 rgb(0, 0, 0), -2px 2px 0 #000103, -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000, -2px 0px 0 #000000, 0px -2px 0 #000103;
+.carusel-description {
+  text-shadow: 2px 2px 0 #000000, 2px -2px 0 rgb(0, 0, 0), -2px 2px 0 #000103,
+    -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,
+    -2px 0px 0 #000000, 0px -2px 0 #000103;
 }
 
-.d-block{
+.d-block {
   width: 100%;
 }
 

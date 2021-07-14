@@ -8,7 +8,7 @@ import GCard from "./card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import "./gamesStyle.css";
-import { getAllGamesApi, getGenresApi, getPlatformApi, getFilteredGenrePlatform, getSearchedGames } from "../DAL/api";
+import { getAllGamesApi, getGenresApi, getPlatform, getFilteredGenrePlatform, getSearchedGames } from "../DAL/api";
 
 function Games(props) {
   const [cardGames, setCardGames] = useState([]);
@@ -32,7 +32,7 @@ function Games(props) {
   async function fetchFirstData() {
     const games = await getAllGamesApi();
     const genres = await getGenresApi();
-    const platforms = await getPlatformApi();
+    const platforms = await getPlatform();
     setCardGames(games);
     setGenres(genres);
     setPlatforms(platforms);

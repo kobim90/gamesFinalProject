@@ -4,10 +4,13 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ErrorMessages from "../form/ErrorMsg";
-import { getGamesToReview, getTagsApi, postReview } from "../../DAL/api";
+import { getGamesToReview, getTagsApi, postReview, getReview } from "../../DAL/api";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function AddReview(props) {
+  const { reviewId } = useParams();
+  const [editData, setEditData] = useState("");
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
   const [reviewTags, setReviewTags] = useState([0, 0, 0, 0]);
@@ -127,15 +130,19 @@ function AddReview(props) {
     (async function getData() {
       const games = await getGamesToReview();
       const tags = await getTagsApi();
+      const reviewEditData = reviewId ? await getReview(reviewId) : "";
+      setEditData(reviewEditData)
       setGames(games);
       setTags(tags);
     })();
   }, []);
-
+console.log("reviewId ",editData);
   return (
     <Container>
       <h1>Let us know what you think!</h1>
-      <Form onSubmit={onSubmit} enctype="multipart/form-data">
+      <Form onSubmit={onSubmit}>
+        {
+          editData ? "" : 
         <Form.Group
           controlId="pick a game"
           as={Row}
@@ -173,6 +180,7 @@ function AddReview(props) {
             />
           </Col>
         </Form.Group>
+      }
         <Form.Group
           controlId="reviewTitle"
           as={Row}
@@ -190,6 +198,7 @@ function AddReview(props) {
               onChange={changeTcounter}
               name="title"
               onBlur={update}
+              defaultValue={editData ? editData.title : ""}
             />
             <small>Characters left: {titleCount}</small>
             <ErrorMessages errors={reviewData.title.errors} />
@@ -236,6 +245,7 @@ function AddReview(props) {
               onChange={changeBcounter}
               name="body"
               onBlur={update}
+              defaultValue={editData ? editData.body : ""}
             />
             <small>Characters left: {bodyCount}</small>
             <ErrorMessages errors={reviewData.body.errors} />
@@ -258,6 +268,7 @@ function AddReview(props) {
               onChange={changeCcounter}
               name="conclusion"
               onBlur={update}
+              defaultValue={editData ? editData.conclusion : ""}
             />
             <small>Characters left: {conclusionCount}</small>
             <ErrorMessages errors={reviewData.conclusion.errors} />
@@ -280,6 +291,7 @@ function AddReview(props) {
               max="10"
               name="score"
               onBlur={update}
+              defaultValue={editData ? editData.score : ""}
             />
             <ErrorMessages errors={reviewData.score.errors} />
           </Col>

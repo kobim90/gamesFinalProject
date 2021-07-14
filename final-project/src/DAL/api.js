@@ -1,637 +1,7 @@
 // Dal
 import axios from "axios";
 
-import axios2 from './fetcher';
-
-async function getPlatformApi() {
-  try {
-    const response = await Promise.resolve([
-      { platformID: 1, platformName: "Windows" },
-      { platformID: 2, platformName: "OSX" },
-      { platformID: 3, platformName: "Linux" },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGenresApi() {
-  try {
-    const response = await Promise.resolve([
-      { genreID: 1, genreName: "Action" },
-      { genreID: 2, genreName: "Adventure" },
-      { genreID: 3, genreName: "Indie" },
-      { genreID: 4, genreName: "RPG" },
-      { genreID: 5, genreName: "Shooters" },
-      { genreID: 6, genreName: "Simulation" },
-      { genreID: 7, genreName: "Sports & Racing" },
-      { genreID: 8, genreName: "Strategy" },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED kobi!");
-  }
-}
-
-async function getTagsApi() {
-  try {
-    const response = await Promise.resolve([
-      { tagID: 1, tagName: "Fun" },
-      { tagID: 2, tagName: "Casual" },
-      { tagID: 3, tagName: "HardCore" },
-      { tagID: 4, tagName: "Addicting" },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getSystemRequirmentsApi(gameID) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "16 GB",
-        graphics: "Nvidia GTX 1070 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 2,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 3,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "16 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 4,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 5,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 6,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 7,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "16 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 8,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 9,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 10,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-      {
-        gameID: 11,
-        system: "Windows 7, 8.1, or 10 (64-Bit versions)",
-        processor: "AMD FX-8350/Ryzen 5 1400 or Intel Core i5-3570/i7-3770",
-        memory: "8 GB",
-        graphics: "Nvidia GTX 770 4GB/AMD Radeon R9 290 4GB or better",
-        directx: "11c",
-        storage: "55 GB",
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGamePlatformsApi(gameID) {
-  try {
-    const response = await Promise.resolve([
-      { gameID: 1, platformID: 1 },
-      { gameID: 2, platformID: 1 },
-      { gameID: 3, platformID: 1 },
-      { gameID: 4, platformID: 1 },
-      { gameID: 4, platformID: 2 },
-      { gameID: 4, platformID: 3 },
-      { gameID: 4, platformID: 1 },
-      { gameID: 4, platformID: 2 },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGameGenresApi() {
-  try {
-    const response = await Promise.resolve([
-      { gameID: 1, genreID: 1 },
-      { gameID: 1, genreID: 4 },
-      { gameID: 2, genreID: 1 },
-      { gameID: 3, genreID: 5 },
-      { gameID: 3, genreID: 6 },
-      { gameID: 4, genreID: 1 },
-      { gameID: 4, genreID: 2 },
-      { gameID: 5, genreID: 3 },
-      { gameID: 5, genreID: 4 },
-    ]);
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGameApi(gameID) {
-  try {
-    const response = await Promise.resolve({
-      gameID: 1,
-      gameName: "Cyberpunk 2077",
-      publisher: "CD PROJEKT RED",
-      releaseDate: "2020-12-10",
-      description: "sadasda",
-      coverImg: "./Images/1.jpg",
-    });
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGameReviewsApi(gameID) {
-  try {
-    const response = await Promise.resolve([
-      {
-        reviewID: 1,
-        gameID: 1,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 5,
-        gameID: 1,
-        userID: 2,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 8,
-      },
-      {
-        reviewID: 15,
-        gameID: 1,
-        userID: 5,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 7,
-      },
-      {
-        reviewID: 2,
-        gameID: 2,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 16,
-        gameID: 2,
-        userID: 5,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 3,
-      },
-      {
-        reviewID: 24,
-        gameID: 2,
-        userID: 8,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 5,
-      },
-      {
-        reviewID: 6,
-        gameID: 3,
-        userID: 2,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 1,
-      },
-      {
-        reviewID: 17,
-        gameID: 3,
-        userID: 5,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 9,
-      },
-      {
-        reviewID: 30,
-        gameID: 4,
-        userID: 10,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 3,
-        gameID: 5,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 7,
-        gameID: 5,
-        userID: 2,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getUserReviewsApi(userID) {
-  try {
-    const response = await Promise.resolve([
-      {
-        reviewID: 1,
-        gameID: 1,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 2,
-        gameID: 2,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-      {
-        reviewID: 3,
-        gameID: 5,
-        userID: 1,
-        visability: 1,
-        title: "blala title",
-        body: "lalalal allalal body",
-        conclusion: "amazinf lalala conclusion",
-        score: 10,
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGamesByGenreApi(genre) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/4.jpg",
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGamesByDateApi(date) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/4.jpg",
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getGamesBySearchWordApi(serachWord) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/4.jpg",
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getUserGamesByGenreApi(genre, userID) {
-  try {
-    const response = await Promise.resolve([
-      {
-        gameID: 1,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/1.jpg",
-      },
-      {
-        gameID: 2,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/2.jpg",
-      },
-      {
-        gameID: 3,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/3.jpg",
-      },
-      {
-        gameID: 4,
-        gameName: "Cyberpunk 2077",
-        publisher: "CD PROJEKT RED",
-        releaseDate: "2020-12-10",
-        description: "sadasda",
-        coverImg: "./Images/4.jpg",
-      },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getUserRegisterApi(username, password) {
-  try {
-    const response = await Promise.resolve({
-      userID: 1,
-      username: "kobim1",
-      email: "kobim1@gmail.com",
-      img: "./Images/avatar.png",
-    });
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getUserApi() {
-  try {
-    const response = await Promise.resolve({
-      userID: 1,
-      username: "kobim1",
-      email: "kobim1@gmail.com",
-      img: "./Images/avatar.png",
-    });
-    // if (!response.ok) {
-    //   throw new Error("HTTP Error status = " + response.status);
-    // }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
-
-async function getReviewTagsApi(reviewID) {
-  try {
-    const response = await Promise.resolve([
-      { reviewID: 1, tagID: 1 },
-      { reviewID: 1, tagID: 2 },
-      { reviewID: 1, tagID: 3 },
-      { reviewID: 2, tagID: 1 },
-      { reviewID: 4, tagID: 3 },
-      { reviewID: 5, tagID: 1 },
-      { reviewID: 6, tagID: 2 },
-      { reviewID: 7, tagID: 2 },
-      { reviewID: 7, tagID: 4 },
-    ]);
-    if (!response.ok) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
-    return response;
-  } catch {
-    throw new Error("request FAILED!");
-  }
-}
+import axios2 from "./fetcher";
 
 async function getGamesByPagesApi(
   pageNumber = 1,
@@ -731,8 +101,8 @@ async function getAllGamesApi() {
     }
     const obj = await response.json();
     return obj;
-  } catch(e) {
-    console.log('get games', e);
+  } catch (e) {
+    console.log("get games", e);
     throw e;
   }
 }
@@ -796,7 +166,7 @@ async function getSortedScoreDate(sort, direction) {
     }
     const obj = await response.json();
     return obj;
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     throw new Error("request FAILED!");
   }
@@ -813,7 +183,7 @@ async function postLogin(username, password) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error) {    
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
@@ -837,31 +207,36 @@ async function getUsersGamesScores() {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error){
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
 
 async function getUsersSearchedGames(word, searchBy) {
   try {
-    const response = await axios2.get(`users/search?searchParam=${word}&searchBy=${searchBy}`, {});
+    const response = await axios2.get(
+      `users/search?searchParam=${word}&searchBy=${searchBy}`,
+      {}
+    );
     if (response.status !== 200) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error){
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
 
 async function getSearchedGames(word, searchBy) {
   try {
-    const response = await axios2.get(`/games/search?searchParam=${word}&searchBy=${searchBy}`);
+    const response = await axios2.get(
+      `/games/search?searchParam=${word}&searchBy=${searchBy}`
+    );
     if (response.status !== 200) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error){
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
@@ -870,7 +245,7 @@ async function postRegister(userData) {
   try {
     const response = await fetch("http://localhost:3200/register", {
       method: "POST",
-      body: userData
+      body: userData,
     });
 
     if (!response.ok) {
@@ -878,7 +253,7 @@ async function postRegister(userData) {
     }
     const obj = await response.json();
     return obj;
-  } catch(error) {    
+  } catch (error) {
     throw new Error("kobis error");
   }
 }
@@ -890,7 +265,7 @@ async function getUserByUsername(username) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error){
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
@@ -902,28 +277,30 @@ async function getUserProfileData() {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(error){
+  } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
 
 async function getGamesToReview() {
   try {
-    const response = await axios2.get("http://localhost:3200/users/gamesToReview");
+    const response = await axios2.get(
+      "http://localhost:3200/users/gamesToReview"
+    );
     if (response.status !== 200) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(e) {
-    console.log('get games', e);
+  } catch (e) {
+    console.log("get games", e);
     throw e;
   }
 }
 
 async function postReview(review) {
   try {
-    const finalTags = []
-    review.tags.value.map(tag => tag ? finalTags.push(tag) : "")
+    const finalTags = [];
+    review.tags.value.map((tag) => (tag ? finalTags.push(tag) : ""));
     const data = {
       gameID: review.gameID.value,
       title: review.title.value,
@@ -932,37 +309,79 @@ async function postReview(review) {
       score: +review.score.value,
       visability: review.visability.value,
       tagID: finalTags,
-    }
+    };
 
-    const response = await axios2.post("http://localhost:3200/users/addReview",{data});
+    const response = await axios2.post(
+      "http://localhost:3200/users/addReview",
+      { data }
+    );
     if (response.status !== 200) {
       throw new Error("HTTP Error status = " + response.status);
     }
     return response.data;
-  } catch(e) {
-    console.log('post review', e);
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function getGenresApi() {
+  try {
+    const response = await axios2.get("http://localhost:3200/genres");
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function getPlatform() {
+  try {
+    const response = await axios2.get("http://localhost:3200/genres/platforms");
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function getTagsApi() {
+  try {
+    const response = await axios2.get("http://localhost:3200/genres/tags");
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function getReview(reviewId) {
+  try {
+    console.log(reviewId);
+    const response = await axios2.get(
+      `http://localhost:3200/users/review/${reviewId}`
+    );
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("get review", e);
     throw e;
   }
 }
 
 export {
-  getPlatformApi,
-  getGenresApi,
   getAllGamesApi,
-  getTagsApi,
-  getSystemRequirmentsApi,
-  getGamePlatformsApi,
-  getGameGenresApi,
-  getGameApi,
-  getGameReviewsApi,
-  getUserReviewsApi,
-  getGamesByGenreApi,
-  getGamesByDateApi,
-  getGamesBySearchWordApi,
-  getUserGamesByGenreApi,
-  getUserApi,
-  getReviewTagsApi,
-  getUserRegisterApi,
   getUsersGamesApi,
   getGamesByPagesApi,
   getFilteredGenrePlatform,
@@ -978,4 +397,8 @@ export {
   getUserProfileData,
   getGamesToReview,
   postReview,
+  getGenresApi,
+  getPlatform,
+  getTagsApi,
+  getReview,
 };

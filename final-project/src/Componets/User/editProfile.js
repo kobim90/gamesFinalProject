@@ -12,6 +12,7 @@ import TextInput from "../form/textInput";
 import GenreCheckbox from "../form/genreCheckbox";
 import { validationChecks, validationObj } from "../form/validations";
 import Register from "../form/Register";
+import { NavLink } from "react-router-dom";
 
 import {
   faEdit,
@@ -231,7 +232,7 @@ function EditProfile() {
 
             {data.games.map((game) => (
               <>
-                <Col lg="6">
+                <Col lg="5" >
                   <Row className="justify-content-center align-items-center btn-row">
                     <Col lg="2" md="1" xs="2" className="profile-title-col ">
                       {/* <FontAwesomeIcon icon={faGamepad} /> */}
@@ -250,9 +251,11 @@ function EditProfile() {
                       <Button variant="secondary" className="profile-btn">
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
-                      <Button variant="info" className="profile-btn">
+                      <NavLink to={`/user/editReview/${data.reviews.find(review => review.gameID === game.gameID).reviewID}`}>
+                      {/* <Button variant="info" className="profile-btn"> */}
                         <FontAwesomeIcon icon={faEdit} />
-                      </Button>
+                      {/* </Button> */}
+                      </NavLink>
                     </Col>
                   </Row>
                   <Row className="justify-content-center">

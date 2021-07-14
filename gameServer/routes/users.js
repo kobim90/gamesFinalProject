@@ -100,6 +100,12 @@ router.get("/gamesToReview", auth.authUser, async (req, res) => {
   res.send(games);
 });
 
+router.get("/review/:reviewId", auth.authUser, async (req, res) => {
+  const reviewId = req.params.reviewId 
+  const review = await api.geReview(reviewId);
+  res.send(review);
+});
+
 // edit users details, geting the userId and email |/& password |/& img |/& genreid[i]
 router.put("/editUser", async (req, res) => {
   const userID = req.query.userId;
