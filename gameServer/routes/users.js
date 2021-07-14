@@ -86,14 +86,18 @@ router.post("/addGame", async (req, res) => {
 });
 
 // add review to a game, gets: gameId, title, tag[i], body, conclusion, score, userId
-router.post("/addReview", async (req, res) => {
-  const userID = req.query.userId;
-  const gameID = req.query.gameId;
-  let review = req.query;
-  delete review.gameId;
-  delete review.userId;
-  api.setReview(userID, gameID, review);
-  res.send("Succese");
+router.post("/addReview",auth.authUser, async (req, res) => {
+  const { cookies } = req;
+  const userId = JSON.parse(cookies.user);
+  const ans = await api.postReview(userId.userID, req.body.data);
+  res.send(ans);
+});
+
+router.get("/gamesToReview", auth.authUser, async (req, res) => {
+  const { cookies } = req;
+  const user = JSON.parse(cookies.user);
+  const games = await api.getGamesToReview(user.userID);
+  res.send(games);
 });
 
 // edit users details, geting the userId and email |/& password |/& img |/& genreid[i]

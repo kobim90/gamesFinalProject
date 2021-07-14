@@ -731,8 +731,9 @@ async function getAllGamesApi() {
     }
     const obj = await response.json();
     return obj;
-  } catch {
-    throw new Error("request FAILED!");
+  } catch(e) {
+    console.log('get games', e);
+    throw e;
   }
 }
 
@@ -795,7 +796,8 @@ async function getSortedScoreDate(sort, direction) {
     }
     const obj = await response.json();
     return obj;
-  } catch {
+  } catch(e) {
+    console.log(e);
     throw new Error("request FAILED!");
   }
 }
@@ -905,6 +907,43 @@ async function getUserProfileData() {
   }
 }
 
+async function getGamesToReview() {
+  try {
+    const response = await axios2.get("http://localhost:3200/users/gamesToReview");
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(e) {
+    console.log('get games', e);
+    throw e;
+  }
+}
+
+async function postReview(review) {
+  try {
+    const finalTags = []
+    review.tags.value.map(tag => tag ? finalTags.push(tag) : "")
+    const data = {
+      gameID: review.gameID.value,
+      title: review.title.value,
+      body: review.body.value,
+      conclusion: review.conclusion.value,
+      score: +review.score.value,
+      visability: review.visability.value,
+      tagID: finalTags,
+    }
+
+    const response = await axios2.post("http://localhost:3200/users/addReview",{data});
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch(e) {
+    console.log('post review', e);
+    throw e;
+  }
+}
 
 export {
   getPlatformApi,
@@ -937,4 +976,6 @@ export {
   postRegister,
   getUserByUsername,
   getUserProfileData,
+  getGamesToReview,
+  postReview,
 };

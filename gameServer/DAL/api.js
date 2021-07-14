@@ -5,13 +5,13 @@ function properDate(date) {
     date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
   );
 }
-
+// ucWiv9aSqlP
 async function getGames() {
   try {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(`
@@ -40,8 +40,8 @@ async function getGames() {
       }
     });
     return finalResult;
-  } catch {
-    console.log("kobis error");
+  } catch (err) {
+    console.log("getGames error", err);
   }
 }
 
@@ -50,7 +50,7 @@ async function getFilteredGames(filterBy) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     let where = filterBy.genreID || filterBy.platformID ? "where" : "";
@@ -125,7 +125,7 @@ async function getAllGameDetails(gameId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -180,7 +180,7 @@ async function getGameReviews(gameId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -207,7 +207,7 @@ async function getGamesSorted(sortBy, direction = "desc") {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(`
@@ -236,8 +236,8 @@ async function getGamesSorted(sortBy, direction = "desc") {
       }
     });
     return finalResult.slice(0, 7);
-  } catch {
-    console.log("kobis error");
+  } catch (e) {
+    console.log("gesortedtGames error", e);
   }
 }
 
@@ -246,7 +246,7 @@ async function postLogin(username, password) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -267,7 +267,7 @@ async function getUsersGames(userId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -309,7 +309,7 @@ async function getUserAuth(userId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -329,7 +329,7 @@ async function getUsersScores(userId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -365,7 +365,7 @@ async function getGameSearch(param, searchBy, userId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
 
@@ -439,7 +439,7 @@ async function addUser(userData, img) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const sql = `insert into users (username, password, email, img)
@@ -455,6 +455,11 @@ async function addUser(userData, img) {
 
     const [result2] = await connection.execute(sql2);
 
+    sql3 = ` insert into favorite_games
+            values (${userId}, ${review.gameID});`;
+
+    const [result3] = await connection.execute(sql3);
+
     return result1;
   } catch {
     console.log("kobis register error");
@@ -466,7 +471,7 @@ async function getUserByUsername(username) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
     const [result] = await connection.execute(
@@ -486,10 +491,10 @@ async function getUserProfileData(userId) {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "ucWiv9aSqlP",
+      password: "karok12K",
       database: "gamereviews",
     });
-    
+
     const userSql = `SELECT userID, username, email, img from users where userID = ?;`;
 
     const userDetails = await connection.execute(userSql, [userId]);
@@ -510,9 +515,62 @@ async function getUserProfileData(userId) {
       reviews: userReviews[0],
       games: userGames,
     };
-    return result
+    return result;
   } catch {
     console.log("kobis error");
+  }
+}
+
+async function getGamesToReview(userId) {
+  try {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "karok12K",
+      database: "gamereviews",
+    });
+    sql = `
+    select g.gameID, g.gameName
+    from games g left join (select *
+    from reviews where userID=${userId}) u on g.gameID=u.gameID
+    where reviewID is null;`;
+
+    const [result] = await connection.execute(sql);
+
+    return result;
+  } catch (err) {
+    console.log("getuserGames error", err);
+  }
+}
+
+async function postReview(userId, review) {
+  try {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "karok12K",
+      database: "gamereviews",
+    });
+    sql = `
+      INSERT INTO reviews (userID, gameID, visability, title, body, conclusion, score)
+      VALUES (${userId}, ${review.gameID}, ${review.visability}, "${review.title}", "${review.body}", "${review.conclusion}", "${review.score}");`;
+    console.log(review);
+    const [result1] = await connection.execute(sql);
+    console.log(result1);
+    let sql2 = "insert into review_tags values ";
+    review.tagID.forEach((id, index) => {
+      if (index < review.tagID.length - 1) {
+        sql2 += `(${result1.insertId}, ${id}), `;
+      } else sql2 += `(${result1.insertId}, ${id});`;
+    });
+
+    console.log(sql2);
+
+    const result2 = await connection.execute(sql2);
+
+    return { respone: true };
+  } catch (err) {
+    console.log("getuserGames error", err);
   }
 }
 
@@ -530,4 +588,6 @@ module.exports = {
   addUser,
   getUserByUsername,
   getUserProfileData,
+  getGamesToReview,
+  postReview,
 };
