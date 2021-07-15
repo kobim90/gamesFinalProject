@@ -380,6 +380,34 @@ async function getReview(reviewId) {
   }
 }
 
+async function postReview(review) {
+  try {
+    const finalTags = [];
+    review.tags.value.map((tag) => (tag ? finalTags.push(tag) : ""));
+    const data = {
+      gameID: review.gameID.value,
+      title: review.title.value,
+      body: review.body.value,
+      conclusion: review.conclusion.value,
+      score: +review.score.value,
+      visability: review.visability.value,
+      tagID: finalTags,
+    };
+
+    const response = await axios2.post(
+      "http://localhost:3200/users/addReview",
+      { data }
+    );
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
 export {
   getAllGamesApi,
   getUsersGamesApi,

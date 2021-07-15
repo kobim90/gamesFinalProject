@@ -4,62 +4,74 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ErrorMessages from "../form/ErrorMsg";
-import { getGamesToReview, getTagsApi, postReview, getReview } from "../../DAL/api";
+import {
+  getGamesToReview,
+  getTagsApi,
+  postReview,
+  getReview,
+} from "../../DAL/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function AddReview(props) {
   const { reviewId } = useParams();
-  const [editData, setEditData] = useState("");
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
-  const [reviewTags, setReviewTags] = useState([0, 0, 0, 0]);
-  const [bodyCount, setBodyCount] = useState(2000);
-  const [titleCount, setTitleCount] = useState(100);
-  const [conclusionCount, setConclusionCount] = useState(400);
+  // const [reviewTags, setReviewTags] = useState([0, 0, 0, 0]);
   const [reviewData, setReviewData] = useState({
     gameID: {
-      value: "",
+      value: 0,
       errors: [],
+      required: true,
     },
     title: {
       max: 100,
       value: "",
       errors: [],
+      required: true,
     },
     body: {
       max: 2000,
       value: "",
       errors: [],
+      required: true,
     },
     conclusion: {
       max: 400,
       value: "",
       errors: [],
+      required: true,
     },
     score: {
       max: 10,
       value: "",
       errors: [],
+      required: true,
     },
     tags: {
-      value: [],
+      value: [0,0,0,0],
       errors: [],
+      required: false,
     },
     visability: {
       value: 1,
       errors: [],
+      required: false,
     },
   });
+  const [count, setCount] = useState({
+    title: 200,
+    body: 2000,
+    conclusion: 400,
+  });
 
-  function changeBcounter({ target: { value } }) {
-    setBodyCount(2000 - value.length);
-  }
-  function changeTcounter({ target: { value } }) {
-    setTitleCount(100 - value.length);
-  }
-  function changeCcounter({ target: { value } }) {
-    setConclusionCount(400 - value.length);
+  function updateValAndCounter({ target: { name, value, checked } }) {
+    if (reviewData[name].max) {
+      const counter = { ...count };
+      counter[name] = reviewData[name].max - value.length;
+      setCount(counter);
+    }
+    update(name, value);
   }
 
   function updateVisability({ target: { name, value, checked } }) {
@@ -74,11 +86,10 @@ function AddReview(props) {
   }
 
   function updateTags({ target: { name, value, checked } }) {
-    const tags = [...reviewTags];
+    const tags = [...reviewData.tags.value];
     if (checked) {
       tags[value - 1] = value;
     } else tags[value] = 0;
-    setReviewTags(tags);
     setReviewData({ ...reviewData, [name]: { value: tags } });
   }
 
@@ -90,15 +101,19 @@ function AddReview(props) {
     if (reviewData[name].max) {
       if (value.length > reviewData[name].max) {
         showErrors.push(`${name} passed the max characters allowed`);
-      }else if (name === "score" && value > reviewData[name].max) {
+      } else if (name === "score" && value > reviewData[name].max) {
         showErrors.push(`${name} must be between 0-10`);
       }
     }
     return showErrors;
   }
 
-  function update({ target: { name, value } }) {
-    const showErrors = validate(name, value);
+  function update(name, value) {
+    let showErrors = [];
+    if (reviewData[name].required) {
+      showErrors = validate(name, value);
+    }
+
     setReviewData((prevData) => ({
       ...prevData,
       [name]: {
@@ -113,16 +128,18 @@ function AddReview(props) {
     e.preventDefault();
     let errorsCount = 0;
     for (const key in reviewData) {
-      if (key !== "tags" && key !== "visability") {
-        update({ target: { name: key, value: reviewData[key].value } });
+      if (reviewData[key].required) {
+        update(key, reviewData[key]);
         if (reviewData[key].errors.length > 0 || !reviewData[key].value) {
           errorsCount++;
         }
       }
     }
-    
+
     if (!errorsCount) {
-      postReview(reviewData)
+      if (reviewId) {
+        console.log(reviewData);
+      } else postReview(reviewData);
     }
   };
 
@@ -131,56 +148,67 @@ function AddReview(props) {
       const games = await getGamesToReview();
       const tags = await getTagsApi();
       const reviewEditData = reviewId ? await getReview(reviewId) : "";
-      setEditData(reviewEditData)
+      if (reviewEditData) {
+        for (const name in reviewData) {
+          setReviewData((prevData) => ({
+            ...prevData,
+            [name]: {
+              ...reviewData[name],
+              value: reviewEditData[name],
+            },
+          }));
+        }
+      }
       setGames(games);
       setTags(tags);
     })();
   }, []);
-console.log("reviewId ",editData);
+ console.log(reviewData);
   return (
     <Container>
       <h1>Let us know what you think!</h1>
       <Form onSubmit={onSubmit}>
-        {
-          editData ? "" : 
-        <Form.Group
-          controlId="pick a game"
-          as={Row}
-          className="justify-content-center"
-        >
-          <Col lg="2">
-            <Form.Label>
-              <strong>Pick a game:</strong>
-            </Form.Label>
-          </Col>
-          <Col lg="4">
-            <Form.Control
-              as="select"
-              defaultValue="0"
-              name="gameID"
-              onChange={update}
-            >
-              <option>Choose...</option>
-              {games.map((game, index) => (
-                <option key={index} value={game.gameID}>
-                  {game.gameName}
-                </option>
-              ))}
-            </Form.Control>
-            <ErrorMessages errors={reviewData.gameID.errors} />
-          </Col>
-          <Col lg="2">
-            <Form.Check
-              inline
-              type="checkbox"
-              label="Private review"
-              value={1}
-              name="visability"
-              onClick={updateVisability}
-            />
-          </Col>
-        </Form.Group>
-      }
+        {reviewId ? (
+          ""
+        ) : (
+          <Form.Group
+            controlId="pick a game"
+            as={Row}
+            className="justify-content-center"
+          >
+            <Col lg="2">
+              <Form.Label>
+                <strong>Pick a game:</strong>
+              </Form.Label>
+            </Col>
+            <Col lg="4">
+              <Form.Control
+                as="select"
+                name="gameID"
+                onChange={updateValAndCounter}
+                defaultValue="0"
+              >
+                <option>Choose...</option>
+                {games.map((game, index) => (
+                  <option key={index} value={game.gameID}>
+                    {game.gameName}
+                  </option>
+                ))}
+              </Form.Control>
+              <ErrorMessages errors={reviewData.gameID.errors} />
+            </Col>
+            <Col lg="2">
+              <Form.Check
+                inline
+                type="checkbox"
+                label="Private review"
+                value={1}
+                name="visability"
+                onClick={updateVisability}
+              />
+            </Col>
+          </Form.Group>
+        )}
         <Form.Group
           controlId="reviewTitle"
           as={Row}
@@ -195,12 +223,12 @@ console.log("reviewId ",editData);
             <Form.Control
               type="text"
               placeholder="title here.."
-              onChange={changeTcounter}
+              onChange={updateValAndCounter}
               name="title"
-              onBlur={update}
-              defaultValue={editData ? editData.title : ""}
+              value={reviewData.title.value}
+              defaultValue=""
             />
-            <small>Characters left: {titleCount}</small>
+            <small>Characters left: {count.title}</small>
             <ErrorMessages errors={reviewData.title.errors} />
           </Col>
         </Form.Group>
@@ -224,6 +252,13 @@ console.log("reviewId ",editData);
                 value={tag.tagID}
                 name="tags"
                 onBlur={updateTags}
+                defaultChecked={
+                  // reviewData.tags.value.length ? 
+                  reviewData.tags.value.find((val) => val === tag.tagID)
+                      ? true
+                      : false
+                    // : false
+                }
               />
             ))}
           </Col>
@@ -242,12 +277,12 @@ console.log("reviewId ",editData);
             <Form.Control
               as="textarea"
               rows={5}
-              onChange={changeBcounter}
+              onChange={updateValAndCounter}
               name="body"
-              onBlur={update}
-              defaultValue={editData ? editData.body : ""}
+              value={reviewData.body.value}
+              defaultValue=""
             />
-            <small>Characters left: {bodyCount}</small>
+            <small>Characters left: {count.body}</small>
             <ErrorMessages errors={reviewData.body.errors} />
           </Col>
         </Form.Group>
@@ -265,12 +300,12 @@ console.log("reviewId ",editData);
             <Form.Control
               as="textarea"
               rows={2}
-              onChange={changeCcounter}
+              onChange={updateValAndCounter}
               name="conclusion"
-              onBlur={update}
-              defaultValue={editData ? editData.conclusion : ""}
+              value={reviewData.conclusion.value}
+              defaultValue=""
             />
-            <small>Characters left: {conclusionCount}</small>
+            <small>Characters left: {count.conclusion}</small>
             <ErrorMessages errors={reviewData.conclusion.errors} />
           </Col>
         </Form.Group>
@@ -290,8 +325,9 @@ console.log("reviewId ",editData);
               min="0"
               max="10"
               name="score"
-              onBlur={update}
-              defaultValue={editData ? editData.score : ""}
+              onChange={updateValAndCounter}
+              // defaultValue={editData ? editData.score : ""}
+              value={reviewData.score.value}
             />
             <ErrorMessages errors={reviewData.score.errors} />
           </Col>

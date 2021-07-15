@@ -51,7 +51,6 @@ function EditProfile() {
         : formData.append("img", img);
     }
     formData.append("genres", genres);
-    console.log(...formData);
     // const test = await postRegister(formData);
   }
 
@@ -115,8 +114,6 @@ function EditProfile() {
       setData(data);
     })();
   }, []);
-  console.log(data);
-  console.log(userData);
   return (
     <>
       <Row className="justify-content-around edit-row">

@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "ucWiv9aSqlP",
+  password: "karok12K",
   database: "gamereviews",
 });
 const promisePool = pool.promise();
@@ -535,9 +535,13 @@ async function geReview(reviewId) {
   try {
     sql = `select * from reviews where reviewID=${reviewId}`;
     const [result1] = await promisePool.execute(sql);
+    sql2 = `select tagID from review_tags where reviewID=${reviewId}`
+    const [result2] = await promisePool.execute(sql2);
+    const tags = result2.map(tag => tag.tagID)
     pool.releaseConnection(pool)
     const [review] = [...result1]
-
+    review.tags = tags
+    console.log(review);
     return review;
   } catch (err) {
     console.log("getReview error", err);
