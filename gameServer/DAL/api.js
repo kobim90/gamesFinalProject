@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "karok12K",
+  password: "ucWiv9aSqlP",
   database: "gamereviews",
 });
 const promisePool = pool.promise();
@@ -483,7 +483,6 @@ async function postReview(userId, review) {
         sql2 += `(${result1.insertId}, ${id}), `;
       } else sql2 += `(${result1.insertId}, ${id});`;
     });
-
     const result2 = await promisePool.execute(sql2);
 
     const sql3 = `insert into favorite_games values (${userId}, ${review.gameID}, 1)`
@@ -541,10 +540,38 @@ async function geReview(reviewId) {
     pool.releaseConnection(pool)
     const [review] = [...result1]
     review.tags = tags
-    console.log(review);
+    // console.log(review);
     return review;
   } catch (err) {
     console.log("getReview error", err);
+  }
+}
+
+async function putReview(reviewId, reviewData) {
+  try {
+    sql = `update reviews set title="${reviewData.title}", body="${reviewData.body}", conclusion="${reviewData.conclusion}",
+    score="${reviewData.score}" where reviewID = ${reviewId}`
+
+    const [result1] = await promisePool.execute(sql);
+
+    const sql2 = `delete from review_tags where reviewID=${reviewId}; `;
+
+    const result2 = await promisePool.execute(sql2);
+
+    let sql3= `insert into review_tags values `
+    reviewData.tagID.forEach((id, index) => {
+      if (index < reviewData.tagID.length - 1) {
+        sql3 += `(${reviewId}, ${id}), `;
+      } else sql3 += `(${reviewId}, ${id});`;
+    });
+
+    const result3 = await promisePool.execute(sql3);
+  
+
+    pool.releaseConnection(pool)
+    return { respone: true };
+  } catch (err) {
+    console.log("putReview error", err);
   }
 }
 
@@ -567,5 +594,6 @@ module.exports = {
   getGenre,
   getPlatforms,
   getReviewTags,
-  geReview
+  geReview,
+  putReview
 };

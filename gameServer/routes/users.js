@@ -106,9 +106,10 @@ router.get("/review/:reviewId", auth.authUser, async (req, res) => {
   res.send(review);
 });
 
-router.get("/updateReview/:reviewId", auth.authUser, async (req, res) => {
+// update review
+router.put("/review/:reviewId", auth.authUser, async (req, res) => {
   const reviewId = req.params.reviewId 
-  const review = await api.geReview(reviewId);
+  const review = await api.putReview(reviewId, req.body.data);
   res.send(review);
 });
 

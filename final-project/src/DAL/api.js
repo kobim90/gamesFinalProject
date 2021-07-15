@@ -1,5 +1,4 @@
 // Dal
-import axios from "axios";
 
 import axios2 from "./fetcher";
 
@@ -299,16 +298,14 @@ async function getGamesToReview() {
 
 async function postReview(review) {
   try {
-    const finalTags = [];
-    review.tags.value.map((tag) => (tag ? finalTags.push(tag) : ""));
     const data = {
       gameID: review.gameID.value,
       title: review.title.value,
       body: review.body.value,
       conclusion: review.conclusion.value,
-      score: +review.score.value,
+      score: review.score.value,
       visability: review.visability.value,
-      tagID: finalTags,
+      tagID: review.tags.value,
     };
 
     const response = await axios2.post(
@@ -380,22 +377,20 @@ async function getReview(reviewId) {
   }
 }
 
-async function postReview(review) {
+async function putReview(review, reviewId) {
   try {
-    const finalTags = [];
-    review.tags.value.map((tag) => (tag ? finalTags.push(tag) : ""));
     const data = {
       gameID: review.gameID.value,
       title: review.title.value,
       body: review.body.value,
       conclusion: review.conclusion.value,
-      score: +review.score.value,
+      score: review.score.value,
       visability: review.visability.value,
-      tagID: finalTags,
-    };
+      tagID: review.tags.value,
+    }
 
-    const response = await axios2.post(
-      "http://localhost:3200/users/addReview",
+    const response = await axios2.put(
+      `http://localhost:3200/users/review/${reviewId}`,
       { data }
     );
     if (response.status !== 200) {
@@ -403,7 +398,7 @@ async function postReview(review) {
     }
     return response.data;
   } catch (e) {
-    console.log("post review", e);
+    console.log("put review", e);
     throw e;
   }
 }
@@ -429,4 +424,5 @@ export {
   getPlatform,
   getTagsApi,
   getReview,
+  putReview,
 };

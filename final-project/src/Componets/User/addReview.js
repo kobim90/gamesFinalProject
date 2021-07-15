@@ -9,6 +9,7 @@ import {
   getTagsApi,
   postReview,
   getReview,
+  putReview,
 } from "../../DAL/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -17,7 +18,6 @@ function AddReview(props) {
   const { reviewId } = useParams();
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
-  // const [reviewTags, setReviewTags] = useState([0, 0, 0, 0]);
   const [reviewData, setReviewData] = useState({
     gameID: {
       value: 0,
@@ -49,7 +49,7 @@ function AddReview(props) {
       required: true,
     },
     tags: {
-      value: [0,0,0,0],
+      value: [],
       errors: [],
       required: false,
     },
@@ -86,10 +86,13 @@ function AddReview(props) {
   }
 
   function updateTags({ target: { name, value, checked } }) {
-    const tags = [...reviewData.tags.value];
+    let tags = [...reviewData.tags.value];
     if (checked) {
-      tags[value - 1] = value;
-    } else tags[value] = 0;
+      tags.push(parseInt(value));
+    } else {
+      const index = tags.findIndex( tag => tag === value)
+      tags.splice(index, 1)
+    }
     setReviewData({ ...reviewData, [name]: { value: tags } });
   }
 
@@ -138,8 +141,9 @@ function AddReview(props) {
 
     if (!errorsCount) {
       if (reviewId) {
-        console.log(reviewData);
-      } else postReview(reviewData);
+        putReview(reviewData, reviewId);
+      } 
+      else postReview(reviewData);
     }
   };
 
@@ -163,7 +167,7 @@ function AddReview(props) {
       setTags(tags);
     })();
   }, []);
- console.log(reviewData);
+
   return (
     <Container>
       <h1>Let us know what you think!</h1>
