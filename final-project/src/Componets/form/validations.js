@@ -57,6 +57,7 @@ const validationObj = {
   },
 };
 
+
 async function validationChecks(name, value, userData, type) {
   const showErrors = [];
   const { validations } = userData[name];

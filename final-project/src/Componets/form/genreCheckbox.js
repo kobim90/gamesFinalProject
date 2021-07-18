@@ -30,14 +30,15 @@ function GenreCheckbox(props) {
         {genres.map((genre, index) => (
           <Col lg="4" md="6" sm="6">
             <div className="mb-3">
-              <Form.Check type="checkbox" id="check-api-checkbox">
+              <Form.Check type="checkbox" id={`check-api-checkbox${index}`}>
                 <Form.Check.Input
                   name={genre.genreName}
                   type="checkbox"
                   isValid
                   key={index}
                   onChange={props.validateInput}
-                  value={genre.genreID}
+                  value={parseInt(genre.genreID)}
+                  defaultChecked={props.checked ? props.checked.find( check => check.genreID === genre.genreID) : false}
                 />
                 <Form.Check.Label>{genre.genreName}</Form.Check.Label>
               </Form.Check>

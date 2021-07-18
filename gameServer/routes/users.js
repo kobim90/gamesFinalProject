@@ -30,6 +30,14 @@ router.get("/games", auth.authUser, async (req, res) => {
   res.send(usersGames);
 });
 
+//get users favorite Games ids
+router.get("/favorite", auth.authUser, async (req, res) => {
+  const { cookies } = req;
+  const user = JSON.parse(cookies.user);
+  const usersGames = await api.getUserGameList(user.userID);
+  res.send(usersGames);
+});
+
 router.get("/scores", auth.authUser, async (req, res) => {
   try {
     const { cookies } = req;
@@ -78,11 +86,19 @@ router.get("/search", auth.authUser, async (req, res) => {
 });
 
 // add game to users favorite by gameId and userId
-router.post("/addGame", async (req, res) => {
-  const gameID = req.query.gameId;
-  const userID = req.query.useId;
-  api.addUserGame(gameID, userID);
-  res.send("Succese");
+router.post("/addGame/:gameId", auth.authUser, async (req, res) => {
+  const { cookies } = req;
+  const userId = JSON.parse(cookies.user);
+  const ans = await api.postUserGame(userId.userID, req.params.gameId);
+  res.send(ans);
+});
+
+// delete game from users favorite by gameId and userId
+router.delete("/addGame/:gameId", auth.authUser, async (req, res) => {
+  const { cookies } = req;
+  const userId = JSON.parse(cookies.user);
+  const ans = await api.deleteGameFavorite(userId.userID, req.params.gameId);
+  res.send(ans);
 });
 
 // add review to a game, gets: gameId, title, tag[i], body, conclusion, score, userId
@@ -102,7 +118,7 @@ router.get("/gamesToReview", auth.authUser, async (req, res) => {
 
 router.get("/review/:reviewId", auth.authUser, async (req, res) => {
   const reviewId = req.params.reviewId 
-  const review = await api.geReview(reviewId);
+  const review = await api.getReview(reviewId);
   res.send(review);
 });
 

@@ -5,11 +5,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import SplitButton from "react-bootstrap/SplitButton";
 import Form from "react-bootstrap/Form";
-import { getSearchedGames } from "../DAL/api";
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { faSearch, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { useState} from "react";
 
 function SearchBar(props) {
   const [searchBy, setSearchBy] = useState("g.gameName");
@@ -19,7 +19,8 @@ function SearchBar(props) {
     if (searchParams) {
       const newGames = await props.serverCall(searchParams, searchBy);
       props.updateGames(newGames);
-    }else props.updateGames(await props.reset())
+    }
+    else props.reset()
   }
 
   return (
@@ -42,9 +43,6 @@ function SearchBar(props) {
           >
             Year
           </Dropdown.Item>
-          {/* <Dropdown.Item href="#/action-3" onClick={() => setSearchBy("Date")}>
-            Realease Date
-          </Dropdown.Item> */}
         </SplitButton>
         <FormControl
         placeholder="Search..."
@@ -62,6 +60,15 @@ function SearchBar(props) {
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </InputGroup.Append>
+        <InputGroup.Append>
+          <Button
+            variant="outline-secondary"
+            className="searchBtn"
+            onClick={props.reset}
+          >
+            <FontAwesomeIcon icon={faSyncAlt} />
+          </Button>
+        </InputGroup.Append>
         {searchBy === "Genre" && (
           <Row className="align-items-end radio-search-row">
             <Form.Check inline label="Any" name="genre" type="radio" />
@@ -69,12 +76,6 @@ function SearchBar(props) {
           </Row>
         )}
       </InputGroup>
-
-      {/* <ListGroup className="w-75 mx-auto">
-        <ListGroup.Item>
-          <SearchCard game={cardGames1[0]} />
-        </ListGroup.Item>
-      </ListGroup> */}
     </Row>
   );
 }

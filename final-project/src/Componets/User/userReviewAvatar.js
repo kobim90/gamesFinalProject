@@ -9,7 +9,7 @@ function Avatar(props) {
     <Container>
       <Row>
         <Col xs={2} md={2} lg={4}>
-          <Row><Image src={props.details.img} roundedCircle fluid/></Row>
+          <Row><Image src={props.details.img} roundedCircle fluid className="review-profile-img"/></Row>
           <Row><h6>{props.details.username}</h6></Row>
           <Row>Games: {props.details.games}</Row>
           <Row>Reviews: {props.details.reviews}</Row>

@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ErrorMessages from "../form/ErrorMsg";
+import Complete from "../Complete";
 import {
   getGamesToReview,
   getTagsApi,
@@ -15,6 +16,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function AddReview(props) {
+  const [complete, setComplete] = useState("")
   const { reviewId } = useParams();
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
@@ -65,7 +67,7 @@ function AddReview(props) {
     conclusion: 400,
   });
 
-  function updateValAndCounter({ target: { name, value, checked } }) {
+  function updateValAndCounter({ target: { name, value} }) {
     if (reviewData[name].max) {
       const counter = { ...count };
       counter[name] = reviewData[name].max - value.length;
@@ -108,6 +110,7 @@ function AddReview(props) {
         showErrors.push(`${name} must be between 0-10`);
       }
     }
+    
     return showErrors;
   }
 
@@ -116,7 +119,7 @@ function AddReview(props) {
     if (reviewData[name].required) {
       showErrors = validate(name, value);
     }
-
+   
     setReviewData((prevData) => ({
       ...prevData,
       [name]: {
@@ -130,20 +133,24 @@ function AddReview(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     let errorsCount = 0;
-    for (const key in reviewData) {
+    for (const key in reviewData) {      
       if (reviewData[key].required) {
-        update(key, reviewData[key]);
+        update(key, reviewData[key].value);
         if (reviewData[key].errors.length > 0 || !reviewData[key].value) {
           errorsCount++;
         }
       }
     }
-
     if (!errorsCount) {
       if (reviewId) {
         putReview(reviewData, reviewId);
+        setComplete(<Complete msg="Edit Review" />)
       } 
-      else postReview(reviewData);
+      else {
+        postReview(reviewData);
+        setComplete(<Complete msg="Review" />)
+      }
+
     }
   };
 
@@ -168,13 +175,20 @@ function AddReview(props) {
     })();
   }, []);
 
+
   return (
     <Container>
-      <h1>Let us know what you think!</h1>
-      <Form onSubmit={onSubmit}>
+      {
+        complete ? complete :  
+      <>
+      <h1 className="h1-register">Let us know what you think!</h1>
+      <Form onSubmit={onSubmit} className="reg-form">
+        <Row className="justify-content-center">
+        <Col lg="8" ><hr></hr></Col>
+        </Row>
         {reviewId ? (
           ""
-        ) : (
+        ) : <>
           <Form.Group
             controlId="pick a game"
             as={Row}
@@ -212,7 +226,7 @@ function AddReview(props) {
               />
             </Col>
           </Form.Group>
-        )}
+        </>}
         <Form.Group
           controlId="reviewTitle"
           as={Row}
@@ -257,11 +271,9 @@ function AddReview(props) {
                 name="tags"
                 onBlur={updateTags}
                 defaultChecked={
-                  // reviewData.tags.value.length ? 
                   reviewData.tags.value.find((val) => val === tag.tagID)
                       ? true
                       : false
-                    // : false
                 }
               />
             ))}
@@ -330,18 +342,25 @@ function AddReview(props) {
               max="10"
               name="score"
               onChange={updateValAndCounter}
-              // defaultValue={editData ? editData.score : ""}
               value={reviewData.score.value}
             />
             <ErrorMessages errors={reviewData.score.errors} />
           </Col>
         </Form.Group>
         <Row className="justify-content-center">
-          <Button variant="outline-info" type="submit">
+          <Col lg="8" className="d-flex justify-content-end">
+          <Button variant="outline-info" type="submit" className="submit-btn">
             Submit
           </Button>
+          
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+        <Col lg="8" ><hr></hr></Col>
         </Row>
       </Form>
+      </>
+      }
     </Container>
   );
 }

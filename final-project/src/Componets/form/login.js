@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,9 +12,11 @@ import Cookies from "js-cookie";
 
 import { faUser, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import AuthApi from "../../DAL/AuthApi";
+import userApi from "../../DAL/userApi"
 
 function Login(props) {
   const Auth = React.useContext(AuthApi);
+  const User = React.useContext(userApi);
   const [userData, setUserData] = useState({
     username: { ...validationObj["username"] },
     password: { ...validationObj["password"] },
@@ -27,20 +29,27 @@ function Login(props) {
         userData["username"].value,
         userData["password"].value
       );
-      if (res.data) {
+      if (res.data.username) {
         props.showLogin(false);
         setLoginError("");
         Auth.setAuth(true);
+        User.setUser(Cookies.getJSON("user").gameID)
+        setUserData(
+          {
+            username: { ...validationObj["username"] },
+            password: { ...validationObj["password"] },
+          }
+        )
       } else {
         setLoginError("Password or username are incorrect try again");
       }
     } catch (error) {
-      console.log('EEE', error);
       setLoginError(error.message);
     }
   }
 
   async function validation({ target: { value, name } }) {
+    console.log("value: ",value);
     const [showErrors, background] = await validationChecks(name, value, userData);
     setUserData((prevData) => ({
       ...prevData,
@@ -57,6 +66,7 @@ function Login(props) {
     e.preventDefault();
     let errorsCount = 0;
     for (const key in userData) {
+      validation({ target: { name: key, value: userData[key].value } });
       if (userData[key].errors.length > 0 || !userData[key].value) {
         errorsCount++;
       }
@@ -65,6 +75,10 @@ function Login(props) {
       entry();
     }
   };
+
+  // useEffect(() => {
+    
+  // },[])
 
   return (
     <Modal

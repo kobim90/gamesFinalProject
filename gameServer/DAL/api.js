@@ -40,7 +40,7 @@ async function getGames() {
         });
       }
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return finalResult;
   } catch (err) {
     console.log("getGames error", err);
@@ -104,7 +104,7 @@ async function getFilteredGames(filterBy) {
           : "";
       }
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return finalResult;
   } catch {
     console.log("kobis error");
@@ -154,7 +154,7 @@ async function getAllGameDetails(gameId) {
     });
 
     const [final] = [...finalResult];
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return final;
   } catch {
     console.log("kobis error");
@@ -165,17 +165,40 @@ async function getGameReviews(gameId) {
   try {
     const [result] = await promisePool.execute(
       `
-    select r.userID, ur.reviews, fg.games, username, img, reviewID, gameID, title, body, conclusion, score
-    from reviews r join users u on r.userID= u.userID join (select userID, count(reviewID) reviews
-    from reviews 
-    group by userID) ur on r.userID= ur.userID join (
-    select  userID, count(userID) games
-    from favorite_games
-    group by userID) fg on r.userID-fg.userID
-    where r.gameID = ? and r.visability = true group by r.reviewID limit 5;`,
+      select fr.userID, gg.reviews, gg.games, username, img, reviewID, gameID, title, body, conclusion, score
+      from (select r.userID, username, img, reviewID, visability, gameID, title, body, conclusion, score from reviews r join users u on r.userID= u.userID group by reviewID) fr join (
+       select r.userId, reviews, games
+      from (select userID, count(reviewID) reviews
+      from reviews group by userID) r join 
+      (select  userID, count(userID) games
+      from favorite_games
+      group by userID) fg on r.userID=fg.userID) gg on fr.userID= gg.userID
+      where fr.gameID = ? and fr.visability = true group by fr.reviewID;`,
       [gameId]
     );
-    pool.releaseConnection(pool)
+
+    if (result.length) {
+      let sql2 = `select reviewID, tagName from review_tags rt join tags t on rt.tagID=t.tagID where reviewID in (`;
+      result.forEach((review, i) => {
+        if (i < result.length - 1) {
+          sql2 += `${review.reviewID}, `;
+        } else sql2 += `${review.reviewID});`;
+      });
+
+      const [result2] = await promisePool.execute(sql2);
+
+      result2.forEach((tag) => {
+        const i = result.findIndex(
+          (review) => tag.reviewID === review.reviewID
+        );
+        if (!result[i].tags) {
+          result[i].tags = [];
+        }
+        result[i].tags.push(tag.tagName);
+      });
+    }
+
+    pool.releaseConnection(pool);
     return result;
   } catch {
     console.log("kobis error");
@@ -209,7 +232,7 @@ async function getGamesSorted(sortBy, direction = "desc") {
         });
       }
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return finalResult.slice(0, 7);
   } catch (e) {
     console.log("gesortedtGames error", e);
@@ -220,13 +243,19 @@ async function postLogin(username, password) {
   try {
     const [result] = await promisePool.execute(
       `
-    select userID, username
-    from users
-    where username = ? and password = ?;`,
+      select u.userID, username, img, f.gameID
+      from users u left join favorite_games f on u.userID=f.userID 
+      where username = ? and password = ?;`,
       [username, password]
     );
-    pool.releaseConnection(pool)
-    return result[0];
+
+    const finalResult = { ...result[0], gameID: [] };
+    result.forEach((val) => {
+      finalResult.gameID.push(val.gameID);
+    });
+
+    pool.releaseConnection(pool);
+    return finalResult;
   } catch {
     console.log("kobis error");
   }
@@ -262,7 +291,7 @@ async function getUsersGames(userId) {
         });
       }
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return finalResult;
   } catch {
     console.log("kobis error");
@@ -276,7 +305,7 @@ async function getUserAuth(userId) {
     SELECT userID from users where userID = ?; `,
       [userId]
     );
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result;
   } catch {
     console.log("kobis error");
@@ -303,7 +332,7 @@ async function getUsersScores(userId) {
       userScores.push(Math.round(game.score * 10) / 10);
       avgScores.push(Math.round(game.avgScore * 10) / 10);
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return {
       lables,
       userScores,
@@ -316,7 +345,6 @@ async function getUsersScores(userId) {
 
 async function getGameSearch(param, searchBy, userId) {
   try {
-
     let from = "";
     let where = "";
     let search = "";
@@ -372,7 +400,7 @@ async function getGameSearch(param, searchBy, userId) {
         }
       }
     });
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return finalResult;
   } catch {
     console.log("kobis error");
@@ -381,28 +409,33 @@ async function getGameSearch(param, searchBy, userId) {
 
 async function addUser(userData, img) {
   const genres = userData.genres.split(",");
+
   const image = img
-    ? `"http://localhost:3200/Images/${img.filename}"`
+    ? `"http://localhost:3200/Images/users/${img.filename}"`
     : `"http://localhost:3200/images/avatar.png"`;
   try {
     const sql = `insert into users (username, password, email, img)
     values("${userData.username}", "${userData.password}", '${userData.email}', ${image});`;
     const [result1] = await promisePool.execute(sql);
 
-    let sql2 = "insert into user_genres values ";
-    genres.forEach((id, index) => {
-      if (index < genres.length - 1) {
-        sql2 += `(${result1.insertId}, ${id}), `;
-      } else sql2 += `(${result1.insertId}, ${id});`;
-    });
+    if (genres[0]) {
+      let sql2 = "insert into user_genres values ";
+      genres.forEach((id, index) => {
+        if (index < genres.length - 1) {
+          sql2 += `(${result1.insertId}, ${id}), `;
+        } else sql2 += `(${result1.insertId}, ${id});`;
+      });
 
-    const [result2] = await promisePool.execute(sql2);
+      console.log(sql2);
 
-    sql3 = ` insert into favorite_games
-            values (${userId}, ${review.gameID});`;
+      const [result2] = await promisePool.execute(sql2);
+    }
 
-    const [result3] = await promisePool.execute(sql3);
-    pool.releaseConnection(pool)
+    // sql3 = ` insert into favorite_games
+    //         values (${userId}, ${review.gameID});`;
+
+    // const [result3] = await promisePool.execute(sql3);
+    pool.releaseConnection(pool);
     return result1;
   } catch {
     console.log("kobis register error");
@@ -416,7 +449,7 @@ async function getUserByUsername(username) {
     SELECT userID from users where username = ?; `,
       [username]
     );
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result;
   } catch {
     console.log("kobis error");
@@ -425,7 +458,6 @@ async function getUserByUsername(username) {
 
 async function getUserProfileData(userId) {
   try {
-
     const userSql = `SELECT userID, username, email, img from users where userID = ?;`;
 
     const userDetails = await promisePool.execute(userSql, [userId]);
@@ -446,7 +478,7 @@ async function getUserProfileData(userId) {
       reviews: userReviews[0],
       games: userGames,
     };
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result;
   } catch {
     console.log("kobis error");
@@ -455,39 +487,43 @@ async function getUserProfileData(userId) {
 
 async function getGamesToReview(userId) {
   try {
-    sql = `
+    const sql = `
     select g.gameID, g.gameName
     from games g left join (select *
     from reviews where userID=${userId}) u on g.gameID=u.gameID
     where reviewID is null;`;
 
     const [result] = await promisePool.execute(sql);
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result;
   } catch (err) {
-    console.log("getuserGames error", err);
+    console.log("getUserGames error", err);
   }
 }
 
 async function postReview(userId, review) {
   try {
-    sql = `
+    console.log(review);
+    const sql = `
       INSERT INTO reviews (userID, gameID, visability, title, body, conclusion, score)
       VALUES (${userId}, ${review.gameID}, ${review.visability}, "${review.title}", "${review.body}", "${review.conclusion}", "${review.score}");`;
 
     const [result1] = await promisePool.execute(sql);
 
-    let sql2 = "insert into review_tags values ";
-    review.tagID.forEach((id, index) => {
-      if (index < review.tagID.length - 1) {
-        sql2 += `(${result1.insertId}, ${id}), `;
-      } else sql2 += `(${result1.insertId}, ${id});`;
-    });
-    const result2 = await promisePool.execute(sql2);
+    if (review.tagID.length) {
+      let sql2 = "insert into review_tags values ";
+      review.tagID.forEach((id, index) => {
+        if (index < review.tagID.length - 1) {
+          sql2 += `(${result1.insertId}, ${id}), `;
+        } else sql2 += `(${result1.insertId}, ${id});`;
+      });
+      const result2 = await promisePool.execute(sql2);
+    }
 
-    const sql3 = `insert into favorite_games values (${userId}, ${review.gameID}, 1)`
+    const sql3 = `insert into favorite_games values (${userId}, ${review.gameID}, 1)`;
+    console.log(sql3);
     const result3 = await promisePool.execute(sql3);
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return { respone: true };
   } catch (err) {
     console.log("getuserGames error", err);
@@ -496,10 +532,10 @@ async function postReview(userId, review) {
 
 async function getGenre() {
   try {
-    sql = `select genreName from genres`;
+    const sql = `select genreID ,genreName from genres;`;
 
     const [result1] = await promisePool.execute(sql);
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result1;
   } catch (err) {
     console.log("getuserGames error", err);
@@ -508,10 +544,10 @@ async function getGenre() {
 
 async function getPlatforms() {
   try {
-    sql = `select platformName from platforms`;
+    const sql = `select platformID ,platformName from platforms`;
 
     const [result1] = await promisePool.execute(sql);
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result1;
   } catch (err) {
     console.log("getuserGames error", err);
@@ -520,27 +556,27 @@ async function getPlatforms() {
 
 async function getReviewTags() {
   try {
-    sql = `select * from tags`;
+    const sql = `select * from tags`;
 
     const [result1] = await promisePool.execute(sql);
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return result1;
   } catch (err) {
     console.log("getuserGames error", err);
   }
 }
 
-async function geReview(reviewId) {
+async function getReview(reviewId) {
   try {
-    sql = `select * from reviews where reviewID=${reviewId}`;
+    const sql = `select * from reviews where reviewID=${reviewId}`;
     const [result1] = await promisePool.execute(sql);
-    sql2 = `select tagID from review_tags where reviewID=${reviewId}`
+    const sql2 = `select tagID from review_tags where reviewID=${reviewId}`;
     const [result2] = await promisePool.execute(sql2);
-    const tags = result2.map(tag => tag.tagID)
-    pool.releaseConnection(pool)
-    const [review] = [...result1]
-    review.tags = tags
-    // console.log(review);
+    const tags = result2.map((tag) => tag.tagID);
+    pool.releaseConnection(pool);
+    const [review] = [...result1];
+    review.tags = tags;
+
     return review;
   } catch (err) {
     console.log("getReview error", err);
@@ -549,8 +585,8 @@ async function geReview(reviewId) {
 
 async function putReview(reviewId, reviewData) {
   try {
-    sql = `update reviews set title="${reviewData.title}", body="${reviewData.body}", conclusion="${reviewData.conclusion}",
-    score="${reviewData.score}" where reviewID = ${reviewId}`
+    const sql = `update reviews set title="${reviewData.title}", body="${reviewData.body}", conclusion="${reviewData.conclusion}",
+    score="${reviewData.score}" where reviewID = ${reviewId}`;
 
     const [result1] = await promisePool.execute(sql);
 
@@ -558,7 +594,7 @@ async function putReview(reviewId, reviewData) {
 
     const result2 = await promisePool.execute(sql2);
 
-    let sql3= `insert into review_tags values `
+    let sql3 = `insert into review_tags values `;
     reviewData.tagID.forEach((id, index) => {
       if (index < reviewData.tagID.length - 1) {
         sql3 += `(${reviewId}, ${id}), `;
@@ -566,12 +602,89 @@ async function putReview(reviewId, reviewData) {
     });
 
     const result3 = await promisePool.execute(sql3);
-  
 
-    pool.releaseConnection(pool)
+    pool.releaseConnection(pool);
     return { respone: true };
   } catch (err) {
     console.log("putReview error", err);
+  }
+}
+
+async function postUserGame(userId, gameId) {
+  try {
+    const sql = `
+    insert into favorite_games values (${userId}, ${gameId}, 1);`;
+
+    const [result1] = await promisePool.execute(sql);
+    // sql2 = `select gameID from favorite_games where userID = ${userId} and owns = 1`
+
+    // const [result2] = await promisePool.execute(sql2);
+    // console.log(result2);
+    pool.releaseConnection(pool);
+    return result1;
+  } catch (err) {
+    console.log("getuserGames error", err);
+  }
+}
+
+async function getUserGameList(userId) {
+  try {
+    const sql2 = `select gameID from favorite_games where userID = ${userId} and owns = 1`;
+
+    const [result2] = await promisePool.execute(sql2);
+    const userGames = [];
+    result2.forEach((element) => {
+      userGames.push(element.gameID);
+    });
+    pool.releaseConnection(pool);
+    return userGames;
+  } catch (err) {
+    console.log("getuserGames error", err);
+  }
+}
+
+async function deleteGameFavorite(userId, gameId) {
+  try {
+    const sql = `
+    delete from favorite_games where userID = ${userId} and gameID = ${gameId};`;
+
+    const [result1] = await promisePool.execute(sql);
+    pool.releaseConnection(pool);
+    return result1;
+  } catch (err) {
+    console.log("getuserGames error", err);
+  }
+}
+
+async function putUser(data, img, userId) {
+  try {
+    let sql = `update users set email="${data.email}"`;
+
+    img
+      ? (sql += `,img = "http://localhost:3200/Images/users/${img.filename}" where userID= ${userId}`)
+      : `where userID= ${userId}`;
+
+    const [result1] = await promisePool.execute(sql);
+
+    const sql2 = `delete from user_genres where userID=${userId}; `;
+
+    const result2 = await promisePool.execute(sql2);
+    const genres = data.genres.split(",");
+
+    if (genres[0]) {
+      let sql3 = `insert into user_genres values `;
+      genres.forEach((id, index) => {
+        if (index < genres.length - 1) {
+          sql3 += `(${userId}, ${id}), `;
+        } else sql3 += `(${userId}, ${id});`;
+      });
+      const result3 = await promisePool.execute(sql3);
+    }
+
+    pool.releaseConnection(pool);
+    return { respone: true };
+  } catch (err) {
+    console.log("putUser error", err);
   }
 }
 
@@ -594,6 +707,10 @@ module.exports = {
   getGenre,
   getPlatforms,
   getReviewTags,
-  geReview,
-  putReview
+  getReview,
+  putReview,
+  postUserGame,
+  getUserGameList,
+  deleteGameFavorite,
+  putUser,
 };

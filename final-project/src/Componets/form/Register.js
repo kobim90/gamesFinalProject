@@ -9,6 +9,7 @@ import GenreCheckbox from "./genreCheckbox";
 import TextInput from "./textInput";
 import ErrorMessages from "./ErrorMsg";
 import { postRegister } from "../../DAL/api";
+import Complete from "../Complete";
 
 import {
   faUser,
@@ -32,22 +33,19 @@ function Register(params) {
     }
     formData.append("genres", genres);
     const test = await postRegister(formData);
-    setRegistred(`Registration Complete! You can now login ${userData.username.value}`)
+    setRegistred(<Complete msg="Registration"/>)
 
   }
 
-  function updatGenres({ target: { value, checked, name } }) {
+  function updatGenres({ target: { value, checked} }) {
     const newGenres = [...genres];
     if (checked) {
-      const index = newGenres.findIndex((genre) => genre === value);
-      index !== -1 ? (newGenres[index] = 0) : newGenres.push(value);
+      newGenres.push(value)
     } else {
       const index = newGenres.findIndex((genre) => genre === value);
-      newGenres[index] = 0;
+      newGenres.splice(index, 1)
     }
-    const final = [];
-    newGenres.forEach((genre) => (genre ? final.push(genre) : ""));
-    setGenres(final);
+    setGenres(newGenres);
   }
 
   function checkImg(event) {
@@ -124,6 +122,7 @@ const validateInput = async (event) => {
     }
   };
 
+
   return (
     <Container className="main">
       {
@@ -131,14 +130,14 @@ const validateInput = async (event) => {
           <>
           <Row className="text-center">
         <Col>
-          <h1>Welcome!</h1>
-          <p>Hello Gamer! Please fill in your details</p>
+          <h1 className="h1-register">Welcome!</h1>
+          <h6>Hello Gamer! Please fill in your details</h6>
         </Col>
       </Row>
       <hr></hr>
       <Row className="justify-content-center">
         <Col lg="5">
-          <Form onSubmit={onSubmit} enctype="multipart/form-data">
+          <Form onSubmit={onSubmit} enctype="multipart/form-data" className="reg-form">
             {inputArr.map((input) => (
               <TextInput
                 label={input.label}
@@ -160,10 +159,12 @@ const validateInput = async (event) => {
               </Form.Group>
             </Form.Row>
             <GenreCheckbox validateInput={updatGenres} checked={[]}/>
-            <Row className="justify-content-center">
-              <Button type="submit" variant="outline-info">
+            <Row className="justify-content-end">
+              <Col lg="5" className="d-flex justify-content-end">
+              <Button type="submit" variant="outline-info" className="submit-btn">
                 Submit
               </Button>
+              </Col>
             </Row>
           </Form>
         </Col>

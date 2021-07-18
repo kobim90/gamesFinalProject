@@ -96,7 +96,7 @@ function Home() {
       randomScreenshots();
     })();
   }, []);
-  console.log(games);
+ 
 
   return (
     <Container fluid>
@@ -157,7 +157,7 @@ function Home() {
         </Row>
 
         <h5>
-          <FontAwesomeIcon icon={faStar} /> Recommended
+          <FontAwesomeIcon icon={faStar} /> Featured
         </h5>
 
         <hr></hr>

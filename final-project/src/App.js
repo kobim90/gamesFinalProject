@@ -7,20 +7,34 @@ import Footer from "./Componets/footer";
 import { BrowserRouter as Router} from "react-router-dom";
 import Container from "react-bootstrap/esm/Container";
 import AuthiApi from "./DAL/AuthApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import userApi from "./DAL/userApi";
+import { getUserGameList, getUserProfileData } from "./DAL/api"
 
 function App() {
   const [auth, setAuth] = useState(Cookies.get("user") ? true : false)
+  const [user, setUser] = useState([])
+
+  useEffect( () => {
+    (async function getData() {
+      if (Cookies.get("user")) {
+        const gameList = await getUserGameList()
+        setUser(gameList)
+      }
+    })()
+  }, [])
 
   return (
-    <AuthiApi.Provider value={{auth, setAuth}}>
+    <AuthiApi.Provider value={{auth, setAuth, user, setUser}}>
+    <userApi.Provider value={{user, setUser}}>
     <Router>
       <Container className="header" fluid></Container>
       <MyNavbar />
       <Pages />
       <Footer />
     </Router>
+    </userApi.Provider>
     </AuthiApi.Provider>
   );
 }

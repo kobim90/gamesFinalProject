@@ -1,0 +1,8 @@
+.delete-modal-body, .delete-modal-footer{
+    padding: 20px;
+    background-color: var(--cream);
+}
+
+.delete{
+    color: var(--coral);
+}

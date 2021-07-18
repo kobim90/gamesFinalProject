@@ -403,6 +403,67 @@ async function putReview(review, reviewId) {
   }
 }
 
+async function postUserGame(gameId) {
+  try {
+    const response = await axios2.post(
+      `http://localhost:3200/users/addGame/${gameId}`
+    );
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function getUserGameList() {
+  try {
+    const response = await axios2.get(
+      `http://localhost:3200/users/favorite`);
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function deleteGameFavorite(gameId) {
+  try {
+    const response = await axios2.delete(
+      `http://localhost:3200/users/addGame/${gameId}`);
+    if (response.status !== 200) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    return response.data;
+  } catch (e) {
+    console.log("post review", e);
+    throw e;
+  }
+}
+
+async function putRegister(userData) {
+  try {
+    const response = await fetch("http://localhost:3200/register", {
+      method: "PUT",
+      body: userData,
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP Error status = " + response.status);
+    }
+    const obj = await response.json();
+    return obj;
+  } catch (error) {
+    throw new Error("kobis putRegister error");
+  }
+}
+
 export {
   getAllGamesApi,
   getUsersGamesApi,
@@ -425,4 +486,8 @@ export {
   getTagsApi,
   getReview,
   putReview,
+  postUserGame,
+  getUserGameList,
+  deleteGameFavorite,
+  putRegister
 };

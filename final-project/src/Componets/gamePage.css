@@ -1,5 +1,6 @@
 .detail-field {
   color: var(--grey);
+  font-weight:500;
 }
 
 .details-row {
@@ -28,7 +29,7 @@
   transform: scale(1.05)
 }
 
-.modal-body{
+.screen-modal{
 padding: 0;
 }
 .pic-modal img{
@@ -49,3 +50,35 @@ padding: 0;
 .game-header{
   text-shadow: 2px 2px 0 #000000, 2px -2px 0 rgb(0, 0, 0), -2px 2px 0 #000103, -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000, -2px 0px 0 #000000, 0px -2px 0 #000103;
 }
+
+.circle {
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  shape-outside: circle();
+  clip-path: circle();
+  background: var(--coral);
+  color: white;
+  font-weight: 900;
+  font-size: 45px;
+}
+
+.conclusion{
+  font-weight:500;
+  color: var(--grey);
+  min-height: 130px;;
+  display: flex;
+  align-items: center;
+}
+
+.score-game-page{
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+
+/* .score-div{
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+} */

@@ -12,12 +12,14 @@ function Reviews(props) {
   async function getData() {
     const review = await getReviewsData(props.gameId);
     setInfo(review);
+    if (props.getConclusion) {
+      props.getConclusion(review[0] ? review[0].conclusion : "")
+    }    
   }
   useEffect(() => {
     getData();
   }, [props.gameId]);
 
-  console.log(info);
   return (
     <>
       {
@@ -27,6 +29,7 @@ function Reviews(props) {
             <Col lg="3"><Avatar details={review} /></Col>
             <Col lg="8">
                 <h4>{review.title}</h4><span>Rating <strong>{review.score}/10</strong></span>
+                <div>Tags: {review.tags ? review.tags.map(tag => ` #${tag} `) : ""}</div>
                 <div><h7>Review:</h7></div>
                 <ReadMoreReact text={review.body} readMoreText={<u><b>Read more</b></u>}/>
                 <br></br>

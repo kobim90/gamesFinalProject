@@ -31,10 +31,10 @@ function TextInput(props) {
                   <Form.Control
                     type={props.type}
                     placeholder={props.label}
-                    onBlur={props.validateInput}
+                    onChange={props.validateInput}
                     name={props.name}
                     className={props.background}
-                    defaultValue={props.defaultValue}
+                    value={props.value}
                   />
                 </InputGroup>
                 <ErrorMessages errors={props.errors} />

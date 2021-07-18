@@ -4,9 +4,28 @@
     background-color: var(--greyCard);
 }
 
-.profile-btn{
+.delete, .edit{
     border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0) !important;
+    border: none;
 } 
+
+.delete:hover{
+    color: rgb(112, 11, 11);
+}
+
+.edit:hover{
+    color:teal;
+}
+
+.delete{
+    color: var(--coral);
+    z-index: 3;
+}
+
+.edit{
+    color: var(--turquoise)
+}
 
 .profile-btn-col{
     padding: 0;
@@ -30,6 +49,57 @@
 .edit-card{
     background-color: var(--greyCard);
 }
-/* .user-profile, .user-gameReviews{
-    background-color: white;
-} */
+
+svg {
+  pointer-events: none
+}
+
+.shakethis{
+    border: none;
+}
+
+  .shakethis:hover {
+    animation: shakeanimation;
+    animation-duration: 1s;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  @keyframes shakeanimation {
+    15%, 85% {
+      transform: translate3d(-2px, 0, 0);
+    }
+    
+    25%, 75% {
+      transform: translate3d(4px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-8px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(8px, 0, 0);
+    }
+  }
+
+  .profile-img{
+    height:150px;
+    width: 150px;
+    border: 2px solid var(--turquoise);
+  }
+
+  .img-row{
+    margin-bottom: 20px;
+  }
+
+  .edit-btn{
+    border-radius: 50%;
+  }
+
+  .field{
+    color: var(--greyCard);
+  }
+
+  /* .field-row{
+    border-bottom: 1px solid var(--turquoise);
+  } */

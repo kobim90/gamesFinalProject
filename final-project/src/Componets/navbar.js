@@ -1,6 +1,7 @@
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import Image from "react-bootstrap/esm/Image";
 import React, { useEffect, useState } from "react";
 import Login from "./form/login";
 import { NavLink } from "react-router-dom";
@@ -35,28 +36,27 @@ function MyNavbar(props) {
   useEffect(() => {
     updateNav();
   }, [Auth.auth]);
- 
-  // console.log(JSON.parse(Cookies.get("user")));
+
   return (
     <Container fluid>
       <Login showLogin={showLogin} smShow={smShow} />
       <Navbar bg="dark" variant="dark" fixed="top" collapseOnSelect expand="lg">
+        <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Container>
             <Navbar.Brand href="#home">
               <FontAwesomeIcon icon={faGamepad} size="2x" />
             </Navbar.Brand>
             <Nav className="mr-auto">
               <NavLink to="/home" className="link p-2" activeClassName="active">
-                Home
+                HOME
               </NavLink>
               <NavLink
                 to="/allGames"
                 className="link p-2"
                 activeClassName="active"
               >
-                All Games
+                GAMES
               </NavLink>
             </Nav>
             <Nav className="justify-content-between">
@@ -66,30 +66,31 @@ function MyNavbar(props) {
                   className="float-right link p-2"
                   activeClassName="active"
                 >
-                  {Cookies.getJSON("user").username}
+                  <Image src={Cookies.getJSON("user").img} fluid roundedCircle  className="user-image"/>
+                  {Cookies.getJSON("user").username.toUpperCase()}
                   
                 </NavLink> 
-                <button className="logout" onClick={logout}>Logout</button>
+                <NavLink to="/" activeClassName="none" className="float-right link p-2" onClick={logout}>LOGOUT</NavLink>
                </> : (
                 <>
                   <Nav.Link
                     className="float-right link p-2"
                     onClick={() => setSmShow(true)}
                   >
-                    Login
+                    LOGIN
                   </Nav.Link>
                   <NavLink
                     to="/Register"
                     className="float-right link p-2"
                     activeClassName="active"
                   >
-                    Register
+                    REGISTER
                   </NavLink>
                 </>
               )}
             </Nav>
-          </Container>
         </Navbar.Collapse>
+        </Container>
       </Navbar>
     </Container>
   );

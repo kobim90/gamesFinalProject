@@ -1,25 +1,45 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import { useParams } from "react-router-dom";
-import { getAllGameDetailes } from "../DAL/api";
+import { getAllGameDetailes, postUserGame } from "../DAL/api";
 import Modal from "react-bootstrap/esm/Modal";
 import Reviews from "./reviews";
+import AuthApi from "../DAL/AuthApi";
+import Cookies from "js-cookie";
+import userApi from "../DAL/userApi";
 
 import "./gamePage.css";
+import Button from "react-bootstrap/esm/Button";
 
 function GamePage(props) {
   const { gameId } = useParams();
+  const Auth = React.useContext(AuthApi);
+  const User = React.useContext(userApi);
   const [game, setGame] = useState({ genre: [], platform: [] });
   const [show, setShow] = useState(false);
   const [showPic, setShowPic] = useState("");
-
+  const [conclusion, setConclusion] = useState("");
   const handleClose = (pic) => setShow(false);
   const handleShow = (pic) => {
     setShow(true);
     setShowPic(pic);
   };
+
+  const inLibrary = () => {
+    const library = User.user.find((id) => id == gameId);
+    if (library) {
+      return library;
+    }
+    return false;
+  };
+
+  const add = async () => {
+    await postUserGame(gameId);
+    User.setUser([...User.user, parseInt(gameId)]);
+  };
+  const getConclusion = (val) => setConclusion(val ? val : "");
 
   async function getData() {
     const game = await getAllGameDetailes(gameId);
@@ -27,8 +47,8 @@ function GamePage(props) {
   }
   useEffect(() => {
     getData();
-  }, []);
-
+  }, [User.user]);
+  console.log("gamepage", User.user);
   return (
     <Container>
       {}
@@ -148,7 +168,7 @@ function GamePage(props) {
               className="pic-modal"
               size="lg"
             >
-              <Modal.Body>
+              <Modal.Body className="screen-modal">
                 <img src={showPic} alt="pew pew" className="mx-auto"></img>
               </Modal.Body>
             </Modal>
@@ -190,9 +210,51 @@ function GamePage(props) {
         </Row>
         <Row className="justify-content-center">
           <Col lg="11">
+            <h5>Total score</h5>
+            <hr></hr>
+            <Row className="justify-content-center  score-game-page">
+              <Row className="justify-content-center">
+                <Col lg="8 d-flex justify-content-center">
+                  <div>
+                    <div className="circle d-flex align-items-center justify-content-center">
+                      {isNaN(game.score)
+                        ? "?"
+                        : Math.round(game.score * 10) / 10}
+                    </div>
+                    <div className="conclusion">
+                      {conclusion ? `"${conclusion}"` : ""}
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Row>
+            <Row className="justify-content-end">
+              <Col lg="3">
+                {Auth.auth ? (
+                  <>
+                    {inLibrary() ? (
+                      <Button variant="info" disabled>
+                        IN LIBRARY
+                      </Button>
+                    ) : (
+                      <Button onClick={add} variant="info">
+                        ADD TO LIBRARY
+                      </Button>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+
+        <Row className="justify-content-center user-reviews">
+          <Col lg="11">
             <h5>User reviews</h5>
             <hr></hr>
-            <Reviews gameId={gameId}/>
+            <Reviews gameId={gameId} getConclusion={getConclusion} />
           </Col>
         </Row>
       </Container>

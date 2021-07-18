@@ -15,11 +15,13 @@ function Games(props) {
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [filter, setFilter] = useState({genres: {}, platforms: {}})
+  const [allGames, setAllGames] = useState([])
 
   function setGamesBySearch(games) {
     setCardGames(games)
   }
 
+  const resetGames = () => setCardGames(allGames)
 
   function filterFunc({ target: { value, checked, name } }) {
       const newGenres = { ...filter };
@@ -33,10 +35,13 @@ function Games(props) {
     const games = await getAllGamesApi();
     const genres = await getGenresApi();
     const platforms = await getPlatform();
+    setAllGames(games)
     setCardGames(games);
     setGenres(genres);
     setPlatforms(platforms);
   }
+
+
 
   async function fetchFilter() {
     const filteredGames = await getFilteredGenrePlatform(filter)
@@ -49,24 +54,24 @@ function Games(props) {
 
   return (
     <Container className="main">
-      <SearchBar class="justify-content-center w-75 mx-auto searchBar" updateGames={setGamesBySearch} serverCall={getSearchedGames} reset={getAllGamesApi}/>
+      <SearchBar class="justify-content-center w-75 mx-auto searchBar" updateGames={setGamesBySearch} serverCall={getSearchedGames} reset={resetGames}/>
       <Row>
-        <Col>
-          <h6>
+        <Col lg="3">
+          <h4>
             <FontAwesomeIcon icon={faFilter} /> Filters
-          </h6>
+          </h4>
         </Col>
         <Col>
-          <h6>Everything</h6>
+          <h4>Everything</h4>
         </Col>
-
+{/* 
         <Col>
           <h6>New Releases</h6>
         </Col>
 
         <Col>
           <h6>Popular</h6>
-        </Col>
+        </Col> */}
       </Row>
       <hr></hr>
       <Row>
