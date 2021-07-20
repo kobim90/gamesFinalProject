@@ -14,12 +14,14 @@ import {
 } from "../../DAL/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import FormCheck from "react-bootstrap/esm/FormCheck";
 
 function AddReview(props) {
   const [complete, setComplete] = useState("")
   const { reviewId } = useParams();
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
+  const [visability, setVisability] = useState("")
   const [reviewData, setReviewData] = useState({
     gameID: {
       value: 0,
@@ -92,7 +94,7 @@ function AddReview(props) {
     if (checked) {
       tags.push(parseInt(value));
     } else {
-      const index = tags.findIndex( tag => tag === value)
+      const index = tags.findIndex( tag => tag === parseInt(value))
       tags.splice(index, 1)
     }
     setReviewData({ ...reviewData, [name]: { value: tags } });
@@ -159,7 +161,9 @@ function AddReview(props) {
       const games = await getGamesToReview();
       const tags = await getTagsApi();
       const reviewEditData = reviewId ? await getReview(reviewId) : "";
+
       if (reviewEditData) {
+        setVisability(!reviewEditData.visability)
         for (const name in reviewData) {
           setReviewData((prevData) => ({
             ...prevData,
@@ -199,7 +203,7 @@ function AddReview(props) {
                 <strong>Pick a game:</strong>
               </Form.Label>
             </Col>
-            <Col lg="4">
+            <Col lg="6">
               <Form.Control
                 as="select"
                 name="gameID"
@@ -214,16 +218,6 @@ function AddReview(props) {
                 ))}
               </Form.Control>
               <ErrorMessages errors={reviewData.gameID.errors} />
-            </Col>
-            <Col lg="2">
-              <Form.Check
-                inline
-                type="checkbox"
-                label="Private review"
-                value={1}
-                name="visability"
-                onClick={updateVisability}
-              />
             </Col>
           </Form.Group>
         </>}
@@ -262,20 +256,24 @@ function AddReview(props) {
           </Col>
           <Col lg="6">
             {tags.map((tag, index) => (
+              <>
+              <Form.Check type="checkbox" id={`${tag.tagName}-checkbox${index}`} style={{display: "inline"}} className="mr-2">
               <Form.Check
                 inline
                 type="checkbox"
-                label={tag.tagName}
                 key={index}
                 value={tag.tagID}
                 name="tags"
-                onBlur={updateTags}
+                onClick={updateTags}
                 defaultChecked={
                   reviewData.tags.value.find((val) => val === tag.tagID)
                       ? true
                       : false
                 }
               />
+              <Form.Check.Label>{tag.tagName}</Form.Check.Label>
+              </Form.Check>
+              </>
             ))}
           </Col>
         </Form.Group>
@@ -335,7 +333,7 @@ function AddReview(props) {
               <strong>Score:</strong>
             </Form.Label>
           </Col>
-          <Col lg="6">
+          <Col lg="4">
             <Form.Control
               type="number"
               min="0"
@@ -346,7 +344,25 @@ function AddReview(props) {
             />
             <ErrorMessages errors={reviewData.score.errors} />
           </Col>
-        </Form.Group>
+          
+         
+          <Col lg="2">
+          <Form.Group>
+          <Form.Check type="checkbox" id={`visability-checkbox`} style={{display: "inline"}} className="mr-2">
+              <Form.Check
+                inline
+                type="checkbox"
+                label="Private review"
+                value={reviewData.visability.value}
+                name="visability"
+                onChange={updateVisability}
+                defaultChecked={visability}
+              />
+              </Form.Check>
+                </Form.Group>
+            </Col>
+            </Form.Group>
+      
         <Row className="justify-content-center">
           <Col lg="8" className="d-flex justify-content-end">
           <Button variant="outline-info" type="submit" className="submit-btn">

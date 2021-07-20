@@ -31,9 +31,6 @@ function Pages() {
             <Route exact path="/Register">
                 <Register />
             </Route>
-            {/* <Route exact path="/user">
-                <UserHome />
-            </Route> */}
             <ProtectedRoute path="/user" auth={Auth.auth} component={UserHome}/>
             <Route exact path="/game/:gameId">
                 <GamePage />

@@ -10,6 +10,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import { NavLink } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 import "./searchCardStyle.css";
 
@@ -17,15 +19,19 @@ function SearchCard(props) {
   const [style, setStyle] = useState("none");
   const platform = [faWindows, faApple, faLinux];
 
+  useEffect(()=> {
+    AOS.init({duration: 3000});
+  }, [])
+
   return (
     <NavLink to={`/game/${props.game.gameID}`}>
-      <Card className="search-card">
+      <Card className="search-card" data-aos="fade-right">
         <Card.Body>
           <Row className="card-info justify-content-between items-align-center">
             <Col lg="3" md="3" xs="3">
               <Card.Img src={`${props.game.coverImg}`} className="search-img"/>
             </Col>
-            <Col className="justify-content-center" md="5" xs="2">
+            <Col className=" d-flex justify-content-center flex-column" md="5" xs="2">
               <Row>
                 <Card.Title>{`${props.game.gameName}`}</Card.Title>
               </Row>

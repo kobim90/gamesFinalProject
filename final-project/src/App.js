@@ -24,9 +24,10 @@ function App() {
       }
     })()
   }, [])
-
+console.log(user);
+console.log(Cookies.getJSON("user"));
   return (
-    <AuthiApi.Provider value={{auth, setAuth, user, setUser}}>
+    <AuthiApi.Provider value={{auth, setAuth}}>
     <userApi.Provider value={{user, setUser}}>
     <Router>
       <Container className="header" fluid></Container>

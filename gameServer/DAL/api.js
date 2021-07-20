@@ -243,7 +243,7 @@ async function postLogin(username, password) {
   try {
     const [result] = await promisePool.execute(
       `
-      select u.userID, username, img, f.gameID
+      select u.userID, username, img, f.gameID, admin
       from users u left join favorite_games f on u.userID=f.userID 
       where username = ? and password = ?;`,
       [username, password]
@@ -532,7 +532,7 @@ async function postReview(userId, review) {
 
 async function getGenre() {
   try {
-    const sql = `select genreID ,genreName from genres;`;
+    const sql = `select genreID as id ,genreName as Name from genres;`;
 
     const [result1] = await promisePool.execute(sql);
     pool.releaseConnection(pool);
@@ -544,8 +544,7 @@ async function getGenre() {
 
 async function getPlatforms() {
   try {
-    const sql = `select platformID ,platformName from platforms`;
-
+    const sql = `select platformID as id ,platformName as Name from platforms`;
     const [result1] = await promisePool.execute(sql);
     pool.releaseConnection(pool);
     return result1;
@@ -585,9 +584,9 @@ async function getReview(reviewId) {
 
 async function putReview(reviewId, reviewData) {
   try {
-    const sql = `update reviews set title="${reviewData.title}", body="${reviewData.body}", conclusion="${reviewData.conclusion}",
+    const sql = `update reviews set visability=${reviewData.visability}, title="${reviewData.title}", body="${reviewData.body}", conclusion="${reviewData.conclusion}", 
     score="${reviewData.score}" where reviewID = ${reviewId}`;
-
+    console.log(sql);
     const [result1] = await promisePool.execute(sql);
 
     const sql2 = `delete from review_tags where reviewID=${reviewId}; `;
@@ -688,6 +687,95 @@ async function putUser(data, img, userId) {
   }
 }
 
+async function postLoginAdmin(username, password) {
+  try {
+    const [result] = await promisePool.execute(
+      `
+      select userID, username, admin
+      from users 
+      where username = ? and password = ? and admin = true;`,
+      [username, password]
+    );
+    pool.releaseConnection(pool);
+    const [result1] = [...result];
+    return result1;
+  } catch {
+    console.log("kobis error");
+  }
+}
+
+async function getAdminCheckbox() {
+  try {
+    const result = await getGenre();
+    const result2 = await getPlatforms();
+
+    const checkbox = {
+      genres: result,
+      platforms: result2,
+    };
+
+    return checkbox;
+  } catch (e) {
+    console.log("getAdminCheckbox error", e);
+  }
+}
+
+async function postGame(data, images) {
+  try {
+    const index = images.findIndex((img) => img.originalname.includes("cover"));
+    const coverImg = images[index].filename;
+    images.splice(index, 1);
+    const genres = data.genres.split(",");
+    const platforms = data.platforms.split(",");
+
+    const sql1 = `insert into games (gameName, publisher, releaseDate, description, coverImg)
+    values ('${data.title}', '${data.publisher}', '${data.date}' ,'${data.description}', "http://localhost:3200/images/newGames/${coverImg}");`;
+
+    const [result1] = await promisePool.execute(sql1);
+
+    let sql2 = `insert into game_genres values `;
+    if (genres[0]) {
+      genres.forEach((id, index) => {
+        if (index < genres.length - 1) {
+          sql2 += `(${result1.insertId}, ${id}), `;
+        } else sql2 += `(${result1.insertId}, ${id});`;
+      });
+    }
+
+    let sql3 = `insert into game_platforms values `;
+    if (platforms[0]) {
+      platforms.forEach((id, index) => {
+        if (index < platforms.length - 1) {
+          sql3 += `(${result1.insertId}, ${id}), `;
+        } else sql3 += `(${result1.insertId}, ${id});`;
+      });
+    }
+
+    const [result2] = await promisePool.execute(sql2);
+    const [result3] = await promisePool.execute(sql3);
+
+    const sql4 = `insert into system_requirements values
+    ('${result1.insertId}', '${data.system}', '${data.processor}', '${data.memory}', '${data.graphics}', '${data.directx}', '${data.storage}');` 
+
+    const [result4] = await promisePool.execute(sql4)
+
+    let sql5 = `insert into game_screenshots values
+    ('${result1.insertId}', `
+
+    images.forEach( (img, index) => {
+      if (index < images.length - 1) {
+        sql5 += `'http://localhost:3200/images/newGames/${img.filename}',`
+      } else sql5 += `'http://localhost:3200/images/newGames/${img.filename}');`
+    })
+
+    const [result5] = await promisePool.execute(sql5)
+
+    return {response : true};
+  } catch {
+    console.log("postGame error");
+  }
+}
+
 module.exports = {
   getGames,
   getFilteredGames,
@@ -713,4 +801,7 @@ module.exports = {
   getUserGameList,
   deleteGameFavorite,
   putUser,
+  postLoginAdmin,
+  getAdminCheckbox,
+  postGame,
 };

@@ -10,6 +10,9 @@ import TextInput from "../form/textInput";
 import GenreCheckbox from "../form/genreCheckbox";
 import { validationChecks, validationObj } from "../form/validations";
 import { putRegister } from "../../DAL/api";
+import { getGenresApi } from "../../DAL/api";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 
 import {
@@ -77,6 +80,7 @@ function Profile(props) {
       props.data.genres.map((genre) => genres.push(genre.genreID));
       setGenres(genres);
     }
+    AOS.init({duration: 3000});
   }, [props.editShow]);
 
   const entry = async () => {
@@ -108,6 +112,7 @@ function Profile(props) {
 
   return (
     <>
+    <div data-aos="fade-right">
       <Button
         variant="outline-info"
         onClick={() => (props.editShow ? props.showEdit(false) : props.showEdit(true))}
@@ -150,7 +155,7 @@ function Profile(props) {
               </Col>
               <Col>
                 {props.data.genres.length
-                  ? props.data.genres.map((genre) => `${genre.genreName}, `)
+                  ? props.data.genres.map((genre, index) => <span key={index}>{genre.genreName}, </span>)
                   : "Edit and choose your favorite genres :)"}
               </Col>
             </Row>
@@ -160,7 +165,7 @@ function Profile(props) {
         <>
           <Form
             onSubmit={onSubmit}
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
             className="reg-form"
           >
               <Row className="justify-content-center align-items-center">
@@ -189,6 +194,7 @@ function Profile(props) {
             <GenreCheckbox
               validateInput={updatGenres}
               checked={props.data.genres}
+              data={getGenresApi} name="Favorite Genres"
             />
  
  <Row className="justify-content-end">
@@ -205,6 +211,7 @@ function Profile(props) {
       ) : (
         ""
       )}
+      </div>
     </>
   );
 }

@@ -12,11 +12,16 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { NavLink, useParams } from "react-router-dom";
 
+
 import "./cardStyle.css";
 
 function GCard(props) {
   const [style, setStyle] = useState("none");
   const platform = [faWindows, faApple, faLinux]
+
+  // useEffect(()=> {
+  //   AOS.init({duration: 1000});
+  // }, [])
 
   return (
     <NavLink to={`/game/${props.game.gameID}`}>
@@ -45,11 +50,6 @@ function GCard(props) {
            <strong className="score">{isNaN(props.game.score) ? props.game.score : `Score ${(Math.round(props.game.score * 10) / 10)}`}</strong>
           </Col>
         </Row>
-        {/* <Row className="justify-content-center">
-          <span style={{ display: style}}>
-           <FontAwesomeIcon icon={faPlusCircle} size="1x" />  Add
-          </span>
-        </Row> */}
       </Card.Body>
     </Card>
     </NavLink>

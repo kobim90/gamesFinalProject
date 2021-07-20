@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 
 import { faUser, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import AuthApi from "../../DAL/AuthApi";
-import userApi from "../../DAL/userApi"
+import userApi from "../../DAL/userApi";
 
 function Login(props) {
   const Auth = React.useContext(AuthApi);
@@ -33,13 +33,11 @@ function Login(props) {
         props.showLogin(false);
         setLoginError("");
         Auth.setAuth(true);
-        User.setUser(Cookies.getJSON("user").gameID)
-        setUserData(
-          {
-            username: { ...validationObj["username"] },
-            password: { ...validationObj["password"] },
-          }
-        )
+        User.setUser(Cookies.getJSON("user").gameID);
+        setUserData({
+          username: { ...validationObj["username"] },
+          password: { ...validationObj["password"] },
+        });
       } else {
         setLoginError("Password or username are incorrect try again");
       }
@@ -49,8 +47,12 @@ function Login(props) {
   }
 
   async function validation({ target: { value, name } }) {
-    console.log("value: ",value);
-    const [showErrors, background] = await validationChecks(name, value, userData);
+    console.log("value: ", value);
+    const [showErrors, background] = await validationChecks(
+      name,
+      value,
+      userData
+    );
     setUserData((prevData) => ({
       ...prevData,
       [name]: {
@@ -77,7 +79,7 @@ function Login(props) {
   };
 
   // useEffect(() => {
-    
+
   // },[])
 
   return (
@@ -113,9 +115,17 @@ function Login(props) {
               errors={userData.password.errors}
               icon={faUnlockAlt}
             />
-            <small id="error" className="form-text text-danger">
-              {loginError}
-            </small>
+            <Form.Group>
+              <small id="error" className="form-text text-danger">
+                {loginError}
+              </small>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Text>
+                Are you an Admin? go <a href="http://localhost:3400/">here</a>
+              </Form.Text>
+            </Form.Group>
             <Row className="justify-content-center">
               <Button type="submit" variant="outline-info">
                 Login

@@ -3,9 +3,12 @@ import EditProfile from "./editProfile"
 import UserGames from "./userGames"
 import AddReview from "./addReview"
 import GamePage from "../gamePage";
+import AddGame from "./addGame";
+
 
 
 function UserSwitch() {
+  
   return (
     <Switch>
         <Route
@@ -22,6 +25,9 @@ function UserSwitch() {
       </Route>
       <Route exact path="/user/addReview">
         <AddReview />
+      </Route>
+      <Route exact path="/user/addGame">
+        <AddGame />
       </Route>
       <Route exact path="/user/userGames">
         <UserGames />

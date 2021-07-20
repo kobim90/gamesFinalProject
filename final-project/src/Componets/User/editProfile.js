@@ -34,7 +34,7 @@ function EditProfile() {
   const showDelete = () => setShow(false);
 
   const deleteWhat = (e) => {
-    setDeleteVal(e.target.name)
+    setDeleteVal(parseInt(e.target.name))
     setShow(true) 
   }
 
@@ -45,7 +45,9 @@ function EditProfile() {
       let games = [...User.user]
       const index = games.findIndex(game => game === deleteVal)
       games.splice(index, 1)
+      console.log("here");
       User.setUser(games)
+      
     }
   }
 

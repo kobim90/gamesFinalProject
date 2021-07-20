@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { getUsersGamesScores } from "../../DAL/api";
 import { Bar } from "react-chartjs-2";
 import Container from "react-bootstrap/esm/Container";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 function GameChart(props) {
   const [usersScore, setUsersScore] = useState([]);
@@ -29,6 +31,7 @@ function GameChart(props) {
 
   useEffect(() => {
     getScores();
+    AOS.init({duration: 3000});
   }, []);
 
 
@@ -43,7 +46,7 @@ function GameChart(props) {
 
 
   return (
-    <Container className="chart-div">
+    <Container className="chart-div" data-aos="fade-down">
       <Bar
         data={chartData}
         options={{

@@ -7,6 +7,8 @@ import SearchBar from "./search";
 import GCard from "./card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 import "./gamesStyle.css";
 import { getAllGamesApi, getGenresApi, getPlatform, getFilteredGenrePlatform, getSearchedGames } from "../DAL/api";
 
@@ -25,6 +27,7 @@ function Games(props) {
 
   function filterFunc({ target: { value, checked, name } }) {
       const newGenres = { ...filter };
+      console.log(newGenres);
       if (checked) newGenres[name][value] = true;
       else delete newGenres[name][value];
       setFilter(newGenres)
@@ -50,10 +53,11 @@ function Games(props) {
 
   useEffect(() => {
     fetchFirstData();
+    AOS.init({duration: 2000});
   },[]);
 
   return (
-    <Container className="main">
+    <Container className="main" >
       <SearchBar class="justify-content-center w-75 mx-auto searchBar" updateGames={setGamesBySearch} serverCall={getSearchedGames} reset={resetGames}/>
       <Row>
         <Col lg="3">
@@ -74,21 +78,23 @@ function Games(props) {
         </Col> */}
       </Row>
       <hr></hr>
-      <Row>
-        <Col className="filter" lg="3">
+      <Row >
+        <Col className="filter" lg="3" >
           <Col className="d-flex flex-column">
             <h5>Genre</h5>
             {genres.map((genre, index) => (
-              <div className="mb-3" key={`div1 ${index}`}>
-                <Form.Check
-                  type="checkbox"
-                  id="default-checkbox"
-                  label={genre.genreName}
-                  value={genre.genreID}
+              <div className="mb-3" key={`${genre.Name}div1 ${index}`}>
+                <Form.Check type="checkbox" id={`${genre.Name}-checkbox${index}`}>
+                <Form.Check.Input
                   name="genres"
-                  onChange={filterFunc}
+                  type="checkbox"
+                  isValid
                   key={index}
+                  onChange={filterFunc}
+                  value={parseInt(genre.id)}
                 />
+                <Form.Check.Label>{genre.Name}</Form.Check.Label>
+              </Form.Check>
               </div>
             ))}
           </Col>
@@ -96,21 +102,23 @@ function Games(props) {
           <Col className="d-flex flex-column">
             <h5>System</h5>
             {platforms.map((platform, index) => (
-              <div className="mb-3" key={`div2 ${index}`}>
-                <Form.Check
+              <div className="mb-3" key={`${platform.Name}div2 ${index}`}>
+                <Form.Check type="checkbox" id={`${platform.Name}-checkbox${index}`}>
+                <Form.Check.Input
                   name="platforms"
                   type="checkbox"
-                  id="default-checkbox"
-                  label={platform.platformName}
-                  value={platform.platformID}
-                  onChange={filterFunc}
+                  isValid
                   key={index}
+                  onChange={filterFunc}
+                  value={parseInt(platform.id)}
                 />
+                <Form.Check.Label>{platform.Name}</Form.Check.Label>
+              </Form.Check>
               </div>
             ))}
           </Col>
         </Col>
-        <Col className="games-list">
+        <Col className="games-list" data-aos="fade-up">
           <Row>
             {cardGames.map((game) => (
               <Col lg="4" md="6" sm="1">

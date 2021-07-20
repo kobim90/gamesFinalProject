@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
@@ -15,12 +15,13 @@ import Button from "react-bootstrap/esm/Button";
 
 function GamePage(props) {
   const { gameId } = useParams();
-  const Auth = React.useContext(AuthApi);
-  const User = React.useContext(userApi);
+  const Auth = useContext(AuthApi);
+  const User = useContext(userApi);
   const [game, setGame] = useState({ genre: [], platform: [] });
   const [show, setShow] = useState(false);
   const [showPic, setShowPic] = useState("");
   const [conclusion, setConclusion] = useState("");
+  const [library, setLibrary] = useState("")
   const handleClose = (pic) => setShow(false);
   const handleShow = (pic) => {
     setShow(true);
@@ -28,7 +29,8 @@ function GamePage(props) {
   };
 
   const inLibrary = () => {
-    const library = User.user.find((id) => id == gameId);
+    const library = User.user.find((id) => id === parseInt(gameId));
+
     if (library) {
       return library;
     }
@@ -47,8 +49,10 @@ function GamePage(props) {
   }
   useEffect(() => {
     getData();
+    inLibrary()
   }, [User.user]);
-  console.log("gamepage", User.user);
+
+
   return (
     <Container>
       {}

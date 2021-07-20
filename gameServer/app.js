@@ -11,12 +11,14 @@ var getAllGamesRouter = require("./routes/games")
 const getGenresRouter = require("./routes/genresAndPlatforms")
 const getLoginRouter = require("./routes/login")
 const getRegisterRouter = require("./routes/register")
+const getAdminRouter = require("./routes/admin")
 var app = express();
 
 
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:3000"
+    origin: ["http://localhost:3000", "http://localhost:3400"],
+    default: "http://localhost:3000"
 }))
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,5 +32,6 @@ app.use('/games', getAllGamesRouter);
 app.use("/genres", getGenresRouter);
 app.use("/login", getLoginRouter);
 app.use("/register", getRegisterRouter);
+app.use("/admin", getAdminRouter);
 
 module.exports = app;

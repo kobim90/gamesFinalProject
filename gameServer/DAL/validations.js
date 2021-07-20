@@ -96,7 +96,17 @@ async function authUser(req,res, next){
     }else res.status(403).send({msg: "NOT Authenticated"})
   }else res.status(403).send({msg: "NOT Authenticated"})
 }
+
+async function authAdmin(req,res, next){
+  const {cookies} = req
+  if (cookies.user) {
+    const user = JSON.parse(cookies.user)
+    if (user.admin) {
+      next()
+    }else res.status(403).send({msg: "NOT Authenticated"})
+  }else res.status(403).send({msg: "NOT Authenticated"})
+}
   
 
 
-module.exports = { validationObj, validationChecks, authUser };
+module.exports = { validationObj, validationChecks, authUser, authAdmin };

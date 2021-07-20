@@ -17,6 +17,8 @@ import Carousel from "react-bootstrap/Carousel";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchCard from "./searchCard";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 import "./home.css";
 
 function Home() {
@@ -94,6 +96,7 @@ function Home() {
       setCardGames3(games.slice(8, 12));
       setTableGames(tableGames);
       randomScreenshots();
+      AOS.init({duration: 3000});
     })();
   }, []);
  
@@ -102,7 +105,7 @@ function Home() {
     <Container fluid>
       <Container className="main">
         {/* <SearchBar class="justify-content-center w-75 mx-auto"/> */}
-        <Row className="justify-content-center carousel-row">
+        <Row className="justify-content-center carousel-row" data-aos="fade-down">
           <Carousel variant="dark" className="main-carousel">
             <Carousel.Item>
               <img
@@ -161,7 +164,7 @@ function Home() {
         </h5>
 
         <hr></hr>
-        <Row className="recommended-row justify-content-center">
+        <Row className="recommended-row justify-content-center" data-aos="fade-down">
           <Carousel variant="dark" className="recommended-carousel">
             <Carousel.Item className="recommended-item">
               <Row className="align-items-center justify-content-center inner-carousel-row">
@@ -198,11 +201,11 @@ function Home() {
           <ListGroup variant="flush" className="table-sort-items">
             <ListGroup.Item>
               <Row className="table-row justify-content-around">
-                <Col lg={3}>
+                <Col lg={3} xs="2">
                   <FontAwesomeIcon icon={faChartLine} />
                   <h4 style={{ display: "inline" }}> Discover Games</h4>
                 </Col>
-                <Col lg="3">
+                <Col lg="3" xs="2">
                   <FontAwesomeIcon icon={orederDirection.releaseDate.arrow} />
                   <button
                     onClick={() => sort("releaseDate")}
@@ -211,20 +214,20 @@ function Home() {
                     <h4 style={{ display: "inline" }}>Release Date</h4>
                   </button>
                 </Col>
-                <Col lg="4" className="text-right">
+                <Col lg="4" xs="2" className="text-right">
                   <FontAwesomeIcon icon={orederDirection.score.arrow} />
                   <button
                     onClick={() => sort("score")}
                     className={`table-btn ${activeCol[0]}`}
                   >
-                    <h4 style={{ display: "inline" }}>Highest Rated</h4>
+                    <h4 style={{ display: "inline" }}>Highest Rated </h4>
                   </button>
                 </Col>
               </Row>
             </ListGroup.Item>
 
             {tableGames.map((game, index) => (
-              <ListGroup.Item className="table-item mx-auto">
+              <ListGroup.Item className="table-item mx-auto" key={index}>
                 <Row className="align-items-center justify-content-center">
                   <Col lg="1" className="nums">
                     <strong>#{index + 1}</strong>

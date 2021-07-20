@@ -10,6 +10,7 @@ import TextInput from "./textInput";
 import ErrorMessages from "./ErrorMsg";
 import { postRegister } from "../../DAL/api";
 import Complete from "../Complete";
+import { getGenresApi } from "../../DAL/api";
 
 import {
   faUser,
@@ -22,7 +23,7 @@ function Register(params) {
   const [userData, setUserData] = useState({ ...validationObj });
   const [genres, setGenres] = useState([]);
   const [img, setImg] = useState("");
-  const [registred, setRegistred] = useState("")
+  const [registred, setRegistred] = useState("");
 
   async function entry(userData) {
     const formData = new FormData();
@@ -33,17 +34,16 @@ function Register(params) {
     }
     formData.append("genres", genres);
     const test = await postRegister(formData);
-    setRegistred(<Complete msg="Registration"/>)
-
+    setRegistred(<Complete msg="Registration" />);
   }
 
-  function updatGenres({ target: { value, checked} }) {
+  function updatGenres({ target: { value, checked } }) {
     const newGenres = [...genres];
     if (checked) {
-      newGenres.push(value)
+      newGenres.push(value);
     } else {
       const index = newGenres.findIndex((genre) => genre === value);
-      newGenres.splice(index, 1)
+      newGenres.splice(index, 1);
     }
     setGenres(newGenres);
   }
@@ -53,10 +53,15 @@ function Register(params) {
     setImg(event.target.files[0]);
   }
 
-const validateInput = async (event) => {
+  const validateInput = async (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    const [showErrors, background] = await validationChecks(name, value, userData, "register");
+    const [showErrors, background] = await validationChecks(
+      name,
+      value,
+      userData,
+      "register"
+    );
     setUserData((prevData) => ({
       ...prevData,
       [name]: {
@@ -122,59 +127,68 @@ const validateInput = async (event) => {
     }
   };
 
-
   return (
     <Container className="main">
-      {
-        !registred ? (
-          <>
+      {!registred ? (
+        <>
           <Row className="text-center">
-        <Col>
-          <h1 className="h1-register">Welcome!</h1>
-          <h6>Hello Gamer! Please fill in your details</h6>
-        </Col>
-      </Row>
-      <hr></hr>
-      <Row className="justify-content-center">
-        <Col lg="5">
-          <Form onSubmit={onSubmit} enctype="multipart/form-data" className="reg-form">
-            {inputArr.map((input) => (
-              <TextInput
-                label={input.label}
-                name={input.name}
-                type={input.type}
-                validateInput={input.validateInput}
-                background={input.background}
-                errors={input.errors}
-                icon={input.icon}
-              />
-            ))}
-            <Form.Row className="justify-content-start">
-              <Form.Group controlId="formFile" className="mb-3" as={Col}>
-                <Form.Label>
-                  <strong>Pick an imgae</strong>
-                </Form.Label>
-                <Form.Control type="file" onChange={checkImg} name="img" />
-                <ErrorMessages errors={userData.img.errors} />
-              </Form.Group>
-            </Form.Row>
-            <GenreCheckbox validateInput={updatGenres} checked={[]}/>
-            <Row className="justify-content-end">
-              <Col lg="5" className="d-flex justify-content-end">
-              <Button type="submit" variant="outline-info" className="submit-btn">
-                Submit
-              </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
-      </Row>
-      </>
-        ) : (
-          <h3>{registred}</h3>
-        )
-      }
-      
+            <Col>
+              <h1 className="h1-register">Welcome!</h1>
+              <h6>Hello Gamer! Please fill in your details</h6>
+            </Col>
+          </Row>
+          <hr></hr>
+          <Row className="justify-content-center">
+            <Col lg="5">
+              <Form
+                onSubmit={onSubmit}
+                enctype="multipart/form-data"
+                className="reg-form"
+              >
+                {inputArr.map((input) => (
+                  <TextInput
+                    label={input.label}
+                    name={input.name}
+                    type={input.type}
+                    validateInput={input.validateInput}
+                    background={input.background}
+                    errors={input.errors}
+                    icon={input.icon}
+                  />
+                ))}
+                <Form.Row className="justify-content-start">
+                  <Form.Group controlId="formFile" className="mb-3" as={Col}>
+                    <Form.Label>
+                      <strong>Pick an imgae</strong>
+                    </Form.Label>
+                    <Form.Control type="file" onChange={checkImg} name="img" />
+                    <ErrorMessages errors={userData.img.errors} />
+                  </Form.Group>
+                </Form.Row>
+                <GenreCheckbox
+                  validateInput={updatGenres}
+                  checked={[]}
+                  data={getGenresApi}
+                  name="Favorite Genres"
+                />
+                <Row className="justify-content-end">
+                  <Col lg="5" className="d-flex justify-content-end">
+                    <Button
+                      type="submit"
+                      variant="outline-info"
+                      className="submit-btn"
+                    >
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+        </>
+      ) : (
+        <h3>{registred}</h3>
+      )}
     </Container>
   );
 }
