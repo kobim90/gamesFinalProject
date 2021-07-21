@@ -60,7 +60,7 @@ function GamePage(props) {
         <Row className="justify-content-center title">
           <div
             className="parallax d-flex align-items-center"
-            style={{ backgroundImage: `url(${game.screenshot5})` }}
+            style={{ backgroundImage: `url(${game.screenshot5})`}}
           >
             <h1 className="mx-auto game-header">{game.gameName}</h1>
           </div>

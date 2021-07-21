@@ -22,7 +22,7 @@ function TextInput(props) {
                 <Form.Label>
                   <strong>{props.label}</strong>
                 </Form.Label>
-                <InputGroup>
+                <InputGroup className="text-input">
                   <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">
                       <FontAwesomeIcon icon={props.icon} />

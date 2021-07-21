@@ -1,27 +1,19 @@
-:root {
-  --turquoiseCard: #57ddec;
-  --greyCard: #7d90b6;
-  --tangerine: #feb06a;
-  --cream: #fbf6f3;
-  --coral: #aa2626;
-}
-
 .regular-card {
   background-color: var(--greyCard);
   color: var(--cream);
-  box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
-  -webkit-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
-  -moz-box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.63);
+  box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.486);
+  -webkit-box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.486);
+  -moz-box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.5);
   margin-bottom: 30px;
 }
 
-.card:hover{
-  background-color: var(--turquoiseCard);
+.regular-card:hover{
+  background-color: var(--cream);
 }
 
-.card-info {
-  color: var(--grey);
-}
+/* .card-info {
+  color: rgb(235, 8, 8);
+} */
 
 .card-info span {
   color: var(--tangerine);
@@ -29,4 +21,9 @@
 
 .score {
   color: #aa2626;
+}
+
+.card-title{
+  font-weight: 600;
+  color: var(--grey);
 }

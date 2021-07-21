@@ -175,7 +175,7 @@ function Register(params) {
                   <Col lg="5" className="d-flex justify-content-end">
                     <Button
                       type="submit"
-                      variant="outline-info"
+                      variant="outline-danger"
                       className="submit-btn"
                     >
                       Submit

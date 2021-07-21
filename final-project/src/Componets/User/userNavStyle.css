@@ -1,17 +1,24 @@
-
-.nav-item a {
-  color: var(--turquoise);
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+.p-2, .inside-nav{
+  font-family: 'Righteous', cursive;
 }
 
+.nav-item a {
+  color: var(--turquoise); 
+}
+
+
 .userActive {
+  color: var(--coral) !important;
   font-weight: bold;
-  z-index: 3;
+  z-index: 5;
   padding-bottom: 1.1vh;
-  border-bottom: 3px solid var(--tangerine);
+  border-bottom: 5px solid var(--gray);
 }
 
 .nav {
   border-bottom: 1px solid var(--grey);
   padding-top: 10vh;
   padding-bottom: 1vh;
+ 
 }

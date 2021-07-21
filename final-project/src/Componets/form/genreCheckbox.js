@@ -20,7 +20,7 @@ function GenreCheckbox(props) {
 
       <Form.Row className="justify-content-start genre-row"  style={{marginLeft: "3px"}}>
         {genres.map((genre, index) => (
-          <Col lg="6" md="6" sm="6">
+          <Col lg="6" md="6" sm="6" key={index}>
             <div className="mb-3">
               <Form.Check type="checkbox" id={`${genre.Name}-checkbox${index}`} key={`num${index}`}>
                 <Form.Check.Input

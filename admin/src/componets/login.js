@@ -62,6 +62,7 @@ function Login() {
           />
         </Form.Group>
           <Form.Group><Form.Text>{msg}</Form.Text></Form.Group>
+          <Form.Group><Form.Text>Return to site <a href="http://localhost:3000">here!</a></Form.Text></Form.Group>
         <Button variant="primary" type="submit">
           Submit
         </Button>

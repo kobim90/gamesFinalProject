@@ -363,13 +363,13 @@ async function getTagsApi() {
 
 async function getReview(reviewId) {
   try {
-    console.log(reviewId);
     const response = await axios2.get(
       `http://localhost:3200/users/review/${reviewId}`
-    );
-    if (response.status !== 200) {
-      throw new Error("HTTP Error status = " + response.status);
-    }
+      );
+      if (response.status !== 200) {
+        throw new Error("HTTP Error status = " + response.status);
+      }
+      console.log(reviewId, response.data);
     return response.data;
   } catch (e) {
     console.log("get review", e);

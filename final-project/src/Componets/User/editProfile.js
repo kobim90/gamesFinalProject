@@ -69,9 +69,9 @@ function EditProfile() {
               <Col className="user-gameReviews" lg="8">
           <DeleteModal show={show} handleClose={showDelete} removeGame={removeGame}/>
           <ListGroup variant="flush" className="edit-listgroup">
-            {data.games.map((game) => (
+            {data.games.map((game, index) => (
               <>
-                <ListGroup.Item className="shakethis">
+                <ListGroup.Item className="shakethis" key={index}>
                   <Row className="justify-content-center">
                     <Col
                       lg="1" md="1" sm="1" xs="1" 

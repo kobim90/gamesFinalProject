@@ -9,6 +9,15 @@ import GCard from "../card";
 import GameChart from "./chart";
 import Cookies from "js-cookie";
 import AOS from 'aos';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDown,
+  faChartLine,
+  faArrowUp,
+  faStar,
+  faFileSignature,
+} from "@fortawesome/free-solid-svg-icons";
+
 import 'aos/dist/aos.css'
 
 function UserGames() {
@@ -26,7 +35,7 @@ function UserGames() {
       const games = await getUsersGamesApi();
       setUsersGames(games);
       setAllUserGames(games);
-      AOS.init({duration: 3000});
+      // AOS.init({duration: 3000});
     })();
   }, []);
   return (
@@ -41,15 +50,17 @@ function UserGames() {
       </Row>
       <Row className="w-75 mx-auto">
         {usersGames.map((game, index) => (
-          <Col lg="4" md="6" sm="1" data-aos="fade-down">
+          <Col lg="4" md="6" sm="1" >
             <GCard game={game} />
           </Col>
         ))}
       </Row>
 
-      <Row className="justify-content-center chart-header">
-        <h1 className="h1-register">Your Top reviewed Games</h1>
-      </Row>
+
+      <h5 className="mt-3">
+          <FontAwesomeIcon icon={faFileSignature} /> Your Top Reviews
+        </h5>
+          <hr></hr>
       <Row>
         <Col lg="11">
           <GameChart />

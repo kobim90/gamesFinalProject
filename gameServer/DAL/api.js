@@ -22,6 +22,8 @@ async function getGames() {
 
     const finalResult = [];
 
+    
+
     result.forEach((game) => {
       if (
         finalResult.length === 0 ||
@@ -40,6 +42,7 @@ async function getGames() {
         });
       }
     });
+    
     pool.releaseConnection(pool);
     return finalResult;
   } catch (err) {
@@ -232,6 +235,7 @@ async function getGamesSorted(sortBy, direction = "desc") {
         });
       }
     });
+    
     pool.releaseConnection(pool);
     return finalResult.slice(0, 7);
   } catch (e) {

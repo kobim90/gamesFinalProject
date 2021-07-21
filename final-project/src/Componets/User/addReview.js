@@ -15,13 +15,22 @@ import {
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FormCheck from "react-bootstrap/esm/FormCheck";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDown,
+  faChartLine,
+  faArrowUp,
+  faStar,
+  faImages,
+  faFileSignature,
+} from "@fortawesome/free-solid-svg-icons";
 
 function AddReview(props) {
   const [complete, setComplete] = useState("")
   const { reviewId } = useParams();
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
-  const [visability, setVisability] = useState("")
+  // const [visability, setVisability] = useState(true);
   const [reviewData, setReviewData] = useState({
     gameID: {
       value: 0,
@@ -80,6 +89,7 @@ function AddReview(props) {
 
   function updateVisability({ target: { name, value, checked } }) {
     const val = checked ? 0 : 1;
+    // setVisability(val);
     setReviewData((prevData) => ({
       ...prevData,
       [name]: {
@@ -163,7 +173,7 @@ function AddReview(props) {
       const reviewEditData = reviewId ? await getReview(reviewId) : "";
 
       if (reviewEditData) {
-        setVisability(!reviewEditData.visability)
+        //setVisability(!reviewEditData.visability)
         for (const name in reviewData) {
           setReviewData((prevData) => ({
             ...prevData,
@@ -178,17 +188,21 @@ function AddReview(props) {
       setTags(tags);
     })();
   }, []);
-
-
+  
+// console.log('visability', visability);
+console.log(reviewData);
   return (
     <Container>
       {
         complete ? complete :  
       <>
-      <h1 className="h1-register">Let us know what you think!</h1>
+        <h5 className="mt-5">
+          <FontAwesomeIcon icon={faFileSignature} /> Add Review
+        </h5>
+        <hr></hr>
       <Form onSubmit={onSubmit} className="reg-form">
         <Row className="justify-content-center">
-        <Col lg="8" ><hr></hr></Col>
+
         </Row>
         {reviewId ? (
           ""
@@ -356,7 +370,7 @@ function AddReview(props) {
                 value={reviewData.visability.value}
                 name="visability"
                 onChange={updateVisability}
-                defaultChecked={visability}
+                defaultChecked={reviewData.visability.value === 0}
               />
               </Form.Check>
                 </Form.Group>

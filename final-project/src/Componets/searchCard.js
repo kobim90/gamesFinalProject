@@ -20,12 +20,12 @@ function SearchCard(props) {
   const platform = [faWindows, faApple, faLinux];
 
   useEffect(()=> {
-    AOS.init({duration: 3000});
+    // AOS.init({duration: 1000});
   }, [])
 
   return (
     <NavLink to={`/game/${props.game.gameID}`}>
-      <Card className="search-card" data-aos="fade-right">
+      <Card className="search-card">
         <Card.Body>
           <Row className="card-info justify-content-between items-align-center">
             <Col lg="3" md="3" xs="3">

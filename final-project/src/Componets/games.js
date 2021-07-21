@@ -53,7 +53,7 @@ function Games(props) {
 
   useEffect(() => {
     fetchFirstData();
-    AOS.init({duration: 2000});
+    // AOS.init({duration: 2000});
   },[]);
 
   return (
@@ -118,7 +118,7 @@ function Games(props) {
             ))}
           </Col>
         </Col>
-        <Col className="games-list" data-aos="fade-up">
+        <Col className="games-list">
           <Row>
             {cardGames.map((game) => (
               <Col lg="4" md="6" sm="1">

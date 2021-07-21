@@ -5,6 +5,7 @@ import {
   faChartLine,
   faArrowUp,
   faStar,
+  faImages,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { getAllGamesApi, getSortedScoreDate } from "../DAL/api";
@@ -26,7 +27,7 @@ function Home() {
   const [tableGames, setTableGames] = useState([]);
   const [cardGames1, setCardGames1] = useState([]);
   const [cardGames2, setCardGames2] = useState([]);
-  const [cardGames3, setCardGames3] = useState([]);
+  // const [cardGames3, setCardGames3] = useState([]);
   const [activeCol, setActiveCol] = useState(["activeTable", ""]);
   const [orederDirection, setOrderDirection] = useState({
     score: { direction: "desc", arrow: faArrowDown },
@@ -91,21 +92,109 @@ function Home() {
         orederDirection.score.direction
       );
       setGames(games);
-      setCardGames1(games.slice(0, 4));
-      setCardGames2(games.slice(4, 8));
-      setCardGames3(games.slice(8, 12));
+      setCardGames1(games.slice(0, 6));
+      setCardGames2(games.slice(6, 12));
+      // setCardGames3(games.slice(8, 12));
       setTableGames(tableGames);
       randomScreenshots();
-      AOS.init({duration: 3000});
+      // AOS.init({duration: 3000});
     })();
   }, []);
  
-
+console.log(games);
   return (
     <Container fluid>
       <Container className="main">
         {/* <SearchBar class="justify-content-center w-75 mx-auto"/> */}
-        <Row className="justify-content-center carousel-row" data-aos="fade-down">
+       
+
+        <h5 className="mt-3">
+          <FontAwesomeIcon icon={faStar} /> Featured
+        </h5>
+
+        <hr></hr>
+        <Row className="recommended-row justify-content-center" >
+          <Carousel variant="dark" className="recommended-carousel">
+            <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {cardGames1.length > 0 &&
+                  cardGames1.map((game, index) => (
+                    <Col lg="4" sm="12" key={index}>
+                      <GCard game={game} />
+                    </Col>
+                  ))}
+              </Row>
+            </Carousel.Item>
+            <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {cardGames2.length > 0 &&
+                  cardGames2.map((game, index) => (
+                    <Col lg="4" sm="12" key={index}>
+                      <GCard game={game} />
+                    </Col>
+                  ))}
+              </Row>
+            </Carousel.Item>
+            {/* <Carousel.Item className="recommended-item">
+              <Row className="align-items-center justify-content-center inner-carousel-row">
+                {cardGames3.map((game, index) => (
+                  <Col lg="5" sm="12" key={index}>
+                    <GCard game={game} />
+                  </Col>
+                ))}
+              </Row>
+            </Carousel.Item> */}
+          </Carousel>
+        </Row>
+        <Row className="table-sort container justify-content-center">
+          <ListGroup variant="flush" className="table-sort-items">
+            <ListGroup.Item>
+              <Row className="table-row justify-content-around">
+                <Col lg={3} xs="2">
+                  <FontAwesomeIcon icon={faChartLine} />
+                  <h4 style={{ display: "inline" }}> Discover Games</h4>
+                </Col>
+                <Col lg="3" xs="2">
+                  <FontAwesomeIcon icon={orederDirection.releaseDate.arrow} />
+                  <button
+                    onClick={() => sort("releaseDate")}
+                    className={`table-btn ${activeCol[1]}`}
+                  >
+                    <h4 style={{ display: "inline" }}>Release Date</h4>
+                  </button>
+                </Col>
+                <Col lg="4" xs="2" className="text-right">
+                  <FontAwesomeIcon icon={orederDirection.score.arrow} />
+                  <button
+                    onClick={() => sort("score")}
+                    className={`table-btn ${activeCol[0]}`}
+                  >
+                    <h4 style={{ display: "inline" }}>Highest Rated </h4>
+                  </button>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+
+            {tableGames.map((game, index) => (
+              <ListGroup.Item className="table-item mx-auto" key={index}>
+                <Row className="align-items-center justify-content-center">
+                  <Col lg="1" className="nums">
+                    <strong>#{index + 1}</strong>
+                  </Col>
+                  <Col>
+                    <SearchCard game={game} />
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Row>
+        <h5>
+          <FontAwesomeIcon icon={faImages} /> Screenshots
+        </h5>
+        <hr></hr>
+        <Row className="justify-content-center carousel-row" >
+       
           <Carousel variant="dark" className="main-carousel">
             <Carousel.Item>
               <img
@@ -157,88 +246,6 @@ function Home() {
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
-        </Row>
-
-        <h5>
-          <FontAwesomeIcon icon={faStar} /> Featured
-        </h5>
-
-        <hr></hr>
-        <Row className="recommended-row justify-content-center" data-aos="fade-down">
-          <Carousel variant="dark" className="recommended-carousel">
-            <Carousel.Item className="recommended-item">
-              <Row className="align-items-center justify-content-center inner-carousel-row">
-                {cardGames1.length > 0 &&
-                  cardGames1.map((game, index) => (
-                    <Col lg="5" sm="12" key={index}>
-                      <GCard game={game} />
-                    </Col>
-                  ))}
-              </Row>
-            </Carousel.Item>
-            <Carousel.Item className="recommended-item">
-              <Row className="align-items-center justify-content-center inner-carousel-row">
-                {cardGames2.length > 0 &&
-                  cardGames2.map((game, index) => (
-                    <Col lg="5" sm="12" key={index}>
-                      <GCard game={game} />
-                    </Col>
-                  ))}
-              </Row>
-            </Carousel.Item>
-            <Carousel.Item className="recommended-item">
-              <Row className="align-items-center justify-content-center inner-carousel-row">
-                {cardGames3.map((game, index) => (
-                  <Col lg="5" sm="12" key={index}>
-                    <GCard game={game} />
-                  </Col>
-                ))}
-              </Row>
-            </Carousel.Item>
-          </Carousel>
-        </Row>
-        <Row className="table-sort container justify-content-center">
-          <ListGroup variant="flush" className="table-sort-items">
-            <ListGroup.Item>
-              <Row className="table-row justify-content-around">
-                <Col lg={3} xs="2">
-                  <FontAwesomeIcon icon={faChartLine} />
-                  <h4 style={{ display: "inline" }}> Discover Games</h4>
-                </Col>
-                <Col lg="3" xs="2">
-                  <FontAwesomeIcon icon={orederDirection.releaseDate.arrow} />
-                  <button
-                    onClick={() => sort("releaseDate")}
-                    className={`table-btn ${activeCol[1]}`}
-                  >
-                    <h4 style={{ display: "inline" }}>Release Date</h4>
-                  </button>
-                </Col>
-                <Col lg="4" xs="2" className="text-right">
-                  <FontAwesomeIcon icon={orederDirection.score.arrow} />
-                  <button
-                    onClick={() => sort("score")}
-                    className={`table-btn ${activeCol[0]}`}
-                  >
-                    <h4 style={{ display: "inline" }}>Highest Rated </h4>
-                  </button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-
-            {tableGames.map((game, index) => (
-              <ListGroup.Item className="table-item mx-auto" key={index}>
-                <Row className="align-items-center justify-content-center">
-                  <Col lg="1" className="nums">
-                    <strong>#{index + 1}</strong>
-                  </Col>
-                  <Col>
-                    <SearchCard game={game} />
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
         </Row>
       </Container>
     </Container>

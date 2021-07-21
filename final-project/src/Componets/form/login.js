@@ -127,7 +127,7 @@ function Login(props) {
               </Form.Text>
             </Form.Group>
             <Row className="justify-content-center">
-              <Button type="submit" variant="outline-info">
+              <Button type="submit" variant="outline-danger">
                 Login
               </Button>
             </Row>

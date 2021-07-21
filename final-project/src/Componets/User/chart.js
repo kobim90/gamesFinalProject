@@ -14,16 +14,16 @@ function GameChart(props) {
       {
         label: "Your Scores",
         data: [],
-        backgroundColor: "rgb(254, 176, 106)",
-        borderColor: "rgb(254, 176, 106)",
+        backgroundColor: "rgb(0,20,35)",
+        borderColor: "rgb(0,20,35)",
         borderWidth: 1,
-        hoverBackgroundColor: "rgb(54, 214, 231)",
+        hoverBackgroundColor: "rgb(239, 51, 64)",
       },
       {
         label: "Avg Scores",
         data: [],
-        backgroundColor: "rgb(93, 108, 137)",
-        borderColor: "rgb(93, 108, 137)",
+        backgroundColor: "rgb(156,156,156)",
+        borderColor: "rgb(156,156,156)",
         borderWidth: 1,
       },
     ],
@@ -46,7 +46,7 @@ function GameChart(props) {
 
 
   return (
-    <Container className="chart-div" data-aos="fade-down">
+    <Container className="chart-div">
       <Bar
         data={chartData}
         options={{

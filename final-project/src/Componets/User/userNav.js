@@ -9,7 +9,7 @@ function UserNav(params) {
   // const Auth = React.useContext(AuthApi);
 
   return (
-    <Nav justify variant="tabs" defaultActiveKey="/userGames">
+    <Nav justify variant="tabs" defaultActiveKey="/userGames" className="inside-nav">
       <Nav.Item>
         <NavLink activeClassName="userActive" to="/user/userGames">
           GAMES
