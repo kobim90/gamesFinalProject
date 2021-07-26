@@ -90,8 +90,8 @@ function Login(props) {
       aria-labelledby="example-modal-sizes-title-sm"
     >
       <Container className="main">
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">Login</Modal.Title>
+        <Modal.Header closeButton  className="login-header">
+          <Modal.Title id="example-modal-sizes-title-sm">LOG IN</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={onSubmit}>
@@ -127,7 +127,7 @@ function Login(props) {
               </Form.Text>
             </Form.Group>
             <Row className="justify-content-center">
-              <Button type="submit" variant="outline-danger">
+              <Button type="submit" variant="outline-danger" block>
                 Login
               </Button>
             </Row>

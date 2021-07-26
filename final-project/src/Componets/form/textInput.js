@@ -19,9 +19,9 @@ function TextInput(props) {
     return (
         <Form.Row className="justify-content-around">
               <Form.Group as={Col} controlId={props.name}>
-                <Form.Label>
+                {/* <Form.Label>
                   <strong>{props.label}</strong>
-                </Form.Label>
+                </Form.Label> */}
                 <InputGroup className="text-input">
                   <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">
@@ -33,7 +33,7 @@ function TextInput(props) {
                     placeholder={props.label}
                     onChange={props.validateInput}
                     name={props.name}
-                    className={props.background}
+                    className={`${props.background} bg-color`}
                     value={props.value}
                   />
                 </InputGroup>
