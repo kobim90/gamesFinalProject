@@ -127,6 +127,7 @@ function Register(params) {
     }
   };
 
+  console.log(userData);
   return (
     <Container className="main">
       {!registred ? (

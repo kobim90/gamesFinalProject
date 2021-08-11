@@ -17,7 +17,12 @@ import "./cardStyle.css";
 
 function GCard(props) {
   const [style, setStyle] = useState("none");
-  const platform = [faWindows, faApple, faLinux]
+  // const platform = [faWindows, faApple, faLinux]
+  const platform = {
+    "Windows": faWindows,
+    "OSX": faApple,
+    "Linux": faLinux
+  }
 
   // useEffect(()=> {
   //   AOS.init({duration: 1000});
@@ -41,7 +46,7 @@ function GCard(props) {
             {
               props.game.platform.map( (plat, index) => (
                 <span key={index}>
-                <FontAwesomeIcon icon={platform[plat.id-1]} /> &nbsp;
+                <FontAwesomeIcon icon={platform[plat.name]} /> &nbsp;
               </span>
               ))
             }

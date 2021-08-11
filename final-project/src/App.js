@@ -10,7 +10,7 @@ import AuthiApi from "./DAL/AuthApi";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import userApi from "./DAL/userApi";
-import { getUserGameList, getUserProfileData } from "./DAL/api"
+import { getUserGameList} from "./DAL/api"
 
 function App() {
   const [auth, setAuth] = useState(Cookies.get("user") ? true : false)

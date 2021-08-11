@@ -27,7 +27,6 @@ function Games(props) {
 
   function filterFunc({ target: { value, checked, name } }) {
       const newGenres = { ...filter };
-      console.log(newGenres);
       if (checked) newGenres[name][value] = true;
       else delete newGenres[name][value];
       setFilter(newGenres)
@@ -55,6 +54,8 @@ function Games(props) {
     fetchFirstData();
     // AOS.init({duration: 2000});
   },[]);
+
+  console.log(cardGames);
 
   return (
     <Container className="main" >
@@ -91,7 +92,7 @@ function Games(props) {
                   isValid
                   key={index}
                   onChange={filterFunc}
-                  value={parseInt(genre.id)}
+                  value={genre.id}
                 />
                 <Form.Check.Label>{genre.Name}</Form.Check.Label>
               </Form.Check>
@@ -110,7 +111,7 @@ function Games(props) {
                   isValid
                   key={index}
                   onChange={filterFunc}
-                  value={parseInt(platform.id)}
+                  value={platform.id}
                 />
                 <Form.Check.Label>{platform.Name}</Form.Check.Label>
               </Form.Check>

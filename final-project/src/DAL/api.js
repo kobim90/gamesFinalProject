@@ -2,6 +2,22 @@
 
 import axios2 from "./fetcher";
 
+function decode_flask_cookie(val) {
+  if (typeof val === "string") {
+    if (val.indexOf('\\') === -1) {
+      return val;  // not encoded
+  }
+  val = val.slice(1, -1).replace(/\\"/g, '"');
+  val = val.replace(/\\(\d{3})/g, function(match, octal) { 
+      return String.fromCharCode(parseInt(octal, 8));
+  });
+  return JSON.parse(val.replace(/\\\\/g, '\\'));
+  }else{
+    return val
+  }
+  
+}
+
 async function getGamesByPagesApi(
   pageNumber = 1,
   size = 9,
@@ -489,5 +505,6 @@ export {
   postUserGame,
   getUserGameList,
   deleteGameFavorite,
-  putRegister
+  putRegister,
+  decode_flask_cookie
 };

@@ -12,25 +12,20 @@ import {
   getReview,
   putReview,
 } from "../../DAL/api";
-import { useState, useEffect } from "react";
+import userApi from "../../DAL/userApi"
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import FormCheck from "react-bootstrap/esm/FormCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowDown,
-  faChartLine,
-  faArrowUp,
-  faStar,
-  faImages,
   faFileSignature,
 } from "@fortawesome/free-solid-svg-icons";
 
 function AddReview(props) {
+  const User = useContext(userApi);
   const [complete, setComplete] = useState("")
   const { reviewId } = useParams();
   const [games, setGames] = useState([]);
   const [tags, setTags] = useState([]);
-  // const [visability, setVisability] = useState(true);
   const [reviewData, setReviewData] = useState({
     gameID: {
       value: 0,
@@ -102,9 +97,9 @@ function AddReview(props) {
   function updateTags({ target: { name, value, checked } }) {
     let tags = [...reviewData.tags.value];
     if (checked) {
-      tags.push(parseInt(value));
+      tags.push(value);
     } else {
-      const index = tags.findIndex( tag => tag === parseInt(value))
+      const index = tags.findIndex( tag => tag === value)
       tags.splice(index, 1)
     }
     setReviewData({ ...reviewData, [name]: { value: tags } });
@@ -160,11 +155,13 @@ function AddReview(props) {
       } 
       else {
         postReview(reviewData);
+        User.setUser([...User.user, reviewData.gameID.value])
         setComplete(<Complete msg="Review" />)
       }
 
     }
   };
+
 
   useEffect(() => {
     (async function getData() {
@@ -179,7 +176,7 @@ function AddReview(props) {
             ...prevData,
             [name]: {
               ...reviewData[name],
-              value: reviewEditData[name],
+              value: name === "visability" ? reviewEditData[name] ? 1 : 0 : reviewEditData[name],
             },
           }));
         }
@@ -189,8 +186,7 @@ function AddReview(props) {
     })();
   }, []);
   
-// console.log('visability', visability);
-console.log(reviewData);
+  console.log(User.user);
   return (
     <Container>
       {

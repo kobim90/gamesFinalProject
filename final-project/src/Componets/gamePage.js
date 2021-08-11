@@ -29,8 +29,10 @@ function GamePage(props) {
   };
 
   const inLibrary = () => {
-    const library = User.user.find((id) => id === parseInt(gameId));
-
+    let library;
+    if (User.user) {
+      library = User.user.find((id) => id === gameId);
+    }
     if (library) {
       return library;
     }
@@ -39,7 +41,7 @@ function GamePage(props) {
 
   const add = async () => {
     await postUserGame(gameId);
-    User.setUser([...User.user, parseInt(gameId)]);
+    User.setUser([...User.user, gameId]);
   };
   const getConclusion = (val) => setConclusion(val ? val : "");
 
@@ -52,7 +54,7 @@ function GamePage(props) {
     inLibrary()
   }, [User.user]);
 
-
+console.log(User.user);
   return (
     <Container>
       {}

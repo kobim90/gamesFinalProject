@@ -34,7 +34,7 @@ function EditProfile() {
   const showDelete = () => setShow(false);
 
   const deleteWhat = (e) => {
-    setDeleteVal(parseInt(e.target.name))
+    setDeleteVal(e.target.name)
     setShow(true) 
   }
 

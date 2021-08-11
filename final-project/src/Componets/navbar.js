@@ -7,6 +7,7 @@ import Login from "./form/login";
 import { NavLink } from "react-router-dom";
 import AuthApi from "../DAL/AuthApi";
 import Cookies from "js-cookie";
+import {decode_flask_cookie} from "../DAL/api"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
@@ -66,8 +67,8 @@ function MyNavbar(props) {
                   className="float-right link p-2"
                   activeClassName="active"
                 >
-                  <Image src={Cookies.getJSON("user").img} fluid roundedCircle  className="user-image"/>
-                  {Cookies.getJSON("user").username.toUpperCase()}
+                  <Image src={decode_flask_cookie(Cookies.getJSON("user")).img} fluid roundedCircle  className="user-image"/>
+                  {decode_flask_cookie(Cookies.getJSON("user")).username.toUpperCase()}
                   
                 </NavLink> 
                 <NavLink to="/" activeClassName="none" className="float-right link p-2" onClick={logout}>LOGOUT</NavLink>

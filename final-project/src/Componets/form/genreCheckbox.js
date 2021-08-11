@@ -29,7 +29,7 @@ function GenreCheckbox(props) {
                   isValid
                   key={index}
                   onChange={props.validateInput}
-                  value={parseInt(genre.id)}
+                  value={genre.id}
                   defaultChecked={props.checked ? props.checked.find( check => check.genreID === genre.id) : false}
                 />
                 <Form.Check.Label>{genre.Name}</Form.Check.Label>

@@ -39,9 +39,9 @@ function Profile(props) {
   function updatGenres({ target: { value, checked } }) {
     const newGenres = [...genres];
     if (checked) {
-      newGenres.push(parseInt(value));
+      newGenres.push(value);
     } else {
-      const index = newGenres.findIndex((genre) => genre == value);
+      const index = newGenres.findIndex((genre) => genre === value);
       newGenres.splice(index, 1);
     }
     setGenres(newGenres);

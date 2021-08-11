@@ -29,6 +29,7 @@ function Login(props) {
         userData["username"].value,
         userData["password"].value
       );
+      console.log(res);
       if (res.data.username) {
         props.showLogin(false);
         setLoginError("");
