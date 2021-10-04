@@ -101,7 +101,7 @@ function Home() {
     })();
   }, []);
  
-console.log(games);
+
   return (
     <Container fluid>
       <Container className="main">

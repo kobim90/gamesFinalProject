@@ -186,7 +186,6 @@ function AddReview(props) {
     })();
   }, []);
   
-  console.log(User.user);
   return (
     <Container>
       {
@@ -267,11 +266,11 @@ function AddReview(props) {
           <Col lg="6">
             {tags.map((tag, index) => (
               <>
-              <Form.Check type="checkbox" id={`${tag.tagName}-checkbox${index}`} style={{display: "inline"}} className="mr-2">
+              <Form.Check type="checkbox" id={`${tag.tagName}-checkbox${index}`} style={{display: "inline"}} className="mr-2" key={index}>
               <Form.Check
                 inline
                 type="checkbox"
-                key={index}
+                key={{index} + 10}
                 value={tag.tagID}
                 name="tags"
                 onClick={updateTags}
@@ -281,7 +280,7 @@ function AddReview(props) {
                       : false
                 }
               />
-              <Form.Check.Label>{tag.tagName}</Form.Check.Label>
+              <Form.Check.Label key={{index} + 20}>{tag.tagName}</Form.Check.Label>
               </Form.Check>
               </>
             ))}

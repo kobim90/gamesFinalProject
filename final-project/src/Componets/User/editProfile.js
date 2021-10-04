@@ -43,11 +43,9 @@ function EditProfile() {
     const test = await deleteGameFavorite(deleteVal)
     if (test) {      
       let games = [...User.user]
-      const index = games.findIndex(game => game === deleteVal)
+      const index = games.findIndex(game => game == deleteVal)
       games.splice(index, 1)
-      console.log("here");
       User.setUser(games)
-      
     }
   }
 

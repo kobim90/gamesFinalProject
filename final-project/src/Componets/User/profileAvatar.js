@@ -80,7 +80,7 @@ function Profile(props) {
       props.data.genres.map((genre) => genres.push(genre.genreID));
       setGenres(genres);
     }
-    AOS.init({duration: 3000});
+    
   }, [props.editShow]);
 
   const entry = async () => {
@@ -112,7 +112,7 @@ function Profile(props) {
 
   return (
     <>
-    <div data-aos="fade-right">
+    <div>
       <Button
         variant="outline-info"
         onClick={() => (props.editShow ? props.showEdit(false) : props.showEdit(true))}

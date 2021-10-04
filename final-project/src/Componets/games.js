@@ -55,7 +55,6 @@ function Games(props) {
     // AOS.init({duration: 2000});
   },[]);
 
-  console.log(cardGames);
 
   return (
     <Container className="main" >

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,8 +15,8 @@ import AuthApi from "../../DAL/AuthApi";
 import userApi from "../../DAL/userApi";
 
 function Login(props) {
-  const Auth = React.useContext(AuthApi);
-  const User = React.useContext(userApi);
+  const Auth = useContext(AuthApi);
+  const User = useContext(userApi);
   const [userData, setUserData] = useState({
     username: { ...validationObj["username"] },
     password: { ...validationObj["password"] },
@@ -48,7 +48,6 @@ function Login(props) {
   }
 
   async function validation({ target: { value, name } }) {
-    console.log("value: ", value);
     const [showErrors, background] = await validationChecks(
       name,
       value,
@@ -78,10 +77,6 @@ function Login(props) {
       entry();
     }
   };
-
-  // useEffect(() => {
-
-  // },[])
 
   return (
     <Modal

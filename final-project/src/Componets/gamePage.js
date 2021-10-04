@@ -31,12 +31,9 @@ function GamePage(props) {
   const inLibrary = () => {
     let library;
     if (User.user) {
-      library = User.user.find((id) => id === gameId);
+      library = User.user.find((id) => id == gameId);
     }
-    if (library) {
-      return library;
-    }
-    return false;
+    return library
   };
 
   const add = async () => {
@@ -54,7 +51,7 @@ function GamePage(props) {
     inLibrary()
   }, [User.user]);
 
-console.log(User.user);
+
   return (
     <Container>
       {}
