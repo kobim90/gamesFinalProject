@@ -1,32 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWindows,
   faApple,
   faLinux,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 
 
 import "./cardStyle.css";
 
 function GCard(props) {
   const [style, setStyle] = useState("none");
-  // const platform = [faWindows, faApple, faLinux]
   const platform = {
     "Windows": faWindows,
     "OSX": faApple,
     "Linux": faLinux
   }
-
-  // useEffect(()=> {
-  //   AOS.init({duration: 1000});
-  // }, [])
 
   return (
     <NavLink to={`/game/${props.game.gameID}`}>
