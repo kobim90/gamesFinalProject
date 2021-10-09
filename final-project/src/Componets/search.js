@@ -69,12 +69,6 @@ function SearchBar(props) {
             <FontAwesomeIcon icon={faSyncAlt} />
           </Button>
         </InputGroup.Append>
-        {searchBy === "Genre" && (
-          <Row className="align-items-end radio-search-row">
-            <Form.Check inline label="Any" name="genre" type="radio" />
-            <Form.Check inline label="All" name="genre" type="radio" />
-          </Row>
-        )}
       </InputGroup>
     </Row>
   );

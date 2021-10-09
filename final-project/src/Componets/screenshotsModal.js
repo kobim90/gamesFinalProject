@@ -5,7 +5,6 @@ function PicModal(props) {
         <>
         <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          {/* <Modal.Title>Modal heading</Modal.Title> */}
         </Modal.Header>
               <Modal.Body>
                 <img

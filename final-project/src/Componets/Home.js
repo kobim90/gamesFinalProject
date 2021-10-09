@@ -11,15 +11,12 @@ import {
 import { getAllGamesApi, getSortedScoreDate } from "../DAL/api";
 
 import GCard from "./card";
-// import SearchBar from "./search"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Carousel from "react-bootstrap/Carousel";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchCard from "./searchCard";
-import AOS from 'aos';
-import 'aos/dist/aos.css'
 import "./home.css";
 
 function Home() {
@@ -27,7 +24,6 @@ function Home() {
   const [tableGames, setTableGames] = useState([]);
   const [cardGames1, setCardGames1] = useState([]);
   const [cardGames2, setCardGames2] = useState([]);
-  // const [cardGames3, setCardGames3] = useState([]);
   const [activeCol, setActiveCol] = useState(["activeTable", ""]);
   const [orederDirection, setOrderDirection] = useState({
     score: { direction: "desc", arrow: faArrowDown },
@@ -94,26 +90,19 @@ function Home() {
       setGames(games);
       setCardGames1(games.slice(0, 6));
       setCardGames2(games.slice(6, 12));
-      // setCardGames3(games.slice(8, 12));
       setTableGames(tableGames);
       randomScreenshots();
-      // AOS.init({duration: 3000});
     })();
   }, []);
- 
 
   return (
     <Container fluid>
       <Container className="main">
-        {/* <SearchBar class="justify-content-center w-75 mx-auto"/> */}
-       
-
         <h5 className="mt-3">
           <FontAwesomeIcon icon={faStar} /> Featured
         </h5>
-
         <hr></hr>
-        <Row className="recommended-row justify-content-center" >
+        <Row className="recommended-row justify-content-center">
           <Carousel variant="dark" className="recommended-carousel">
             <Carousel.Item className="recommended-item">
               <Row className="align-items-center justify-content-center inner-carousel-row">
@@ -135,15 +124,6 @@ function Home() {
                   ))}
               </Row>
             </Carousel.Item>
-            {/* <Carousel.Item className="recommended-item">
-              <Row className="align-items-center justify-content-center inner-carousel-row">
-                {cardGames3.map((game, index) => (
-                  <Col lg="5" sm="12" key={index}>
-                    <GCard game={game} />
-                  </Col>
-                ))}
-              </Row>
-            </Carousel.Item> */}
           </Carousel>
         </Row>
         <Row className="table-sort container justify-content-center">
@@ -193,8 +173,7 @@ function Home() {
           <FontAwesomeIcon icon={faImages} /> Screenshots
         </h5>
         <hr></hr>
-        <Row className="justify-content-center carousel-row" >
-       
+        <Row className="justify-content-center carousel-row">
           <Carousel variant="dark" className="main-carousel">
             <Carousel.Item>
               <img

@@ -17,7 +17,6 @@ function MyNavbar(props) {
   const [smShow, setSmShow] = useState(false);
   const showLogin = (show) => setSmShow(show);
   const [userNav, setUserNav] = useState(false);
-  const onSubmit = (e) => {};
 
   const logout = () => {
     setUserNav(false)

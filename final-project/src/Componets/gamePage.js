@@ -7,7 +7,6 @@ import { getAllGameDetailes, postUserGame } from "../DAL/api";
 import Modal from "react-bootstrap/esm/Modal";
 import Reviews from "./reviews";
 import AuthApi from "../DAL/AuthApi";
-import Cookies from "js-cookie";
 import userApi from "../DAL/userApi";
 
 import "./gamePage.css";

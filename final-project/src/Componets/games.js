@@ -7,8 +7,6 @@ import SearchBar from "./search";
 import GCard from "./card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import AOS from 'aos';
-import 'aos/dist/aos.css'
 import "./gamesStyle.css";
 import { getAllGamesApi, getGenresApi, getPlatform, getFilteredGenrePlatform, getSearchedGames } from "../DAL/api";
 
@@ -52,7 +50,6 @@ function Games(props) {
 
   useEffect(() => {
     fetchFirstData();
-    // AOS.init({duration: 2000});
   },[]);
 
 
@@ -68,14 +65,6 @@ function Games(props) {
         <Col>
           <h4>Everything</h4>
         </Col>
-{/* 
-        <Col>
-          <h6>New Releases</h6>
-        </Col>
-
-        <Col>
-          <h6>Popular</h6>
-        </Col> */}
       </Row>
       <hr></hr>
       <Row >

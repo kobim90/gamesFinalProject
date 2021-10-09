@@ -11,17 +11,8 @@ import GenreCheckbox from "../form/genreCheckbox";
 import { validationChecks, validationObj } from "../form/validations";
 import { putRegister } from "../../DAL/api";
 import { getGenresApi } from "../../DAL/api";
-import AOS from 'aos';
-import 'aos/dist/aos.css'
 
-
-import {
-  faEdit,
-  faTrashAlt,
-  faMailBulk,
-  faUnlockAlt,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faMailBulk,} from "@fortawesome/free-solid-svg-icons";
 
 function Profile(props) {
   const [editData, setEditData] = useState({

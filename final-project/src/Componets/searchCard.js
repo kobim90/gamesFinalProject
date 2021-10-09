@@ -1,27 +1,19 @@
-import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWindows,
   faApple,
   faLinux,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import { NavLink } from "react-router-dom";
-import AOS from 'aos';
-import 'aos/dist/aos.css'
 
 import "./searchCardStyle.css";
 
 function SearchCard(props) {
-  const [style, setStyle] = useState("none");
   const platform = [faWindows, faApple, faLinux];
 
-  useEffect(()=> {
-    // AOS.init({duration: 1000});
-  }, [])
 
   return (
     <NavLink to={`/game/${props.game.gameID}`}>
